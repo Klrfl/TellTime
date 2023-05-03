@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import WorldClock from "@/components/WorldClock.vue";
+</script>
 
 <template>
   <main>
-    <h1>Masukkan jam dunia di sini</h1>
+    <WorldClock></WorldClock>
   </main>
 </template>
+
+<style scoped></style>
