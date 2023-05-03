@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
+    <RouterLink to="/">Clock</RouterLink>
+    <RouterLink to="/timer">Timer</RouterLink>
+    <RouterLink to="/stopwatch">Stopwatch</RouterLink>
   </nav>
 </template>
 
