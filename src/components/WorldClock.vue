@@ -77,65 +77,36 @@
   </div>
 </template>
 
-<script>
-let root = document.querySelector(":root");
-
-const hoursEl = document.getElementById("hours");
-const minutesEl = document.getElementById("minutes");
-const secondsEl = document.getElementById("seconds");
-
-const initialDate = new Date();
-const date0 = new Date().setHours(0, 0, 0, 0);
-
-window.addEventListener("load", () => {
-  hoursEl.innerText = initialDate.getHours();
-  minutesEl.innerText = initialDate.getMinutes();
-  secondsEl.innerText = initialDate.getSeconds();
+<script setup>
+const props = defineProps({
+  hours: Number,
+  minutes: Number,
+  seconds: Number,
 });
 
-// update clock display every 1 second
-setInterval(() => {
+let root = document.querySelector(":root");
+const date0 = new Date().setHours(0, 0, 0, 0);
+
+function setMinuteSecondHands() {
+  root.style.setProperty("--minutes", `${(props.minutes / 60) * 360}deg`);
+  root.style.setProperty("--seconds", `${(props.seconds / 60) * 360}deg`);
+}
+
+function setHourHand() {
   const newDate = new Date();
-  let hours = newDate.getHours();
-  let minutes = newDate.getMinutes();
-  let seconds = newDate.getSeconds();
-
-  // format
-  // if (hours < 10) {
-  //   hours = `0${hours}`;
-  // }
-  // if (minutes < 10) {
-  //   minutes = `0${minutes}`;
-  // }
-  // if (seconds < 10) {
-  //   seconds = `0${seconds}`;
-  // }
-
-  // hoursEl.innerText = hours;
-  // minutesEl.innerText = minutes;
-  // secondsEl.innerText = seconds;
-
-  // set hours, minutes and seconds to rotate clock
 
   root.style.setProperty(
     "--hours",
     `${((newDate - date0) / 86400000) * 720}deg`
   );
-  root.style.setProperty("--minutes", `${(minutes / 60) * 360}deg`);
-  root.style.setProperty("--seconds", `${(seconds / 60) * 360}deg`);
+}
 
-  // get current time in ms
-  // console.log(((newDate - date0) / 86400000) * 720);
-}, 1000);
+// set hours, minutes and seconds to rotate clock
+const firstInterval = setInterval(setMinuteSecondHands, 1000);
+const secondInterval = setInterval(setHourHand, 10000);
 
-// setInterval(() => {
-//   const newDate = new Date();
-//   // hours have a different formula for smooth rotation
-//   root.style.setProperty(
-//     "--hours",
-//     `${ * 360}deg`
-//   );
-// });
+window.addEventListener("load", setMinuteSecondHands);
+window.addEventListener("load", setHourHand);
 </script>
 
 <style>
@@ -144,18 +115,6 @@ setInterval(() => {
   --minutes: 60;
   --seconds: 60;
 }
-
-/* .watch-display {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.watch-display__displays {
-  outline: 1px solid #aaa;
-  padding: 2rem;
-}
- */
 
 .clock {
   background: #ccc;
