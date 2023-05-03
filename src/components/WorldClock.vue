@@ -110,9 +110,12 @@ let secondInterval = setInterval(setHourHand, 10000);
 function startClock() {
   clearInterval(firstInterval);
   clearInterval(secondInterval);
+
+  setMinuteSecondHands();
+  setHourHand();
+
   firstInterval = setInterval(setMinuteSecondHands, 1000);
   secondInterval = setInterval(setHourHand, 10000);
-  setHourHand();
 }
 
 function stopClock() {
