@@ -1,8 +1,17 @@
 <template>
   <nav>
-    <RouterLink to="/">Clock</RouterLink>
-    <RouterLink to="/timer">Timer</RouterLink>
-    <RouterLink to="/stopwatch">Stopwatch</RouterLink>
+    <RouterLink to="/" class="nav-link">
+      <font-awesome-icon :icon="['fas', 'clock']" />
+      <span>Clock</span>
+    </RouterLink>
+    <RouterLink to="/timer" class="nav-link">
+      <font-awesome-icon :icon="['fas', 'stopwatch']" />
+      <span>Timer</span>
+    </RouterLink>
+    <RouterLink to="/stopwatch" class="nav-link">
+      <font-awesome-icon :icon="['fas', 'hourglass-start']" />
+      <span>Stopwatch</span>
+    </RouterLink>
   </nav>
 </template>
 
@@ -15,6 +24,12 @@ nav {
 
   display: flex;
   justify-content: center;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 nav a.router-link-exact-active {
