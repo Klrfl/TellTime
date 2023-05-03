@@ -17,6 +17,7 @@
 
 <style>
 nav {
+  outline: 1px solid var(--color-border);
   width: 100%;
   font-size: 12px;
   text-align: center;
@@ -27,13 +28,23 @@ nav {
 }
 
 .nav-link {
+  color: var(--color-text);
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+.nav-link:hover {
+  color: var(--navlink-active);
+}
+
+.nav-link svg {
+  font-size: 1.2rem;
+}
+
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: var(--navlink-active);
 }
 
 nav a.router-link-exact-active:hover {
