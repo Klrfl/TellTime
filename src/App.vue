@@ -1,14 +1,18 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import NavBar from "@/components/NavBar.vue";
 </script>
 
 <template>
-  <header>
-    <NavBar />
-  </header>
-
   <RouterView />
+  <NavBar />
 </template>
 
-<style scoped></style>
+<style>
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>
