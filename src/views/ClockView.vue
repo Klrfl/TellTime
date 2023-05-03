@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onUnmounted, ref } from "vue";
 
 import WorldClock from "@/components/WorldClock.vue";
 import DigitalWorldClock from "@/components/DigitalWorldClock.vue";
@@ -16,9 +16,26 @@ function getCurrentTime() {
   seconds.value = now.getSeconds();
 }
 
-setInterval(getCurrentTime, 1000);
+let timerId = null;
 
-onMounted(getCurrentTime);
+function startClock() {
+  clearInterval(timerId);
+  getCurrentTime();
+  timerId = setInterval(getCurrentTime, 1000);
+}
+
+function stopClock() {
+  clearInterval(timerId);
+}
+
+onBeforeMount(() => {
+  startClock();
+});
+
+onUnmounted(() => {
+  stopClock();
+  console.log("unmounted");
+});
 </script>
 
 <template>
@@ -27,5 +44,3 @@ onMounted(getCurrentTime);
     <WorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
   </main>
 </template>
-
-<style scoped></style>

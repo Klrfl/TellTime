@@ -78,6 +78,8 @@
 </template>
 
 <script setup>
+import { onBeforeMount, onUnmounted } from "vue";
+
 const props = defineProps({
   hours: Number,
   minutes: Number,
@@ -102,11 +104,23 @@ function setHourHand() {
 }
 
 // set hours, minutes and seconds to rotate clock
-const firstInterval = setInterval(setMinuteSecondHands, 1000);
-const secondInterval = setInterval(setHourHand, 10000);
+let firstInterval = setInterval(setMinuteSecondHands, 1000);
+let secondInterval = setInterval(setHourHand, 10000);
 
-window.addEventListener("load", setMinuteSecondHands);
-window.addEventListener("load", setHourHand);
+function startClock() {
+  clearInterval(firstInterval);
+  clearInterval(secondInterval);
+  firstInterval = setInterval(setMinuteSecondHands, 1000);
+  secondInterval = setInterval(setHourHand, 10000);
+  setHourHand();
+}
+
+function stopClock() {
+  clearInterval(firstInterval);
+  clearInterval(secondInterval);
+}
+onBeforeMount(() => startClock());
+onUnmounted(() => stopClock());
 </script>
 
 <style>
