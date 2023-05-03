@@ -1,8 +1,12 @@
 <template>
   <main>
-    <h1>Masukkan stopwatch disini</h1>
+    <StopWatch></StopWatch>
   </main>
 </template>
+
+<script setup>
+import StopWatch from "@/components/StopWatch.vue";
+</script>
 
 <style>
 @media (min-width: 1024px) {
