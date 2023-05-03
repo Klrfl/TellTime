@@ -15,4 +15,10 @@ import NavBar from "@/components/NavBar.vue";
   flex-direction: column;
   justify-content: space-between;
 }
+
+main {
+  flex: 1 1 0;
+  display: grid;
+  place-items: center;
+}
 </style>
