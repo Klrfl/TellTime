@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1>Anjing</h1>
+    <h1>Masukkan jam dunia di sini</h1>
   </main>
 </template>
