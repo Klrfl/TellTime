@@ -13,7 +13,9 @@
       <button id="stopwatch-pause" @click="pauseWatch" v-show="isGoing">
         pause stopwatch
       </button>
-      <button id="stopwatch-reset" @click="resetWatch">reset stopwatch</button>
+      <button id="stopwatch-reset" @click="resetWatch" :disabled="isGoing">
+        reset stopwatch
+      </button>
     </section>
   </div>
 </template>
