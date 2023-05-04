@@ -1,14 +1,18 @@
 <template>
   <div class="stopwatch container">
     <section class="display-container">
-      <span class="display" id="stopwatch-display"
-        >{{ minutes }}:{{ seconds }}:{{ miliSeconds }}</span
-      >
+      <span class="display" id="stopwatch-display">
+        {{ minutes }}:{{ seconds }}:{{ miliSeconds }}
+      </span>
     </section>
 
     <section class="button-container button-container--stopwatch">
-      <button id="stopwatch-start" @click="startWatch">start stopwatch</button>
-      <button id="stopwatch-stop" @click="stopWatch">stop stopwatch</button>
+      <button id="stopwatch-start" @click="startWatch" v-show="isStopped">
+        start stopwatch
+      </button>
+      <button id="stopwatch-pause" @click="pauseWatch" v-show="isGoing">
+        pause stopwatch
+      </button>
       <button id="stopwatch-reset" @click="resetWatch">reset stopwatch</button>
     </section>
   </div>
@@ -17,12 +21,13 @@
 <script setup>
 import { ref } from "vue";
 
+let isGoing = ref(false);
+let isStopped = ref(true);
 let startTime = ref(0);
 let currentTime = ref(0);
-let startTimerInterval = ref(0);
-let delta = ref(0);
-let isStopped = ref(false);
 let stopTime = ref(0);
+let delta = ref(0);
+let startTimerInterval = null;
 
 const seconds = ref(0);
 const miliSeconds = ref(0);
@@ -33,41 +38,52 @@ function getCurrentTime() {
 }
 
 function startWatch() {
-  if (startTime === 0) startTime.value = getCurrentTime();
-
   // if timer was started after it stopped
   if (isStopped.value == true) {
     // bump up start time
-    startTime = startTime + (getCurrentTime() - stopTime);
-    isStopped = false;
+    startTime.value = startTime.value + (getCurrentTime() - stopTime.value);
   }
 
-  startTimerInterval.value = setInterval(() => {
+  if (startTime.value === 0) startTime.value = getCurrentTime();
+
+  isGoing.value = true;
+  isStopped.value = false;
+
+  startTimerInterval = setInterval(() => {
     currentTime.value = getCurrentTime();
     delta.value = new Date(currentTime.value - startTime.value);
 
-    // format the numbers
-    minutes.value = delta.getMinutes();
-    seconds.value = delta.getSeconds();
-    miliSeconds.value = delta.getMilliseconds();
+    minutes.value = delta.value.getMinutes();
+    seconds.value = delta.value.getSeconds();
+    miliSeconds.value = delta.value.getMilliseconds();
   });
 }
 
-// function stopWatch() {
-//   clearInterval(startTimerInterval);
-//   if (isStopped || isStopped == null || isStopped == false) isStopped = true;
-//   stopTime = getCurrentTime();
-// }
+function pauseWatch() {
+  clearInterval(startTimerInterval);
+  isGoing.value = false;
+  isStopped.value = true;
+  stopTime.value = getCurrentTime();
+}
 
-// function resetWatch() {
-//   clearInterval(startTimerInterval);
-//   startTime =
-//     isStopped =
-//     currentTime =
-//     delta =
-//     second =
-//     miliSecond =
-//     minute =
-//       null;
-// }
+function resetWatch() {
+  clearInterval(startTimerInterval);
+  isGoing.value = false;
+  isStopped.value = true;
+
+  startTime.value = 0;
+  stopTime.value = 0;
+  minutes.value = 0;
+  seconds.value = 0;
+  miliSeconds.value = 0;
+}
 </script>
+
+<style>
+.stopwatch {
+  text-align: center;
+}
+#stopwatch-display {
+  font-size: 2rem;
+}
+</style>
