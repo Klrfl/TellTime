@@ -49,10 +49,10 @@ function movePages(targetRoute) {
 nav {
   order: 1;
 }
-/* 
+
 main {
   flex: 1 1 0;
   display: grid;
   place-items: center;
-} */
+}
 </style>
