@@ -1,17 +1,32 @@
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  routes: Object,
+});
+
+const emit = defineEmits(["move"]);
+
+const appRoutes = props.routes;
+let currentRoute = ref("WorldClock");
+
+function movePages(routeComponent) {
+  currentRoute.value = routeComponent;
+
+  emit("move", routeComponent);
+}
+</script>
+
 <template>
   <nav>
-    <RouterLink to="/" class="nav-link">
-      <font-awesome-icon :icon="['fas', 'clock']" />
-      <span>Clock</span>
-    </RouterLink>
-    <RouterLink to="/timer" class="nav-link">
-      <font-awesome-icon :icon="['fas', 'stopwatch']" />
-      <span>Timer</span>
-    </RouterLink>
-    <RouterLink to="/stopwatch" class="nav-link">
-      <font-awesome-icon :icon="['fas', 'hourglass-start']" />
-      <span>Stopwatch</span>
-    </RouterLink>
+    <button
+      v-for="route in appRoutes"
+      :key="route"
+      @click="movePages(route.component)"
+      class="nav-link">
+      <font-awesome-icon :icon="route.icon"></font-awesome-icon>
+      {{ route.name }}
+    </button>
   </nav>
 </template>
 
@@ -28,6 +43,9 @@ nav {
 }
 
 .nav-link {
+  all: unset;
+  cursor: pointer;
+  padding: 1rem;
   color: var(--color-text);
   flex: 1 1 0;
   display: flex;
