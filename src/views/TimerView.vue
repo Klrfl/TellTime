@@ -1,5 +1,7 @@
 <template>
-  <main>
-    <h1>Masukkan timer disini</h1>
-  </main>
+  <Timer></Timer>
 </template>
+
+<script setup>
+import Timer from "@/components/Timer.vue";
+</script>
