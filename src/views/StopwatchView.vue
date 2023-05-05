@@ -1,19 +1,9 @@
 <template>
-  <main>
-    <StopWatch></StopWatch>
-  </main>
+  <Stopwatch></Stopwatch>
 </template>
 
 <script setup>
-import StopWatch from "@/components/StopWatch.vue";
+import Stopwatch from "@/components/Stopwatch.vue";
 </script>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style></style>

@@ -1,3 +1,10 @@
+<template>
+  <main>
+    <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
+    <WorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
+  </main>
+</template>
+
 <script setup>
 import { onBeforeMount, onUnmounted, ref } from "vue";
 
@@ -37,10 +44,3 @@ onUnmounted(() => {
   console.log("unmounted");
 });
 </script>
-
-<template>
-  <main>
-    <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
-    <WorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
-  </main>
-</template>
