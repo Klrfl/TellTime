@@ -1,4 +1,5 @@
 <template>
+  <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
   <div class="clock">
     <div class="clock__indicator-container--small">
       <span class="clock__indicator--small"></span
@@ -78,20 +79,28 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onUnmounted } from "vue";
+import { onMounted, ref } from "vue";
 
-const props = defineProps({
-  hours: Number,
-  minutes: Number,
-  seconds: Number,
-});
+import DigitalWorldClock from "@/components/DigitalWorldClock.vue";
 
 let root = document.querySelector(":root");
 const date0 = new Date().setHours(0, 0, 0, 0);
 
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
+
+function getCurrentTime() {
+  const now = new Date();
+
+  hours.value = now.getHours();
+  minutes.value = now.getMinutes();
+  seconds.value = now.getSeconds();
+}
+
 function setMinuteSecondHands() {
-  root.style.setProperty("--minutes", `${(props.minutes / 60) * 360}deg`);
-  root.style.setProperty("--seconds", `${(props.seconds / 60) * 360}deg`);
+  root.style.setProperty("--minutes", `${(minutes.value / 60) * 360}deg`);
+  root.style.setProperty("--seconds", `${(seconds.value / 60) * 360}deg`);
 }
 
 function setHourHand() {
@@ -104,26 +113,18 @@ function setHourHand() {
 }
 
 // set hours, minutes and seconds to rotate clock
-let firstInterval = setInterval(setMinuteSecondHands, 1000);
-let secondInterval = setInterval(setHourHand, 10000);
+setInterval(() => {
+  getCurrentTime();
+  setMinuteSecondHands();
+}, 1000);
 
-function startClock() {
-  clearInterval(firstInterval);
-  clearInterval(secondInterval);
+setInterval(setHourHand, 60000);
 
+onMounted(() => {
+  getCurrentTime();
   setMinuteSecondHands();
   setHourHand();
-
-  firstInterval = setInterval(setMinuteSecondHands, 1000);
-  secondInterval = setInterval(setHourHand, 10000);
-}
-
-function stopClock() {
-  clearInterval(firstInterval);
-  clearInterval(secondInterval);
-}
-onBeforeMount(() => startClock());
-onUnmounted(() => stopClock());
+});
 </script>
 
 <style>
@@ -134,7 +135,7 @@ onUnmounted(() => stopClock());
 }
 
 .clock {
-  background: #ccc;
+  background: #323232;
   width: 22rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
@@ -163,8 +164,8 @@ onUnmounted(() => stopClock());
 
 .clock__indicator {
   height: 0.2rem;
-  border-left: 7vmin solid rgb(30, 30, 30);
-  border-right: 7vmin solid rgb(30, 30, 30);
+  border-left: 7vmin solid #444;
+  border-right: 7vmin solid #444;
 }
 
 .clock__indicator--small {
@@ -197,11 +198,11 @@ onUnmounted(() => stopClock());
 
 .clock__dot,
 .clock__hand {
-  box-shadow: 5px 5px 15px #444;
+  box-shadow: 5px 5px 15px #323232;
 }
 
 .clock__dot {
-  background: black;
+  background: #aaa;
   width: 2rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
@@ -210,11 +211,11 @@ onUnmounted(() => stopClock());
 }
 
 .clock__hand {
-  background: #222;
+  background: #ddd;
   width: 0.25rem;
   border-top-left-radius: 30%;
   border-top-right-radius: 30%;
-  transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1);
+  /* transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1); */
 }
 
 .clock__hand--hours {
@@ -232,7 +233,7 @@ onUnmounted(() => stopClock());
 }
 
 .clock__hand--seconds {
-  background: red;
+  background: var(--accent);
   width: 0.25rem;
   aspect-ratio: 1 / 48;
   transform: translate(-50%, 25%) rotate(var(--seconds));
