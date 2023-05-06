@@ -26,7 +26,7 @@ library.add(
   faPause
 );
 
-import "./assets/main.css";
+import "./styles.css";
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
