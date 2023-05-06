@@ -7,14 +7,23 @@
     </section>
 
     <section class="button-container button-container--stopwatch">
-      <button id="stopwatch-start" @click="startWatch" v-show="isStopped">
-        start stopwatch
+      <button
+        class="stopwatch-btn stopwatch-btn--start"
+        @click="startWatch"
+        v-show="isStopped">
+        <font-awesome-icon :icon="['fas', 'play']" />
       </button>
-      <button id="stopwatch-pause" @click="pauseWatch" v-show="isGoing">
-        pause stopwatch
+      <button
+        class="stopwatch-btn stopwatch-btn--pause"
+        @click="pauseWatch"
+        v-show="isGoing">
+        <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
-      <button id="stopwatch-reset" @click="resetWatch" :disabled="isGoing">
-        reset stopwatch
+      <button
+        class="stopwatch-btn stopwatch-btn--reset"
+        @click="resetWatch"
+        :disabled="isGoing">
+        <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
     </section>
   </div>
@@ -87,5 +96,11 @@ function resetWatch() {
 }
 #stopwatch-display {
   font-size: 2rem;
+}
+
+.stopwatch-btn {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 </style>

@@ -12,9 +12,19 @@ import {
   faClock,
   faStopwatch,
   faHourglassStart,
+  faPlay,
+  faRotateLeft,
+  faPause,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faClock, faStopwatch, faHourglassStart);
+library.add(
+  faClock,
+  faStopwatch,
+  faHourglassStart,
+  faPlay,
+  faRotateLeft,
+  faPause
+);
 
 import "./assets/main.css";
 
