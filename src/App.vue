@@ -1,29 +1,31 @@
 <script setup>
 import { shallowRef } from "vue";
+
 import NavBar from "@/components/NavBar.vue";
-import WorldClock from "@/components/WorldClock.vue";
-import Timer from "@/components/Timer.vue";
-import Stopwatch from "@/components/StopWatch.vue";
+
+import ClockView from "@/views/ClockView.vue";
+import TimerView from "@/views/TimerView.vue";
+import StopwatchView from "@/views/StopwatchView.vue";
 
 const routes = {
-  WorldClock: {
+  ClockView: {
     name: "Clock",
-    component: WorldClock,
+    component: ClockView,
     icon: ["fas", "clock"],
   },
   Timer: {
     name: "Timer",
-    component: Timer,
+    component: TimerView,
     icon: ["fas", "stopwatch"],
   },
   Stopwatch: {
     name: "Stopwatch",
-    component: Stopwatch,
+    component: StopwatchView,
     icon: ["fas", "hourglass-start"],
   },
 };
 
-const currentRoute = shallowRef(WorldClock);
+const currentRoute = shallowRef(ClockView);
 
 function movePages(targetRoute) {
   currentRoute.value = targetRoute;
@@ -32,10 +34,7 @@ function movePages(targetRoute) {
 
 <template>
   <NavBar :routes="routes" @move="movePages" />
-
-  <main>
-    <component :is="currentRoute"></component>
-  </main>
+  <component :is="currentRoute"></component>
 </template>
 
 <style>
@@ -43,16 +42,18 @@ function movePages(targetRoute) {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 nav {
   order: 1;
 }
+@media screen and (min-width: 40em) {
+  #app {
+    flex-direction: row;
+  }
 
-main {
-  flex: 1 1 0;
-  display: grid;
-  place-items: center;
+  nav {
+    order: 0;
+  }
 }
 </style>
