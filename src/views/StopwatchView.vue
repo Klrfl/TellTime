@@ -1,9 +1,12 @@
 <template>
-  <div id="stopwatch-view">
-    <Stopwatch></Stopwatch>
-  </div>
+  <MainLayout>
+    <template #main-content>
+      <Stopwatch></Stopwatch>
+    </template>
+  </MainLayout>
 </template>
 
 <script setup>
+import MainLayout from "@/layouts/MainLayout.vue";
 import Stopwatch from "@/components/Stopwatch.vue";
 </script>
