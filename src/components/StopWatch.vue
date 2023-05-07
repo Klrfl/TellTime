@@ -1,28 +1,22 @@
 <template>
-  <div class="stopwatch container">
+  <div class="stopwatch">
     <section class="display-container">
       <span class="display" id="stopwatch-display">
         {{ minutes }}:{{ seconds }}:{{ miliSeconds }}
       </span>
     </section>
 
-    <section class="button-container button-container--stopwatch">
+    <section class="btn-container">
       <button
-        class="stopwatch-btn stopwatch-btn--start"
+        class="btn btn-primary btn--circular"
         @click="startWatch"
         v-show="isStopped">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
-      <button
-        class="stopwatch-btn stopwatch-btn--pause"
-        @click="pauseWatch"
-        v-show="isGoing">
+      <button class="btn btn--circular" @click="pauseWatch" v-show="isGoing">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
-      <button
-        class="stopwatch-btn stopwatch-btn--reset"
-        @click="resetWatch"
-        :disabled="isGoing">
+      <button class="btn btn--circular" @click="resetWatch" :disabled="isGoing">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
     </section>
@@ -38,7 +32,7 @@ let startTime = ref(0);
 let currentTime = ref(0);
 let stopTime = ref(0);
 let delta = ref(0);
-let startTimerInterval = null;
+let interval = null;
 
 const seconds = ref(0);
 const miliSeconds = ref(0);
@@ -60,7 +54,7 @@ function startWatch() {
   isGoing.value = true;
   isStopped.value = false;
 
-  startTimerInterval = setInterval(() => {
+  interval = setInterval(() => {
     currentTime.value = getCurrentTime();
     delta.value = new Date(currentTime.value - startTime.value);
 
@@ -71,14 +65,14 @@ function startWatch() {
 }
 
 function pauseWatch() {
-  clearInterval(startTimerInterval);
+  clearInterval(interval);
   isGoing.value = false;
   isStopped.value = true;
   stopTime.value = getCurrentTime();
 }
 
 function resetWatch() {
-  clearInterval(startTimerInterval);
+  clearInterval(interval);
   isGoing.value = false;
   isStopped.value = true;
 
@@ -94,13 +88,32 @@ function resetWatch() {
 .stopwatch {
   text-align: center;
 }
+
 #stopwatch-display {
   font-size: 2rem;
 }
 
-.stopwatch-btn {
-  padding: 2rem;
-  text-align: center;
-  font-size: 1.5rem;
+.display-container {
+  outline: 2px solid #333;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  max-width: 22rem;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.display-container::after {
+  content: "";
+  background: var(--accent);
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 0;
+  left: calc(50% - 0.5rem);
+  transform-origin: 50% 11rem;
 }
 </style>
