@@ -8,7 +8,7 @@ const props = defineProps({
 const emit = defineEmits(["move"]);
 
 const appRoutes = props.routes;
-let currentRoute = ref("WorldClock");
+let currentRoute = ref("ClockView");
 
 function movePages(routeComponent) {
   currentRoute.value = routeComponent;
@@ -33,13 +33,10 @@ function movePages(routeComponent) {
 <style>
 nav {
   outline: 1px solid var(--color-border);
-  width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
 
   display: flex;
-  justify-content: center;
 }
 
 .nav-link {
@@ -61,19 +58,13 @@ nav {
   font-size: 1.2rem;
 }
 
-nav a.router-link-exact-active {
-  color: var(--navlink-active);
-}
+@media screen and (min-width: 40em) {
+  nav {
+    flex-direction: column;
+  }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  padding: 1rem;
-}
-
-nav a:first-of-type {
-  border: 0;
+  .nav-link {
+    flex-grow: 0;
+  }
 }
 </style>
