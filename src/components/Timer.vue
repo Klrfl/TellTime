@@ -1,11 +1,15 @@
 <template>
-  <div class="timer-container">
+  <div class="timer">
     <section class="timer-display">
       {{ hours }} : {{ minutes }} : {{ seconds }}
     </section>
-    <section class="timer-button-container">
-      <button class="start-timer" @click="startTimer">Start timer</button>
-      <button class="end-timer" @click="stopTimer">End timer</button>
+    <section class="btn-container">
+      <button class="btn btn--circular" @click="startTimer">
+        <font-awesome-icon :icon="['fas', 'play']" />
+      </button>
+      <button class="btn btn--circular" @click="stopTimer">
+        <font-awesome-icon :icon="['fas', 'rotate-left']" />
+      </button>
     </section>
 
     <!-- <form class="timer-input">
