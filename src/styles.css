@@ -53,3 +53,29 @@
     --color-text: var(--vt-c-text-dark-2);
   }
 }
+
+button:focus-visible {
+  outline: 2px solid dodgerblue;
+}
+
+.btn-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  background: #333;
+  font-size: 1.2rem;
+  width: 5rem;
+  aspect-ratio: 1 / 1;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent);
+}
+
+.btn--circular {
+  border-radius: 50%;
+}
