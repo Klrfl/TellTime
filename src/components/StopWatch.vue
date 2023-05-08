@@ -26,6 +26,8 @@
 <script setup>
 import { ref } from "vue";
 
+const root = document.querySelector(":root");
+
 let isGoing = ref(false);
 let isStopped = ref(true);
 let startTime = ref(0);
@@ -61,6 +63,11 @@ function startWatch() {
     minutes.value = delta.value.getMinutes();
     seconds.value = delta.value.getSeconds();
     miliSeconds.value = delta.value.getMilliseconds();
+    // console.log(delta.value.getTime());
+    root.style.setProperty(
+      "--stopwatch-dot",
+      `${(delta.value.getTime() / 60000) * 360}deg`
+    );
   });
 }
 
@@ -81,12 +88,19 @@ function resetWatch() {
   minutes.value = 0;
   seconds.value = 0;
   miliSeconds.value = 0;
+
+  root.style.removeProperty("--stopwatch-dot");
 }
 </script>
 
 <style>
+:root {
+  --stopwatch-dot: 0deg;
+}
+
 .stopwatch {
   text-align: center;
+  max-width: 50ch;
 }
 
 #stopwatch-display {
@@ -97,7 +111,7 @@ function resetWatch() {
   outline: 2px solid #333;
   border-radius: 50%;
   aspect-ratio: 1 / 1;
-  max-width: 22rem;
+  max-width: 100%;
 
   display: grid;
   place-items: center;
@@ -114,6 +128,7 @@ function resetWatch() {
   position: absolute;
   top: 0;
   left: calc(50% - 0.5rem);
-  transform-origin: 50% 11rem;
+  transform: rotate(var(--stopwatch-dot));
+  transform-origin: 50% 5rem;
 }
 </style>
