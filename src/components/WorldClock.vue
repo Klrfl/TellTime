@@ -127,11 +127,18 @@ onMounted(() => {
 }
 
 $clock-hand-width: 0.2rem;
+$indicator-light: #828282;
+$indicator-dark: #5b5b5b;
 
 /* origin formula: 0 calc(width * (height - (height * 25%))) */
 @mixin center-clock-hands($width, $height) {
-  aspect-ratio: 1 / $height;
+  aspect-ratio: calc(1 / $height);
   transform-origin: 50% calc($width * ($height * 75 / 100));
+}
+
+@mixin display-indicator($thickness, $color) {
+  border-left: $thickness solid $color;
+  border-right: $thickness solid $color;
 }
 
 .clock {
@@ -154,23 +161,20 @@ $clock-hand-width: 0.2rem;
   &__indicator {
     background: transparent;
     position: absolute;
-    bottom: 50%;
-    width: 100%;
+    inset: auto 0 50% 0;
     height: 0.25rem;
-    border-left: 2vmin solid #5b5b5b;
-    border-right: 2vmin solid #5b5b5b;
+    @include display-indicator(2vmin, #5b5b5b);
   }
 
   // rotate thick clock indicator
   @for $i from 1 through 60 {
     &__indicator:nth-child(#{$i}) {
       $degree: calc($i * 6);
-      transform: rotate(#{$degree}deg);
+      transform: translateY(50%) rotate(#{$degree}deg);
 
       // if is multiple of 5
       @if $i % 5 == 0 {
-        border-left: 5vmin solid #828282;
-        border-right: 5vmin solid #828282;
+        @include display-indicator(5vmin, #828282);
       }
     }
   }
