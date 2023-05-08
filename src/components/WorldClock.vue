@@ -126,6 +126,14 @@ onMounted(() => {
   --seconds: 60;
 }
 
+$clock-hand-width: 0.2rem;
+
+/* origin formula: 0 calc(width * (height - (height * 25%))) */
+@mixin center-clock-hands($width, $height) {
+  aspect-ratio: 1 / $height;
+  transform-origin: 50% calc($width * ($height * 75 / 100));
+}
+
 .clock {
   background: #323232;
   width: 22rem;
@@ -138,78 +146,71 @@ onMounted(() => {
     bottom: 50%;
     left: 50%;
   }
-}
 
-.clock__indicator-container {
-  position: absolute;
-  inset: 0;
-}
+  &__indicator-container {
+    inset: 0;
+  }
 
-.clock__indicator {
-  background: transparent;
-  position: absolute;
-  bottom: 50%;
-  width: 100%;
-  height: 0.25rem;
-  border-left: 2vmin solid #5b5b5b;
-  border-right: 2vmin solid #5b5b5b;
-}
+  &__indicator {
+    background: transparent;
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    height: 0.25rem;
+    border-left: 2vmin solid #5b5b5b;
+    border-right: 2vmin solid #5b5b5b;
+  }
 
-// rotate thick clock indicator
-@for $i from 1 through 60 {
-  .clock__indicator:nth-child(#{$i}) {
-    $degree: calc($i * 6);
-    transform: rotate(#{$degree}deg);
+  // rotate thick clock indicator
+  @for $i from 1 through 60 {
+    &__indicator:nth-child(#{$i}) {
+      $degree: calc($i * 6);
+      transform: rotate(#{$degree}deg);
 
-    // if is multiple of 5
-    @if $i % 5 == 0 {
-      border-left: 5vmin solid #828282;
-      border-right: 5vmin solid #828282;
+      // if is multiple of 5
+      @if $i % 5 == 0 {
+        border-left: 5vmin solid #828282;
+        border-right: 5vmin solid #828282;
+      }
     }
   }
-}
 
-.clock__dot,
-.clock__hand {
-  box-shadow: 5px 5px 15px #323232;
-}
+  &__dot,
+  &__hand {
+    box-shadow: 5px 5px 15px #323232;
+  }
 
-.clock__dot {
-  background: #aaa;
-  width: 2rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  transform: translate(-50%, 50%);
-  z-index: 1;
-}
+  &__dot {
+    background: #aaa;
+    width: 2rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 1;
+  }
 
-.clock__hand {
-  background: #ddd;
-  width: 0.25rem;
-  border-top-left-radius: 30%;
-  border-top-right-radius: 30%;
-  /* transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1); */
-}
+  &__hand {
+    background: #ddd;
+    width: $clock-hand-width;
+    border-top-left-radius: 30%;
+    border-top-right-radius: 30%;
+    /* transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1); */
 
-.clock__hand--hours {
-  aspect-ratio: 1 / 32;
-  transform: translate(-50%, 25%) rotate(var(--hours));
+    &--hours {
+      transform: translate(-50%, 25%) rotate(var(--hours));
+      @include center-clock-hands($clock-hand-width, 32);
+    }
 
-  /* origin formula: 0 calc(width * (height - (height * 25%))) */
-  transform-origin: 50% calc(0.25rem * 24);
-}
+    &--minutes {
+      transform: translate(-50%, 25%) rotate(var(--minutes));
+      @include center-clock-hands($clock-hand-width, 48);
+    }
 
-.clock__hand--minutes {
-  aspect-ratio: 1 / 48;
-  transform: translate(-50%, 25%) rotate(var(--minutes));
-  transform-origin: 50% calc(0.25rem * 36);
-}
-
-.clock__hand--seconds {
-  background: var(--accent);
-  width: 0.25rem;
-  aspect-ratio: 1 / 48;
-  transform: translate(-50%, 25%) rotate(var(--seconds));
-  transform-origin: 50% calc(0.25rem * 36);
+    &--seconds {
+      background: var(--accent);
+      transform: translate(-50%, 25%) rotate(var(--seconds));
+      @include center-clock-hands($clock-hand-width, 48);
+    }
+  }
 }
 </style>
