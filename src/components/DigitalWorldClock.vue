@@ -1,8 +1,8 @@
 <template>
   <div class="digital-clock">
-    <div id="hours">{{ hours }}</div>
-    <div id="minutes">{{ minutes }}</div>
-    <div id="seconds">{{ seconds }}</div>
+    <span id="hours">{{ hours }}</span>
+    <span id="minutes">{{ minutes }}</span>
+    <span id="seconds">{{ seconds }}</span>
   </div>
 </template>
 
@@ -14,15 +14,27 @@ const props = defineProps({
 });
 </script>
 
-<style>
-.watch-display {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
+<style lang="scss" scoped>
+.digital-clock {
+  background: #222;
+  padding: 1rem;
+  border-radius: 0.5rem;
 
-.watch-display__displays {
-  outline: 1px solid #aaa;
-  padding: 2rem;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  bottom: unset;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  box-shadow: 2px 2px 10px black inset;
+
+  // individual numbers in the clock
+  & > *:not(:last-child)::after {
+    content: ":";
+  }
 }
 </style>
