@@ -1,75 +1,67 @@
 <template>
-  <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
   <div class="clock">
-    <div class="clock__indicator-container--small">
-      <span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span
-      ><span class="clock__indicator--small"></span>
-    </div>
+    <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
     <div class="clock__indicator-container">
-      <span class="clock__indicator"></span>
-      <span class="clock__indicator"></span>
-      <span class="clock__indicator"></span>
-      <span class="clock__indicator"></span>
-      <span class="clock__indicator"></span>
-      <span class="clock__indicator"></span>
+      <span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span
+      ><span class="clock__indicator"></span>
     </div>
     <div class="clock__dot"></div>
     <div class="clock__hand clock__hand--hours"></div>
@@ -127,7 +119,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --hours: 60;
   --minutes: 60;
@@ -140,60 +132,41 @@ onMounted(() => {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   position: relative;
+
+  & > * {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+  }
 }
 
-.clock > * {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-}
-
-.clock__indicator-container,
-.clock__indicator-container--small {
+.clock__indicator-container {
   position: absolute;
   inset: 0;
 }
 
-.clock__indicator,
-.clock__indicator--small {
-  background: transparent;
-  position: absolute;
-  bottom: 50%;
-  width: 100%;
-}
-
 .clock__indicator {
-  height: 0.2rem;
-  border-left: 7vmin solid #444;
-  border-right: 7vmin solid #444;
-}
-
-.clock__indicator--small {
-  height: 0.1rem;
   background: transparent;
   position: absolute;
   bottom: 50%;
   width: 100%;
+  height: 0.25rem;
+  border-left: 2vmin solid #5b5b5b;
+  border-right: 2vmin solid #5b5b5b;
 }
 
-.clock__indicator:nth-child(2) {
-  transform: rotate(30deg);
-}
+// rotate thick clock indicator
+@for $i from 1 through 60 {
+  .clock__indicator:nth-child(#{$i}) {
+    $degree: calc($i * 6);
+    transform: rotate(#{$degree}deg);
 
-.clock__indicator:nth-child(3) {
-  transform: rotate(60deg);
-}
-
-.clock__indicator:nth-child(4) {
-  transform: rotate(90deg);
-}
-
-.clock__indicator:nth-child(5) {
-  transform: rotate(120deg);
-}
-
-.clock__indicator:nth-child(6) {
-  transform: rotate(150deg);
+    // if is multiple of 5
+    @if $i % 5 == 0 {
+      border-left: 5vmin solid #828282;
+      border-right: 5vmin solid #828282;
+    }
+  }
 }
 
 .clock__dot,
