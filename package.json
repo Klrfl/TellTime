@@ -1,5 +1,5 @@
 {
-  "name": "clockwatch",
+  "name": "telltime",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@vitejs/plugin-vue": "^4.0.0",
+    "sass": "^1.62.1",
     "vite": "^4.1.4"
   }
 }
