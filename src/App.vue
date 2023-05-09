@@ -34,7 +34,9 @@ function movePages(targetRoute) {
 
 <template>
   <NavBar :routes="routes" @move="movePages" />
-  <component :is="currentRoute"></component>
+  <KeepAlive>
+    <component :is="currentRoute"></component>
+  </KeepAlive>
 </template>
 
 <style>
