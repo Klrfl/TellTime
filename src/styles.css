@@ -54,8 +54,25 @@
   }
 }
 
-button:focus-visible {
+.btn {
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.btn:hover {
+  filter: brightness(0.8);
+}
+
+.btn:active {
+  transform: translateY(5px);
+}
+
+.btn:focus-visible {
   outline: 2px solid dodgerblue;
+}
+
+.btn:disabled {
+  filter: brightness(0.5);
+  cursor: not-allowed;
 }
 
 .btn-container {
@@ -65,7 +82,6 @@ button:focus-visible {
 }
 
 .btn {
-  background: #333;
   font-size: 1.2rem;
   width: 5rem;
   aspect-ratio: 1 / 1;
