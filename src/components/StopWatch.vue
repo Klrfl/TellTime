@@ -7,6 +7,10 @@
     </section>
 
     <section class="btn-container">
+      <button class="btn btn--circular" @click="lap" :disabled="isStopped">
+        lap
+      </button>
+
       <button
         class="btn btn-primary btn--circular"
         @click="startWatch"
@@ -26,70 +30,38 @@
 <script setup>
 import { ref } from "vue";
 
-const root = document.querySelector(":root");
+const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch"]);
+const props = defineProps({
+  minutes: Number,
+  seconds: Number,
+  miliSeconds: Number,
+});
 
 let isGoing = ref(false);
 let isStopped = ref(true);
-let startTime = ref(0);
-let currentTime = ref(0);
-let stopTime = ref(0);
-let delta = ref(0);
-let interval = null;
-
-const seconds = ref(0);
-const miliSeconds = ref(0);
-const minutes = ref(0);
-
-function getCurrentTime() {
-  return new Date().getTime();
-}
 
 function startWatch() {
-  // if timer was started after it stopped
-  if (isStopped.value == true) {
-    // bump up start time
-    startTime.value = startTime.value + (getCurrentTime() - stopTime.value);
-  }
-
-  if (startTime.value === 0) startTime.value = getCurrentTime();
+  emit("startWatch", isStopped.value);
 
   isGoing.value = true;
   isStopped.value = false;
-
-  interval = setInterval(() => {
-    currentTime.value = getCurrentTime();
-    delta.value = new Date(currentTime.value - startTime.value);
-
-    minutes.value = delta.value.getMinutes();
-    seconds.value = delta.value.getSeconds();
-    miliSeconds.value = delta.value.getMilliseconds();
-    // console.log(delta.value.getTime());
-    root.style.setProperty(
-      "--stopwatch-dot",
-      `${(delta.value.getTime() / 60000) * 360}deg`
-    );
-  });
 }
 
 function pauseWatch() {
-  clearInterval(interval);
+  emit("pauseWatch");
   isGoing.value = false;
   isStopped.value = true;
-  stopTime.value = getCurrentTime();
 }
 
 function resetWatch() {
-  clearInterval(interval);
+  emit("resetWatch");
+
   isGoing.value = false;
   isStopped.value = true;
+}
 
-  startTime.value = 0;
-  stopTime.value = 0;
-  minutes.value = 0;
-  seconds.value = 0;
-  miliSeconds.value = 0;
-
-  root.style.removeProperty("--stopwatch-dot");
+function lap() {
+  emit("lap");
 }
 </script>
 
@@ -129,6 +101,6 @@ function resetWatch() {
   top: 0;
   left: calc(50% - 0.5rem);
   transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% 5rem;
+  transform-origin: 50% 5.5rem;
 }
 </style>
