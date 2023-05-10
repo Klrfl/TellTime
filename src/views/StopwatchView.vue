@@ -44,7 +44,7 @@ function startWatch(isStopped) {
   // if timer was started after it stopped
   if (isStopped == true) {
     // bump up start time
-    startTime.value = startTime.value + (getCurrentTime() - stopTime.value);
+    startTime.value += getCurrentTime() - stopTime.value;
   }
 
   if (startTime.value === 0) startTime.value = getCurrentTime();

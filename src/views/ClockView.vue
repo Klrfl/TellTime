@@ -1,5 +1,6 @@
 <template>
   <MainLayout>
+    <h1>Placeholder content</h1>
     <template #main-content>
       <WorldClock />
     </template>
