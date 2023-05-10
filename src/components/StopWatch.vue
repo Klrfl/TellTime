@@ -30,7 +30,7 @@
 <script setup>
 import { ref } from "vue";
 
-const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch"]);
+const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
 const props = defineProps({
   minutes: Number,
   seconds: Number,
@@ -101,6 +101,6 @@ function lap() {
   top: 0;
   left: calc(50% - 0.5rem);
   transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% 5.5rem;
+  transform-origin: 50% 6rem;
 }
 </style>
