@@ -1,10 +1,11 @@
 <template>
   <main class="wrapper">
     <div class="container">
-      <slot></slot>
-    </div>
-    <div class="container">
       <slot name="main-content"></slot>
+    </div>
+
+    <div class="container container--side-content">
+      <slot></slot>
     </div>
   </main>
 </template>
@@ -24,8 +25,8 @@
   flex: 1 1 0;
 }
 
-.container:first-child {
-  order: 1;
+.container--side-content {
+  overflow-y: auto;
 }
 
 @media screen and (min-width: 50em) {
@@ -33,7 +34,7 @@
     flex-direction: row;
   }
 
-  .container:first-child {
+  .container--side-content {
     order: -1;
   }
 }
