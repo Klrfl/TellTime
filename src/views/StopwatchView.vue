@@ -7,10 +7,13 @@
         :miliSeconds="miliSeconds"
         @pauseWatch="pauseWatch"
         @startWatch="startWatch"
-        @resetWatch="resetWatch" />
+        @resetWatch="resetWatch"
+        @lap="lap(delta)" />
     </template>
 
-    <LapTime></LapTime>
+    <ul class="laptimes">
+      <LapTime v-for="lap in laps" :id="lap.lapNo" :lap="lap"></LapTime>
+    </ul>
   </MainLayout>
 </template>
 
@@ -76,20 +79,32 @@ function resetWatch() {
   miliSeconds.value = 0;
 
   root.style.removeProperty("--stopwatch-dot");
+
+  laps.value = [];
 }
 
-// const laps = ref([]);
-// const currentLap = ref(1);
+const laps = ref([]);
+const currentLap = ref(1);
 
-// function lap() {
-//   laps.value.push({
-//     lapNo: currentLap.value++,
-//     lapTime: getCurrentTime(),
-//     lapDelta: {
-//       // minute:
-//     },
-//   });
+function lap(delta) {
+  laps.value.push({
+    no: currentLap.value++,
+    time: {
+      minute: delta.getMinutes(),
+      second: delta.getSeconds(),
+      milliSecond: delta.getMilliseconds(),
+    },
+    // delta,
+  });
 
-//   console.log(laps.value);
-// }
+  // console.log(laps.value);
+}
 </script>
+
+<style>
+.laptimes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+</style>

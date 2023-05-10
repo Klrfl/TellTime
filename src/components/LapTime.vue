@@ -1,15 +1,23 @@
 <template>
-  <div class="laptime-container">
-    <div class="laptime">
-      <div class="lap--number">Lap 1</div>
-      <div class="lap--time">0:00:0</div>
-      <div class="lap--delta">-9304903294</div>
+  <li class="lap">
+    <div class="lap__number">{{ lap.no }}</div>
+    <div class="lap__time">
+      <span class="lap__time--minute">{{ lap.time.minute }}</span>
+      <span class="lap__time--second">{{ lap.time.second }}</span>
+      <span class="lap__time--milliSecond">{{ lap.time.milliSecond }}</span>
     </div>
-  </div>
+    <div class="lap--delta">-9304903294</div>
+  </li>
 </template>
 
-<style>
-.laptime {
+<script setup>
+const props = defineProps({
+  lap: Object,
+});
+</script>
+
+<style lang="scss">
+.lap {
   border-bottom: 2px solid #aaa;
   padding-block: 1rem;
 
@@ -17,5 +25,14 @@
   align-items: center;
   gap: 5rem;
   justify-content: space-between;
+
+  &__time {
+    font-weight: bold;
+    margin-left: 0.5rem;
+
+    & > *:not(:last-child)::after {
+      content: ":";
+    }
+  }
 }
 </style>
