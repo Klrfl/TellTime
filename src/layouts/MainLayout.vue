@@ -25,10 +25,6 @@
   flex: 1 1 0;
 }
 
-.container--side-content {
-  overflow-y: auto;
-}
-
 @media screen and (min-width: 50em) {
   .wrapper {
     flex-direction: row;

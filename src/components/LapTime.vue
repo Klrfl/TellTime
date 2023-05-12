@@ -23,7 +23,6 @@ const props = defineProps({
 
   display: flex;
   align-items: center;
-  gap: 5rem;
   justify-content: space-between;
 
   &__time {
