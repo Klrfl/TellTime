@@ -1,7 +1,7 @@
 <template>
   <div class="stopwatch">
-    <section class="display-container">
-      <span class="display" id="stopwatch-display">
+    <section class="stopwatch-display-container">
+      <span class="stopwatch-display">
         {{ minutes }}:{{ seconds }}:{{ miliSeconds }}
       </span>
     </section>
@@ -71,15 +71,15 @@ function lap() {
 }
 
 .stopwatch {
-  text-align: center;
   max-width: 50ch;
 }
 
-#stopwatch-display {
+.stopwatch-display {
+  text-align: center;
   font-size: 2rem;
 }
 
-.display-container {
+.stopwatch-display-container {
   outline: 2px solid #333;
   border-radius: 50%;
   aspect-ratio: 1 / 1;
@@ -90,7 +90,7 @@ function lap() {
   position: relative;
 }
 
-.display-container::after {
+.stopwatch-display-container::after {
   content: "";
   background: var(--accent);
   height: 1rem;
