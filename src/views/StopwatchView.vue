@@ -12,6 +12,7 @@
     </template>
 
     <ul class="laptimes">
+      <li class="no-laptime" v-show="laps.length == 0">No laptimes yet</li>
       <LapTime v-for="lap in laps" :id="lap.lapNo" :lap="lap"></LapTime>
     </ul>
   </MainLayout>
@@ -81,6 +82,7 @@ function resetWatch() {
   root.style.removeProperty("--stopwatch-dot");
 
   laps.value = [];
+  currentLap.value = 1;
 }
 
 const laps = ref([]);
@@ -106,5 +108,14 @@ function lap(delta) {
   margin: 0;
   padding: 0;
   list-style: none;
+
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.no-laptime {
+  text-align: center;
+  font-size: 1.2rem;
 }
 </style>
