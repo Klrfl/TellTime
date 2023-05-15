@@ -31,6 +31,8 @@ import { onMounted, ref } from "vue";
 
 import { DateTime } from "luxon";
 
+const props = defineProps(["targetTime"]);
+
 const hours = ref(0);
 const minutes = ref(0);
 const seconds = ref(0);
@@ -41,7 +43,7 @@ const isStopped = ref(true);
 const startTime = ref(0);
 const deltaFromStartTime = ref(0);
 
-const targetTime = DateTime.fromJSDate(new Date(35000)).toUTC();
+const targetTime = ref(DateTime.fromJSDate(new Date(props.targetTime)).toUTC());
 
 const finalDelta = ref(0);
 
@@ -60,7 +62,7 @@ function startTimer() {
       "milliseconds",
     ]);
 
-    finalDelta.value = targetTime.diff(deltaFromStartTime.value, [
+    finalDelta.value = targetTime.value.diff(deltaFromStartTime.value, [
       "hours",
       "minutes",
       "seconds",
@@ -71,6 +73,11 @@ function startTimer() {
     minutes.value = finalDelta.value.minutes;
     seconds.value = finalDelta.value.seconds;
     milliseconds.value = finalDelta.value.milliseconds;
+
+    if (finalDelta.value.milliseconds <= 0) {
+      clearInterval(interval);
+      isStopped.value = true;
+    }
   });
 }
 
@@ -80,10 +87,10 @@ function stopTimer() {
 }
 
 function resetTimer() {
-  hours.value = targetTime.c.hour;
-  minutes.value = targetTime.c.minute;
-  seconds.value = targetTime.c.second;
-  milliseconds.value = targetTime.c.millisecond;
+  hours.value = targetTime.value.c.hour;
+  minutes.value = targetTime.value.c.minute;
+  seconds.value = targetTime.value.c.second;
+  milliseconds.value = targetTime.value.c.millisecond;
 }
 
 onMounted(resetTimer);

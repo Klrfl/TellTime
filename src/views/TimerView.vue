@@ -1,14 +1,15 @@
 <template>
   <MainLayout>
     <template #main-content>
-      <Timer></Timer>
+      <Timer :targetTime="selectedTargetTime"></Timer>
     </template>
 
     <ul class="target-time-container">
       <TargetTime
         v-for="targetTime in targetTimes"
         :key="targetTime.id"
-        :targetTime="targetTime.time" />
+        :targetTime="targetTime.time"
+        @select="selectTargetTime(targetTime.time)" />
     </ul>
   </MainLayout>
 </template>
@@ -25,7 +26,27 @@ const targetTimes = ref([
     id: 1,
     time: 10000,
   },
+  {
+    id: 2,
+    time: 15000,
+  },
+  {
+    id: 3,
+    time: 30000,
+  },
+  {
+    id: 5,
+    time: 60000,
+  },
 ]);
+
+const selectedTargetTime = ref();
+selectedTargetTime.value = targetTimes.value[0].time;
+
+function selectTargetTime(targetTime) {
+  selectedTargetTime.value = targetTime;
+  console.log(selectedTargetTime.value);
+}
 </script>
 
 <style>
