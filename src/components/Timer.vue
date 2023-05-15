@@ -8,10 +8,18 @@
       <button class="btn btn--circular" @click="startTimer" v-show="isStopped">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
+
       <button
         class="btn btn--circular"
         @click="stopTimer"
-        v-show="isStopped == false">
+        v-show="isStopped === false">
+        <font-awesome-icon :icon="['fas', 'pause']" />
+      </button>
+
+      <button
+        class="btn btn--circular"
+        @click="resetTimer"
+        :disabled="isStopped === false">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
     </section>
@@ -19,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 import { DateTime } from "luxon";
 
@@ -33,7 +41,7 @@ const isStopped = ref(true);
 const startTime = ref(0);
 const deltaFromStartTime = ref(0);
 
-const targetTime = DateTime.fromJSDate(new Date(35000));
+const targetTime = DateTime.fromJSDate(new Date(35000)).toUTC();
 
 const finalDelta = ref(0);
 
@@ -70,6 +78,15 @@ function stopTimer() {
   clearInterval(interval);
   isStopped.value = true;
 }
+
+function resetTimer() {
+  hours.value = targetTime.c.hour;
+  minutes.value = targetTime.c.minute;
+  seconds.value = targetTime.c.second;
+  milliseconds.value = targetTime.c.millisecond;
+}
+
+onMounted(resetTimer);
 </script>
 
 <style>
