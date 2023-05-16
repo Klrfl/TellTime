@@ -55,6 +55,7 @@
 }
 
 .btn {
+  user-select: none;
   transition: background-color 200ms ease, transform 200ms ease;
 }
 
