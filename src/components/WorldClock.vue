@@ -121,14 +121,17 @@ onMounted(() => {
 
 <style lang="scss">
 :root {
+  // for rotating the hands
   --hours: 60;
   --minutes: 60;
   --seconds: 60;
+
+  --clock-bg: #323232;
+  --indicator-color-small: #828282;
+  --indicator-color-big: #5b5b5b;
 }
 
 $clock-hand-width: 0.2rem;
-$indicator-light: #828282;
-$indicator-dark: #5b5b5b;
 
 /* origin formula: 0 calc(width * (height - (height * 25%))) */
 @mixin center-clock-hands($width, $height) {
@@ -142,7 +145,7 @@ $indicator-dark: #5b5b5b;
 }
 
 .clock {
-  background: #323232;
+  background: var(--clock-bg);
   width: 22rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;

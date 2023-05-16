@@ -15,8 +15,12 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
+:root {
+  --clock-bg: var(--vt-c-black-soft);
+}
+
 .digital-clock {
-  background: #222;
+  background: var(--clock-bg);
   padding: 1rem;
   border-radius: 0.5rem;
 
