@@ -1,6 +1,9 @@
-# clockwatch
+# TellTime
 
-This template should help get you started developing with Vue 3 in Vite.
+This repository contains the code for TellTime, a timer app. This app is made in Vue 3 + Vite using the Luxon package.
+
+This project uses the MIT license.
+**Note: this app is still in development. Any constructive feedback or pull requests are appreaciated.**
 
 ## Recommended IDE Setup
 
