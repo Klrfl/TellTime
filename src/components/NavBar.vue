@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { inject, ref } from "vue";
 
 const props = defineProps({
   routes: Object,
@@ -15,6 +15,20 @@ function movePages(routeComponent) {
 
   emit("move", routeComponent);
 }
+
+let theme = inject("theme");
+
+function setTheme() {
+  if (theme === "dark") {
+    theme = "light";
+    localStorage.setItem("theme-preference", "light");
+  } else {
+    theme = "dark";
+    localStorage.setItem("theme-preference", "dark");
+  }
+
+  document.body.setAttribute("data-theme", theme);
+}
 </script>
 
 <template>
@@ -27,6 +41,8 @@ function movePages(routeComponent) {
       <font-awesome-icon :icon="route.icon"></font-awesome-icon>
       {{ route.name }}
     </button>
+
+    <button class="dark-mode" @click="setTheme">dark mode</button>
   </nav>
 </template>
 
@@ -58,6 +74,14 @@ nav {
   font-size: 1.2rem;
 }
 
+.dark-mode {
+  margin-top: auto;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 @media screen and (min-width: 40em) {
   nav {
     flex-direction: column;
@@ -65,6 +89,11 @@ nav {
 
   .nav-link {
     flex-grow: 0;
+  }
+
+  .dark-mode {
+    position: relative;
+    padding: 2rem 0;
   }
 }
 </style>

@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, ref, reactive } from "vue";
 import App from "./App.vue";
 
 /* import the fontawesome core */
@@ -27,7 +27,12 @@ library.add(
 );
 
 import "./styles.css";
+import { getTheme } from "@/utilities/getTheme.js";
+
+const scheme = ref(getTheme());
+const theme = reactive(scheme);
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
+app.provide("theme", theme);
 app.mount("#app");

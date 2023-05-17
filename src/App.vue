@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef } from "vue";
+import { shallowRef, inject, onMounted } from "vue";
 
 import NavBar from "@/components/NavBar.vue";
 
@@ -30,6 +30,12 @@ const currentRoute = shallowRef(ClockView);
 function movePages(targetRoute) {
   currentRoute.value = targetRoute;
 }
+
+const theme = inject("theme");
+
+onMounted(() => {
+  document.body.setAttribute("data-theme", theme.value);
+});
 </script>
 
 <template>
