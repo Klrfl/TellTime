@@ -76,7 +76,8 @@ nav {
 
 .dark-mode {
   margin-top: auto;
-  padding: 1rem;
+  padding: 2rem;
+  user-select: none;
   position: absolute;
   top: 0;
   right: 0;
