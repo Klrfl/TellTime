@@ -19,10 +19,19 @@
 
 .container {
   padding: 2rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1 1 0;
+
+  position: relative;
+}
+
+.container--side-content {
+  max-height: 50vh;
+  overflow: auto;
+  align-items: flex-start;
 }
 
 @media screen and (min-width: 50em) {
@@ -32,6 +41,7 @@
 
   .container--side-content {
     order: -1;
+    max-height: 100vh;
   }
 }
 </style>
