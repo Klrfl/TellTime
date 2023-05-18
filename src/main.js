@@ -1,5 +1,6 @@
 import { createApp, ref, reactive } from "vue";
 import App from "./App.vue";
+import router from "@/router";
 
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -35,4 +36,5 @@ const theme = reactive(scheme);
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.provide("theme", theme);
+app.use(router);
 app.mount("#app");

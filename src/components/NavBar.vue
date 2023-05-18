@@ -1,21 +1,6 @@
 <script setup>
 import { inject, ref } from "vue";
 
-const props = defineProps({
-  routes: Object,
-});
-
-const emit = defineEmits(["move"]);
-
-const appRoutes = props.routes;
-let currentRoute = ref("ClockView");
-
-function movePages(routeComponent) {
-  currentRoute.value = routeComponent;
-
-  emit("move", routeComponent);
-}
-
 let theme = inject("theme");
 
 function setTheme() {
@@ -33,14 +18,18 @@ function setTheme() {
 
 <template>
   <nav>
-    <button
-      v-for="route in appRoutes"
-      :key="route"
-      @click="movePages(route.component)"
-      class="nav-link">
-      <font-awesome-icon :icon="route.icon"></font-awesome-icon>
-      {{ route.name }}
-    </button>
+    <RouterLink :to="{ name: 'Clock' }">
+      <font-awesome-icon :icon="['fas', 'clock']" />
+      Clock
+    </RouterLink>
+    <RouterLink :to="{ name: 'Timer' }">
+      <font-awesome-icon :icon="['fas', 'hourglass-start']" />
+      Timer
+    </RouterLink>
+    <RouterLink :to="{ name: 'Stopwatch' }">
+      <font-awesome-icon :icon="['fas', 'stopwatch']" />
+      Stopwatch
+    </RouterLink>
 
     <button class="dark-mode" @click="setTheme">dark mode</button>
   </nav>

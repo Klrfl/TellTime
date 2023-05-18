@@ -3,34 +3,6 @@ import { shallowRef, inject, onMounted } from "vue";
 
 import NavBar from "@/components/NavBar.vue";
 
-import ClockView from "@/views/ClockView.vue";
-import TimerView from "@/views/TimerView.vue";
-import StopwatchView from "@/views/StopwatchView.vue";
-
-const routes = {
-  ClockView: {
-    name: "Clock",
-    component: ClockView,
-    icon: ["fas", "clock"],
-  },
-  Timer: {
-    name: "Timer",
-    component: TimerView,
-    icon: ["fas", "stopwatch"],
-  },
-  Stopwatch: {
-    name: "Stopwatch",
-    component: StopwatchView,
-    icon: ["fas", "hourglass-start"],
-  },
-};
-
-const currentRoute = shallowRef(ClockView);
-
-function movePages(targetRoute) {
-  currentRoute.value = targetRoute;
-}
-
 const theme = inject("theme");
 
 onMounted(() => {
@@ -39,10 +11,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <NavBar :routes="routes" @move="movePages" />
-  <KeepAlive>
-    <component :is="currentRoute"></component>
-  </KeepAlive>
+  <NavBar />
+  <RouterView />
 </template>
 
 <style>
