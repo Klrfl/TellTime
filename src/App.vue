@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, inject, onMounted } from "vue";
+import { inject, onMounted } from "vue";
 
 import NavBar from "@/components/NavBar.vue";
 
@@ -12,7 +12,13 @@ onMounted(() => {
 
 <template>
   <NavBar />
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <Transition name="slide" mode="out-in">
+      <KeepAlive>
+        <component :is="Component"></component>
+      </KeepAlive>
+    </Transition>
+  </RouterView>
 </template>
 
 <style>
@@ -24,6 +30,24 @@ onMounted(() => {
 
 nav {
   order: 1;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 500ms, transform 500ms;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-from {
+  transform: translateY(100%);
+}
+
+.slide-leave-to {
+  transform: translateY(-100%);
 }
 @media screen and (min-width: 40em) {
   #app {
