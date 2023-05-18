@@ -42,11 +42,16 @@ function setTheme() {
 }
 
 nav {
+  background: var(--color-background);
   outline: 1px solid var(--color-border);
   font-size: 12px;
   text-align: center;
 
   display: flex;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
 .nav-link {
@@ -79,7 +84,7 @@ nav {
   padding: 2rem;
   user-select: none;
   position: absolute;
-  top: 0;
+  top: -100%;
   right: 0;
 }
 
