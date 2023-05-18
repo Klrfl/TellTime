@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #main-content>
-      <Stopwatch
+      <TheStopwatch
         :minutes="minutes"
         :seconds="seconds"
         :miliSeconds="miliSeconds"
@@ -20,7 +20,7 @@
 
 <script setup>
 import MainLayout from "@/layouts/MainLayout.vue";
-import Stopwatch from "@/components/TheStopwatch.vue";
+import TheStopwatch from "@/components/TheStopwatch.vue";
 import LapTime from "@/components/LapTime.vue";
 
 import { ref } from "vue";
@@ -98,8 +98,6 @@ function lap(delta) {
     },
     // delta,
   });
-
-  // console.log(laps.value);
 }
 </script>
 
@@ -108,10 +106,7 @@ function lap(delta) {
   margin: 0;
   padding: 0;
   list-style: none;
-
   width: 100%;
-  max-height: 80vh;
-  overflow-y: auto;
 }
 
 .no-laptime {
