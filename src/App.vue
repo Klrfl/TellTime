@@ -43,11 +43,11 @@ nav {
 }
 
 .slide-enter-from {
-  transform: translateY(100%);
+  transform: translateY(80%);
 }
 
 .slide-leave-to {
-  transform: translateY(-100%);
+  transform: translateY(-80%);
 }
 @media screen and (min-width: 40em) {
   #app {
