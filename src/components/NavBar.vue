@@ -18,15 +18,15 @@ function setTheme() {
 
 <template>
   <nav>
-    <RouterLink :to="{ name: 'Clock' }">
+    <RouterLink class="nav-link" :to="{ name: 'Clock' }">
       <font-awesome-icon :icon="['fas', 'clock']" />
       Clock
     </RouterLink>
-    <RouterLink :to="{ name: 'Timer' }">
+    <RouterLink class="nav-link" :to="{ name: 'Timer' }">
       <font-awesome-icon :icon="['fas', 'hourglass-start']" />
       Timer
     </RouterLink>
-    <RouterLink :to="{ name: 'Stopwatch' }">
+    <RouterLink class="nav-link" :to="{ name: 'Stopwatch' }">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
       Stopwatch
     </RouterLink>
@@ -35,7 +35,12 @@ function setTheme() {
   </nav>
 </template>
 
-<style>
+<style lang="scss">
+:root {
+  --navlink-active: var(--accent);
+  --navlink-hover: var(--vt-c-black-mute);
+}
+
 nav {
   outline: 1px solid var(--color-border);
   font-size: 12px;
@@ -45,18 +50,24 @@ nav {
 }
 
 .nav-link {
-  all: unset;
-  cursor: pointer;
   padding: 1rem;
   color: var(--color-text);
   flex: 1 1 0;
+  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
+  transition: color 200ms ease, background-color 200ms ease;
 
-.nav-link:hover {
-  color: var(--navlink-active);
+  &:hover {
+    background: var(--navlink-hover);
+  }
+
+  &:hover,
+  &-active {
+    color: var(--navlink-active);
+  }
 }
 
 .nav-link svg {
