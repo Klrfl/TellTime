@@ -101,6 +101,6 @@ function lap() {
   top: 0;
   left: calc(50% - 0.5rem);
   transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% 6rem;
+  transform-origin: 50% 9.5rem;
 }
 </style>
