@@ -71,7 +71,10 @@ function lap() {
 }
 
 .stopwatch {
-  max-width: 50ch;
+  position: absolute;
+  inset: 0;
+  padding: 2rem; /* bc we used absolute, the padding on .container doesn't affect .stopwatch*/
+  text-align: center;
 }
 
 .stopwatch-display {
@@ -82,8 +85,10 @@ function lap() {
 .stopwatch-display-container {
   outline: 2px solid #333;
   border-radius: 50%;
+  max-width: 50ch;
+  max-height: 100%;
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
-  max-width: 100%;
 
   display: grid;
   place-items: center;
@@ -102,5 +107,24 @@ function lap() {
   left: calc(50% - 0.5rem);
   transform: rotate(var(--stopwatch-dot));
   transform-origin: 50% 9.5rem;
+}
+
+.btn-container {
+  background: var(--color-background);
+  border-radius: 0.5rem;
+
+  position: absolute;
+  left: 50%;
+  bottom: -75%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+@media screen and (min-width: 50em) {
+  .btn-container {
+    background: transparent;
+    position: relative;
+    bottom: unset;
+  }
 }
 </style>
