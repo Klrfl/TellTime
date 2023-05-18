@@ -49,7 +49,8 @@ nav {
 
   display: flex;
 
-  position: sticky;
+  position: fixed;
+  width: 100%;
   bottom: 0;
   z-index: 10;
 }
@@ -76,7 +77,7 @@ nav {
 }
 
 .nav-link svg {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .dark-mode {
@@ -91,6 +92,8 @@ nav {
 @media screen and (min-width: 40em) {
   nav {
     flex-direction: column;
+    position: sticky;
+    width: unset;
   }
 
   .nav-link {
