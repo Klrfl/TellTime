@@ -44,14 +44,13 @@ nav {
 
   display: flex;
 
-  position: fixed;
-  width: 100%;
+  position: sticky;
   bottom: 0;
   z-index: 10;
 }
 
 .nav-link {
-  padding: 1rem;
+  padding: 0.5rem;
   color: var(--color-text);
   flex: 1 1 0;
   cursor: pointer;
@@ -85,15 +84,14 @@ nav {
   right: 0;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 50em) {
   nav {
     flex-direction: column;
-    position: sticky;
-    width: unset;
   }
 
   .nav-link {
     flex-grow: 0;
+    padding: 1rem;
   }
 
   .dark-mode-toggle {
