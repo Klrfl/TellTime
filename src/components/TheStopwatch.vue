@@ -95,22 +95,11 @@ function lap() {
     border-radius: 50%;
 
     position: absolute;
-    top: 0;
+    top: 0.5rem;
     left: calc(50% - 0.5rem);
-    transform: translateY(10px) rotate(var(--stopwatch-dot));
-    transform-origin: 50% 150px;
+    transform: rotate(var(--stopwatch-dot));
+    transform-origin: 50% 7.5rem;
   }
-}
-
-.btn-container {
-  background: var(--color-background);
-  border-radius: 0.5rem;
-
-  position: absolute;
-  left: 50%;
-  bottom: -75%;
-  transform: translateX(-50%);
-  z-index: 2;
 }
 
 @media screen and (min-width: 50em) {
@@ -123,7 +112,7 @@ function lap() {
   .stopwatch-display-container::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 9rem;
+    transform-origin: 50% 9.5rem;
   }
 }
 </style>
