@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, watch, ref } from "vue";
 
 import { DateTime } from "luxon";
 
@@ -51,6 +51,18 @@ const targetTime = ref(DateTime.fromJSDate(new Date(props.targetTime)).toUTC());
 const finalDelta = ref(0);
 
 let interval = null;
+
+function updateTargetTime() {
+  targetTime.value = DateTime.fromJSDate(new Date(props.targetTime)).toUTC();
+}
+
+watch(
+  () => props.targetTime,
+  () => {
+    updateTargetTime();
+    resetTimer();
+  }
+);
 
 function startTimer() {
   startTime.value = DateTime.utc();

@@ -45,7 +45,6 @@ selectedTargetTime.value = targetTimes.value[0].time;
 
 function selectTargetTime(targetTime) {
   selectedTargetTime.value = targetTime;
-  console.log(selectedTargetTime.value);
 }
 </script>
 
