@@ -38,7 +38,7 @@
   flex: 2 1 0;
 }
 
-ul.list-container {
+.list-container {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -49,9 +49,14 @@ ul.list-container {
     flex-direction: row;
   }
 
+  .container > * {
+    flex: 1 1 0;
+  }
+
   .container--side-content {
     order: -1;
     max-height: 100vh;
+    flex: 1 1 0;
   }
 
   ul.list-container {
