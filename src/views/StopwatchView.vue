@@ -12,15 +12,14 @@
     </template>
 
     <!-- <ul class="list-container laptimes-container"> -->
-    <TransitionGroup
-      name="list"
-      tag="ul"
-      class="list-container laptimes-container">
+    <ul class="list-container laptimes-container">
       <li class="no-laptime" key="no-laps" v-show="laps.length == 0">
         No laps yet
       </li>
-      <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
-    </TransitionGroup>
+      <TransitionGroup name="list">
+        <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
+      </TransitionGroup>
+    </ul>
     <!-- </ul> -->
   </MainLayout>
 </template>
@@ -111,7 +110,8 @@ function lap(delta) {
 <style>
 /* transitions for laptimes*/
 .list-move,
-.list-enter-active {
+.list-enter-active,
+.list-leave-active {
   transition: opacity 300ms ease, transform 300ms ease;
 }
 
@@ -122,7 +122,6 @@ function lap(delta) {
 }
 
 .list-leave-active {
-  transition: opacity 200ms ease;
   width: 100%;
 }
 
