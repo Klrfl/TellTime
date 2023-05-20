@@ -125,10 +125,6 @@ onMounted(() => {
   --hours: 60;
   --minutes: 60;
   --seconds: 60;
-
-  --clock-bg: var(--color-background-soft);
-  --indicator-color-small: #828282;
-  --indicator-color-big: #5b5b5b;
 }
 
 $clock-hand-width: 0.2rem;
@@ -166,7 +162,7 @@ $clock-hand-width: 0.2rem;
     position: absolute;
     inset: auto 0 50% 0;
     height: 0.25rem;
-    @include display-indicator(2vmin, #5b5b5b);
+    @include display-indicator(2vmin, var(--indicator-color-small));
   }
 
   // rotate thick clock indicator
@@ -177,7 +173,7 @@ $clock-hand-width: 0.2rem;
 
       // if is multiple of 5
       @if $i % 5 == 0 {
-        @include display-indicator(5vmin, #828282);
+        @include display-indicator(5vmin, var(--indicator-color-big));
       }
     }
   }
@@ -189,7 +185,7 @@ $clock-hand-width: 0.2rem;
 
   &__dot {
     background: #aaa;
-    width: 2rem;
+    width: 1rem;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     transform: translate(-50%, 50%);
@@ -197,7 +193,7 @@ $clock-hand-width: 0.2rem;
   }
 
   &__hand {
-    background: #ddd;
+    background: var(--clock-hand-color);
     width: $clock-hand-width;
     border-top-left-radius: 30%;
     border-top-right-radius: 30%;

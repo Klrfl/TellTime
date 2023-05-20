@@ -39,6 +39,11 @@
 
   --navlink-active: var(--accent);
   --navlink-hover: transparent;
+
+  --clock-bg: var(--color-background-soft);
+  --clock-hand-color: #474747;
+  --indicator-color-small: #b5b5b5;
+  --indicator-color-big: #282828;
 }
 
 @media (hover: hover) {
@@ -58,6 +63,12 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+  }
+
+  :root {
+    --clock-hand-color: #ddd;
+    --indicator-color-small: #5b5b5b;
+    --indicator-color-big: #828282;
   }
 }
 
