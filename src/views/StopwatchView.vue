@@ -11,10 +11,17 @@
         @lap="lap(delta)" />
     </template>
 
-    <ul class="list-container laptimes-container">
-      <li class="no-laptime" v-show="laps.length == 0">No laptimes yet</li>
-      <LapTime v-for="lap in laps" :id="lap.lapNo" :lap="lap"></LapTime>
-    </ul>
+    <!-- <ul class="list-container laptimes-container"> -->
+    <TransitionGroup
+      name="list"
+      tag="ul"
+      class="list-container laptimes-container">
+      <li class="no-laptime" key="no-laps" v-show="laps.length == 0">
+        No laps yet
+      </li>
+      <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
+    </TransitionGroup>
+    <!-- </ul> -->
   </MainLayout>
 </template>
 
@@ -102,6 +109,23 @@ function lap(delta) {
 </script>
 
 <style>
+/* transitions for laptimes*/
+.list-move,
+.list-enter-active {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.list-leave-active {
+  transition: opacity 200ms ease;
+  width: 100%;
+}
+
 .stopwatch {
   position: absolute;
   inset: 0;
@@ -114,16 +138,23 @@ function lap(delta) {
 
   display: flex;
   flex-direction: column-reverse;
+  gap: 0.5rem;
 }
 
 .no-laptime {
   text-align: center;
+  width: 100%;
   font-size: 1.2rem;
+}
+
+.lap:nth-child(2) {
+  margin-block-end: 10rem;
 }
 
 @media screen and (min-width: 50em) {
   .stopwatch {
     position: relative;
+    padding: 0;
   }
 
   .laptimes {
