@@ -36,6 +36,9 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+
+  --navlink-active: var(--accent);
+  --navlink-hover: var(--color-background-mute);
 }
 
 @media (prefers-color-scheme: dark) {

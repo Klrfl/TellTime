@@ -36,11 +36,6 @@ function setTheme() {
 </template>
 
 <style lang="scss">
-:root {
-  --navlink-active: var(--accent);
-  --navlink-hover: var(--vt-c-black-mute);
-}
-
 nav {
   background: var(--color-background);
   outline: 1px solid var(--color-border);

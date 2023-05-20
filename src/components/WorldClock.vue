@@ -126,7 +126,7 @@ onMounted(() => {
   --minutes: 60;
   --seconds: 60;
 
-  --clock-bg: #323232;
+  --clock-bg: var(--color-background-soft);
   --indicator-color-small: #828282;
   --indicator-color-big: #5b5b5b;
 }
