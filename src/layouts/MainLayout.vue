@@ -1,6 +1,6 @@
 <template>
   <main class="wrapper">
-    <div class="container">
+    <div class="container container--main-content">
       <slot name="main-content"></slot>
     </div>
 
@@ -10,7 +10,7 @@
   </main>
 </template>
 
-<style scoped>
+<style>
 .wrapper {
   flex-grow: 1;
   display: flex;
@@ -23,15 +23,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1 1 0;
 
   position: relative;
+}
+
+.container--main-content {
+  flex: 1 1 0;
 }
 
 .container--side-content {
   max-height: 50vh;
   overflow: auto;
   align-items: flex-start;
+  flex: 2 1 0;
+}
+
+ul.list-container {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 @media screen and (min-width: 50em) {
@@ -42,6 +52,10 @@
   .container--side-content {
     order: -1;
     max-height: 100vh;
+  }
+
+  ul.list-container {
+    margin: auto 0;
   }
 }
 </style>

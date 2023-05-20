@@ -4,7 +4,7 @@
       <Timer :targetTime="selectedTargetTime"></Timer>
     </template>
 
-    <ul class="target-time-container">
+    <ul class="list-container target-time-container">
       <TargetTime
         v-for="targetTime in targetTimes"
         :key="targetTime.id"
@@ -51,6 +51,13 @@ function selectTargetTime(targetTime) {
 
 <style>
 .target-time-container {
-  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.target-time {
+  flex: 0 1 0;
 }
 </style>

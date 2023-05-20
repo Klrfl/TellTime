@@ -11,7 +11,7 @@
         @lap="lap(delta)" />
     </template>
 
-    <ul class="laptimes">
+    <ul class="list-container laptimes-container">
       <li class="no-laptime" v-show="laps.length == 0">No laptimes yet</li>
       <LapTime v-for="lap in laps" :id="lap.lapNo" :lap="lap"></LapTime>
     </ul>
@@ -102,15 +102,32 @@ function lap(delta) {
 </script>
 
 <style>
-.laptimes {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.stopwatch {
+  position: absolute;
+  inset: 0;
+  padding: 2rem; /* bc we used absolute, the padding on .container doesn't affect .stopwatch*/
+  text-align: center;
+}
+
+.laptimes-container {
   width: 100%;
+
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .no-laptime {
   text-align: center;
   font-size: 1.2rem;
+}
+
+@media screen and (min-width: 50em) {
+  .stopwatch {
+    position: relative;
+  }
+
+  .laptimes {
+    margin: auto 0;
+  }
 }
 </style>
