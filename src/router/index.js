@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import ClockView from "@/views/ClockView.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: "/timer",
     name: "Timer",
     component: () => import("@/views/TimerView.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 
