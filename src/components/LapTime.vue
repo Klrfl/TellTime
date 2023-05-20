@@ -18,8 +18,9 @@ const props = defineProps({
 
 <style lang="scss">
 .lap {
-  border-bottom: 2px solid #aaa;
-  padding-block: 1rem;
+  // border-bottom: 2px solid #aaa;
+  background: #232323;
+  padding: 1rem 0.5rem;
 
   display: flex;
   align-items: center;
