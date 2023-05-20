@@ -5,7 +5,10 @@
     </section>
 
     <section class="btn-container">
-      <button class="btn btn--circular" @click="startTimer" v-show="isStopped">
+      <button
+        class="btn btn-primary btn--circular"
+        @click="startTimer"
+        v-show="isStopped">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
@@ -74,8 +77,9 @@ function startTimer() {
     seconds.value = finalDelta.value.seconds;
     milliseconds.value = finalDelta.value.milliseconds;
 
-    if (finalDelta.value.milliseconds <= 0) {
+    if (finalDelta.value.toMillis() <= 0) {
       clearInterval(interval);
+      milliseconds.value = 0;
       isStopped.value = true;
     }
   });
