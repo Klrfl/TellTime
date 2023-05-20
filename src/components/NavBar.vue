@@ -31,7 +31,7 @@ function setTheme() {
       Stopwatch
     </RouterLink>
 
-    <button class="dark-mode" @click="setTheme">dark mode</button>
+    <button class="dark-mode-toggle" @click="setTheme">dark mode</button>
   </nav>
 </template>
 
@@ -75,10 +75,11 @@ nav {
   font-size: 1.1rem;
 }
 
-.dark-mode {
+.dark-mode-toggle {
   margin-top: auto;
   padding: 2rem;
   user-select: none;
+
   position: absolute;
   top: -100%;
   right: 0;
@@ -95,8 +96,9 @@ nav {
     flex-grow: 0;
   }
 
-  .dark-mode {
+  .dark-mode-toggle {
     position: relative;
+    top: unset;
     padding: 2rem 0;
   }
 }
