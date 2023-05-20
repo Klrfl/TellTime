@@ -1,6 +1,6 @@
 <template>
   <li class="target-time" @click="select">
-    <p>{{ targetTime }}</p>
+    <span>{{ targetTime }}</span>
   </li>
 </template>
 
@@ -18,7 +18,8 @@ function select() {
 
 <style>
 .target-time {
-  outline: 1px solid;
+  background: #2d2d2d;
+  border-radius: 0.5rem;
   padding: 2rem;
 }
 
