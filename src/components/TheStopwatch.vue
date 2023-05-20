@@ -70,13 +70,6 @@ function lap() {
   --stopwatch-dot: 0deg;
 }
 
-.stopwatch {
-  position: absolute;
-  inset: 0;
-  padding: 2rem; /* bc we used absolute, the padding on .container doesn't affect .stopwatch*/
-  text-align: center;
-}
-
 .stopwatch-display {
   text-align: center;
   font-size: 2rem;
