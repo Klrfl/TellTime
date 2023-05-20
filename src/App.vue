@@ -42,14 +42,12 @@ nav {
   opacity: 0;
 }
 
-.slide-enter-from {
-  transform: translateY(80%);
-}
-
+.slide-enter-from,
 .slide-leave-to {
   transform: translateY(-80%);
 }
-@media screen and (min-width: 40em) {
+
+@media screen and (min-width: 50em) {
   #app {
     flex-direction: row;
   }
