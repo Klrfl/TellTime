@@ -65,7 +65,7 @@ function lap() {
 }
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --stopwatch-dot: 0deg;
 }
@@ -86,20 +86,20 @@ function lap() {
   display: grid;
   place-items: center;
   position: relative;
-}
 
-.stopwatch-display-container::after {
-  content: "";
-  background: var(--accent);
-  height: 1rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  &::after {
+    content: "";
+    background: var(--accent);
+    height: 1rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
 
-  position: absolute;
-  top: 0;
-  left: calc(50% - 0.5rem);
-  transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% 9.5rem;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 0.5rem);
+    transform: translateY(10px) rotate(var(--stopwatch-dot));
+    transform-origin: 50% 150px;
+  }
 }
 
 .btn-container {
@@ -118,6 +118,12 @@ function lap() {
     background: transparent;
     position: relative;
     bottom: unset;
+  }
+
+  .stopwatch-display-container::after {
+    top: 0.5rem;
+    transform: rotate(var(--stopwatch-dot));
+    transform-origin: 50% 9rem;
   }
 }
 </style>
