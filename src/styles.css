@@ -38,7 +38,13 @@
   --color-text: var(--vt-c-text-light-1);
 
   --navlink-active: var(--accent);
-  --navlink-hover: var(--color-background-mute);
+  --navlink-hover: transparent;
+}
+
+@media (hover: hover) {
+  :root {
+    --navlink-hover: var(--color-background-mute);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,6 +63,7 @@
 
 .btn {
   user-select: none;
+  outline: 2px solid var(--accent);
   transition: background-color 200ms ease, transform 200ms ease;
 }
 
