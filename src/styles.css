@@ -96,15 +96,24 @@
 }
 
 .btn-container {
+  background: var(--color-background);
+  border-radius: 0.5rem;
   padding: 1rem;
+
   display: flex;
   gap: 1rem;
   justify-content: center;
+
+  position: absolute;
+  left: 50%;
+  bottom: -100%;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .btn {
   font-size: 1.2rem;
-  width: 5rem;
+  width: 3.5rem;
   aspect-ratio: 1 / 1;
   text-align: center;
 }
