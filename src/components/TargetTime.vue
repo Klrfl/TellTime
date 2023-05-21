@@ -1,10 +1,14 @@
 <template>
   <li class="target-time" @click="select">
-    <span>{{ targetTime }}</span>
+    <span>{{ displayTargetTime }}</span>
   </li>
 </template>
 
 <script setup>
+import { computed } from "vue";
+
+import { DateTime } from "luxon";
+
 const props = defineProps({
   targetTime: Number,
 });
@@ -14,17 +18,24 @@ const emit = defineEmits(["select"]);
 function select() {
   emit("select");
 }
+
+const displayTargetTime = computed(() => {
+  const displayedTargetTime = DateTime.fromJSDate(
+    new Date(props.targetTime)
+  ).toUTC();
+  return displayedTargetTime.toFormat("HH:mm:ss");
+});
 </script>
 
-<style>
+<style lang="scss">
 .target-time {
-  background: #2d2d2d;
+  background: var(--target-time-background);
   border-radius: 0.5rem;
   padding: 2rem;
-}
 
-.target-time:hover {
-  background: #343434;
-  cursor: pointer;
+  &:hover {
+    background: var(--target-time-background-hover);
+    cursor: pointer;
+  }
 }
 </style>
