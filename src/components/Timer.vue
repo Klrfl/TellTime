@@ -34,6 +34,8 @@ import { onMounted, watch, ref } from "vue";
 
 import { DateTime } from "luxon";
 
+import { TimePicker } from "ant-design-vue";
+
 const props = defineProps(["targetTime"]);
 
 const hours = ref(0);

@@ -27,7 +27,9 @@ library.add(
   faPause
 );
 
+import "ant-design-vue/dist/antd.css";
 import "./styles.css";
+
 import { getTheme } from "@/utilities/getTheme.js";
 
 const scheme = ref(getTheme());
