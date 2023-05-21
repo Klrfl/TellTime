@@ -6,11 +6,15 @@
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
 
+  --darker-white: #dfdfdf;
+
   --accent: #2d6ccf;
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
   --vt-c-black-mute: #282828;
+
+  --lighter-black: #343434;
 
   --vt-c-indigo: #2c3e50;
 
@@ -37,6 +41,7 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  /* components */
   --navlink-active: var(--accent);
   --navlink-hover: transparent;
 
@@ -44,11 +49,14 @@
   --clock-hand-color: #474747;
   --indicator-color-small: #b5b5b5;
   --indicator-color-big: #282828;
+
+  --target-time-background: var(--darker-white);
 }
 
 @media (hover: hover) {
   :root {
     --navlink-hover: var(--color-background-mute);
+    --target-time-background-hover: var(--lighter-black);
   }
 }
 
@@ -69,6 +77,8 @@
     --clock-hand-color: #ddd;
     --indicator-color-small: #5b5b5b;
     --indicator-color-big: #828282;
+
+    --target-time-background: var(--lighter-black);
   }
 }
 
