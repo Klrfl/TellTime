@@ -55,8 +55,4 @@ function selectTargetTime(targetTime) {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
-.target-time {
-  flex: 0 1 0;
-}
 </style>
