@@ -10,7 +10,7 @@ import { computed } from "vue";
 import { DateTime } from "luxon";
 
 const props = defineProps({
-  targetTime: Number,
+  targetTime: String,
 });
 
 const emit = defineEmits(["select"]);
@@ -20,10 +20,9 @@ function select() {
 }
 
 const displayTargetTime = computed(() => {
-  const displayedTargetTime = DateTime.fromJSDate(
-    new Date(props.targetTime)
-  ).toUTC();
-  return displayedTargetTime.toFormat("HH:mm:ss");
+  return DateTime.fromISO(props.targetTime, { zone: "utc" }).toLocaleString(
+    DateTime.TIME_24_WITH_SECONDS
+  );
 });
 </script>
 
