@@ -2,10 +2,6 @@
   <MainLayout>
     <template #main-content>
       <Timer :targetTime="selectedTargetTime"></Timer>
-      <TimePicker
-        v-model:value="time"
-        value="0"
-        value-format="HH:mm:ss"></TimePicker>
     </template>
 
     <ul class="list-container target-time-container">
@@ -25,38 +21,30 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import Timer from "@/components/Timer.vue";
 import TargetTime from "@/components/TargetTime.vue";
 
-import { TimePicker } from "ant-design-vue";
-
 const targetTimes = ref([
   {
     id: 1,
-    time: 10000,
+    time: `1970-01-01T00:00:10.000`,
   },
   {
     id: 2,
-    time: 15000,
+    time: `1970-01-01T00:00:15.000`,
   },
   {
     id: 3,
-    time: 30000,
+    time: `1970-01-01T00:00:30.000`,
+  },
+  {
+    id: 4,
+    time: `1970-01-01T00:00:45.000`,
   },
   {
     id: 5,
-    time: 60000,
+    time: `1970-01-01T00:01:00.000`,
   },
 ]);
 
-const time = ref(0);
-
-watch(
-  () => time.value,
-  () => {
-    console.log(time.value);
-  }
-);
-
-const selectedTargetTime = ref();
-selectedTargetTime.value = targetTimes.value[0].time;
+const selectedTargetTime = ref(targetTimes.value[0].time);
 
 function selectTargetTime(targetTime) {
   selectedTargetTime.value = targetTime;
