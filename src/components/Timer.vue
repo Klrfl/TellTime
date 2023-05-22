@@ -4,6 +4,10 @@
       {{ hours }} : {{ minutes }} : {{ seconds }} : {{ milliseconds }}
     </section>
 
+    <section class="picker-container">
+      <TimePicker v-model:value="customTargetTime" value-format="HH:mm:ss" />
+    </section>
+
     <section class="btn-container">
       <button
         class="btn btn-primary btn--circular"
@@ -32,11 +36,39 @@
 <script setup>
 import { onMounted, watch, ref } from "vue";
 
-import { DateTime } from "luxon";
-
 import { TimePicker } from "ant-design-vue";
 
-const props = defineProps(["targetTime"]);
+import { DateTime } from "luxon";
+
+const props = defineProps({
+  targetTime: String,
+});
+
+const targetTime = ref(DateTime.fromISO(props.targetTime, { zone: "utc" }));
+
+const customTargetTime = ref(0);
+
+function updateTargetTime(target) {
+  targetTime.value = DateTime.fromISO(target, { zone: "utc" });
+}
+
+// watch props
+watch(
+  () => props.targetTime,
+  () => {
+    updateTargetTime(props.targetTime);
+    resetTimer();
+  }
+);
+
+// watch from picker
+watch(
+  () => customTargetTime.value,
+  () => {
+    updateTargetTime(`1970-01-01T${customTargetTime.value}`);
+    resetTimer();
+  }
+);
 
 const hours = ref(0);
 const minutes = ref(0);
@@ -48,23 +80,8 @@ const isStopped = ref(true);
 const startTime = ref(0);
 const deltaFromStartTime = ref(0);
 
-const targetTime = ref(DateTime.fromJSDate(new Date(props.targetTime)).toUTC());
-
-const finalDelta = ref(0);
-
 let interval = null;
-
-function updateTargetTime() {
-  targetTime.value = DateTime.fromJSDate(new Date(props.targetTime)).toUTC();
-}
-
-watch(
-  () => props.targetTime,
-  () => {
-    updateTargetTime();
-    resetTimer();
-  }
-);
+const finalDelta = ref(0);
 
 function startTimer() {
   startTime.value = DateTime.utc();
