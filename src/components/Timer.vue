@@ -4,9 +4,10 @@
       {{ hours }} : {{ minutes }} : {{ seconds }} : {{ milliseconds }}
     </section>
 
-    <section class="picker-container">
-      <TimePicker v-model:value="customTargetTime" value-format="HH:mm:ss" />
-    </section>
+    <TimePicker
+      size="large"
+      v-model:value="customTargetTime"
+      value-format="HH:mm:ss" />
 
     <section class="btn-container">
       <button
@@ -34,7 +35,7 @@
 </template>
 
 <script setup>
-import { onMounted, watch, ref } from "vue";
+import { watch, ref } from "vue";
 
 import { TimePicker } from "ant-design-vue";
 
@@ -75,15 +76,17 @@ const minutes = ref(0);
 const seconds = ref(0);
 const milliseconds = ref(0);
 
-const isStopped = ref(true);
-
 const startTime = ref(0);
 const deltaFromStartTime = ref(0);
 
 let interval = null;
 const finalDelta = ref(0);
 
+const isStopped = ref(true);
+// const displayTimer = ref(false);
+
 function startTimer() {
+  // displayTimer.value = true;
   startTime.value = DateTime.utc();
 
   isStopped.value = false;
@@ -126,15 +129,21 @@ function resetTimer() {
   minutes.value = targetTime.value.c.minute;
   seconds.value = targetTime.value.c.second;
   milliseconds.value = targetTime.value.c.millisecond;
-}
 
-onMounted(resetTimer);
+  isStopped.value = true;
+  // displayTimer.value = false;
+}
 </script>
 
 <style>
 .timer-container {
   text-align: center;
   font-size: 2rem;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
 }
 
 .timer-display {
