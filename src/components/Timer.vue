@@ -1,13 +1,14 @@
 <template>
   <div class="timer">
-    <section class="timer-display">
+    <section class="timer-display" v-show="displayTimer">
       {{ hours }} : {{ minutes }} : {{ seconds }} : {{ milliseconds }}
     </section>
 
     <TimePicker
       size="large"
-      v-model:value="customTargetTime"
-      value-format="HH:mm:ss" />
+      v-model:value="targetTimeString"
+      value-format="HH:mm:ss"
+      v-show="displayTimer === false" />
 
     <section class="btn-container">
       <button
@@ -45,29 +46,27 @@ const props = defineProps({
   targetTime: String,
 });
 
+const emit = defineEmits(["displayTimer", "dontDisplayTimer"]);
+
 const targetTime = ref(DateTime.fromISO(props.targetTime, { zone: "utc" }));
 
-const customTargetTime = ref(0);
+const targetTimeString = ref(0);
 
 function updateTargetTime(target) {
   targetTime.value = DateTime.fromISO(target, { zone: "utc" });
 }
 
-// watch props
 watch(
   () => props.targetTime,
   () => {
-    updateTargetTime(props.targetTime);
-    resetTimer();
+    targetTimeString.value = props.targetTime;
   }
 );
 
-// watch from picker
 watch(
-  () => customTargetTime.value,
+  () => targetTimeString.value,
   () => {
-    updateTargetTime(`1970-01-01T${customTargetTime.value}`);
-    resetTimer();
+    updateTargetTime(`1970-01-01T${targetTimeString.value}`);
   }
 );
 
@@ -83,10 +82,12 @@ let interval = null;
 const finalDelta = ref(0);
 
 const isStopped = ref(true);
-// const displayTimer = ref(false);
+const displayTimer = ref(false);
 
 function startTimer() {
-  // displayTimer.value = true;
+  displayTimer.value = true;
+  emit("dontDisplayTimer");
+
   startTime.value = DateTime.utc();
 
   isStopped.value = false;
@@ -125,17 +126,13 @@ function stopTimer() {
 }
 
 function resetTimer() {
-  hours.value = targetTime.value.c.hour;
-  minutes.value = targetTime.value.c.minute;
-  seconds.value = targetTime.value.c.second;
-  milliseconds.value = targetTime.value.c.millisecond;
-
+  emit("displayTimer");
   isStopped.value = true;
-  // displayTimer.value = false;
+  displayTimer.value = false;
 }
 </script>
 
-<style>
+<style lang="scss">
 .timer-container {
   text-align: center;
   font-size: 2rem;
@@ -149,5 +146,35 @@ function resetTimer() {
 .timer-display {
   text-align: center;
   font-size: 2rem;
+}
+
+.ant-picker {
+  background: transparent;
+}
+
+.ant-picker-panel-container {
+  background: transparent;
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] {
+  .ant-picker-input > input {
+    color: #ddd;
+  }
+
+  .ant-picker-time-panel-column
+    > li.ant-picker-time-panel-cell
+    .ant-picker-time-panel-cell-inner {
+    &:hover {
+      background: #8882;
+    }
+    color: #ddd;
+  }
+
+  .ant-picker-time-panel-column
+    > li.ant-picker-time-panel-cell-selected
+    .ant-picker-time-panel-cell-inner {
+    background: #aaa2;
+  }
 }
 </style>
