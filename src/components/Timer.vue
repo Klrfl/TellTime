@@ -76,31 +76,29 @@ const seconds = ref(0);
 const milliseconds = ref(0);
 
 const startTime = ref(0);
-const deltaFromStartTime = ref(0);
-
 let interval = null;
+const initialDelta = ref(0);
 const finalDelta = ref(0);
 
 const isStopped = ref(true);
 const displayTimer = ref(false);
 
 function startTimer() {
-  displayTimer.value = true;
-  emit("dontDisplayTimer");
-
   startTime.value = DateTime.utc();
 
+  displayTimer.value = true;
   isStopped.value = false;
+  emit("dontDisplayTimer");
 
   interval = setInterval(() => {
-    deltaFromStartTime.value = DateTime.utc().diff(startTime.value, [
+    initialDelta.value = DateTime.utc().diff(startTime.value, [
       "hours",
       "minutes",
       "seconds",
       "milliseconds",
     ]);
 
-    finalDelta.value = targetTime.value.diff(deltaFromStartTime.value, [
+    finalDelta.value = targetTime.value.diff(initialDelta.value, [
       "hours",
       "minutes",
       "seconds",
@@ -121,8 +119,11 @@ function startTimer() {
 }
 
 function stopTimer() {
-  clearInterval(interval);
   isStopped.value = true;
+  clearInterval(interval);
+
+  const newTargetTime = ref(finalDelta.value.toFormat("hh:mm:ss.SSS"));
+  updateTargetTime(`1970-01-01T${newTargetTime.value}`);
 }
 
 function resetTimer() {
