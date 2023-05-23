@@ -1,10 +1,13 @@
 <template>
   <MainLayout>
     <template #main-content>
-      <Timer :targetTime="selectedTargetTime"></Timer>
+      <Timer
+        :targetTime="selectedTargetTime"
+        @displayTimer="handleDisplayInput(true)"
+        @dontDisplayTimer="handleDisplayInput(false)"></Timer>
     </template>
 
-    <ul class="list-container target-time-container">
+    <ul class="list-container target-time-container" v-show="displayInput">
       <TargetTime
         v-for="targetTime in targetTimes"
         :key="targetTime.id"
@@ -15,32 +18,38 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
+import { ref } from "vue";
 
 import MainLayout from "@/layouts/MainLayout.vue";
 import Timer from "@/components/Timer.vue";
 import TargetTime from "@/components/TargetTime.vue";
 
+const displayInput = ref(true);
+
+function handleDisplayInput(state) {
+  displayInput.value = state;
+}
+
 const targetTimes = ref([
   {
     id: 1,
-    time: `1970-01-01T00:00:10.000`,
+    time: `00:00:10`,
   },
   {
     id: 2,
-    time: `1970-01-01T00:00:15.000`,
+    time: `00:00:15`,
   },
   {
     id: 3,
-    time: `1970-01-01T00:00:30.000`,
+    time: `00:00:30`,
   },
   {
     id: 4,
-    time: `1970-01-01T00:00:45.000`,
+    time: `00:00:45`,
   },
   {
     id: 5,
-    time: `1970-01-01T00:01:00.000`,
+    time: `00:01:00`,
   },
 ]);
 
