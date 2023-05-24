@@ -3,8 +3,8 @@
     <template #main-content>
       <Timer
         :targetTime="selectedTargetTime"
-        @displayTimer="handleDisplayInput(true)"
-        @dontDisplayTimer="handleDisplayInput(false)"></Timer>
+        @timerNotDisplayed="handleDisplayInput(true)"
+        @timerDisplayed="handleDisplayInput(false)"></Timer>
     </template>
 
     <ul class="list-container target-time-container" v-show="displayInput">
