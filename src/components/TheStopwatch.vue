@@ -73,19 +73,6 @@ function lap() {
 .stopwatch-display {
   text-align: center;
   font-size: 2rem;
-}
-
-.stopwatch-display-container {
-  outline: 2px solid #333;
-  border-radius: 50%;
-  max-width: 50ch;
-  max-height: 100%;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1;
-
-  display: grid;
-  place-items: center;
-  position: relative;
 
   &::after {
     content: "";
@@ -102,6 +89,19 @@ function lap() {
   }
 }
 
+.stopwatch-display-container {
+  outline: 2px solid #333;
+  border-radius: 50%;
+  max-width: 37ch;
+  max-height: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
 @media screen and (min-width: 50em) {
   .btn-container {
     background: transparent;
@@ -109,10 +109,10 @@ function lap() {
     bottom: unset;
   }
 
-  .stopwatch-display-container::after {
+  .stopwatch-display::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 9.5rem;
+    transform-origin: 50% 17.7vmin;
   }
 }
 </style>
