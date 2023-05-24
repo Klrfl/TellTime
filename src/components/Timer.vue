@@ -14,21 +14,21 @@
       <button
         class="btn btn-primary btn--circular"
         @click="startTimer"
-        v-show="isStopped">
+        v-show="isPaused">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
       <button
         class="btn btn--circular"
-        @click="stopTimer"
-        v-show="isStopped === false">
+        @click="pauseTimer"
+        v-show="isPaused === false">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
 
       <button
         class="btn btn--circular"
         @click="resetTimer"
-        :disabled="isStopped === false">
+        :disabled="isPaused === false">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
     </section>
@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
+import { onMounted, watch, ref } from "vue";
 
 import { TimePicker } from "ant-design-vue";
 
@@ -46,14 +46,13 @@ const props = defineProps({
   targetTime: String,
 });
 
-const emit = defineEmits(["displayTimer", "dontDisplayTimer"]);
+const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
 
-const targetTime = ref(DateTime.fromISO(props.targetTime, { zone: "utc" }));
-
-const targetTimeString = ref(0);
+const targetTime = ref(null);
+const targetTimeString = ref(`00:00:10`);
 
 function updateTargetTime(target) {
-  targetTime.value = DateTime.fromISO(target, { zone: "utc" });
+  targetTime.value = DateTime.fromISO(`1970-01-01T${target}`, { zone: "utc" });
 }
 
 watch(
@@ -66,7 +65,7 @@ watch(
 watch(
   () => targetTimeString.value,
   () => {
-    updateTargetTime(`1970-01-01T${targetTimeString.value}`);
+    updateTargetTime(targetTimeString.value);
   }
 );
 
@@ -80,16 +79,17 @@ let interval = null;
 const initialDelta = ref(0);
 const finalDelta = ref(0);
 
-const isStopped = ref(true);
+const isPaused = ref(true);
 const displayTimer = ref(false);
 
 function startTimer() {
   startTime.value = DateTime.utc();
 
   displayTimer.value = true;
-  isStopped.value = false;
-  emit("dontDisplayTimer");
+  isPaused.value = false;
+  emit("timerDisplayed");
 
+  // calculate difference between startTime and now, every millisecond
   interval = setInterval(() => {
     initialDelta.value = DateTime.utc().diff(startTime.value, [
       "hours",
@@ -110,27 +110,34 @@ function startTimer() {
     seconds.value = finalDelta.value.seconds;
     milliseconds.value = finalDelta.value.milliseconds;
 
+    // stop timer when 0
     if (finalDelta.value.toMillis() <= 0) {
       clearInterval(interval);
       milliseconds.value = 0;
-      isStopped.value = true;
+      isPaused.value = true;
     }
   });
 }
 
-function stopTimer() {
-  isStopped.value = true;
+function pauseTimer() {
+  isPaused.value = true;
   clearInterval(interval);
 
-  const newTargetTime = ref(finalDelta.value.toFormat("hh:mm:ss.SSS"));
-  updateTargetTime(`1970-01-01T${newTargetTime.value}`);
+  updateTargetTime(finalDelta.value.toFormat("hh:mm:ss.SSS"));
 }
 
 function resetTimer() {
-  emit("displayTimer");
-  isStopped.value = true;
+  emit("timerNotDisplayed");
+  isPaused.value = true;
   displayTimer.value = false;
+
+  updateTargetTime(props.targetTime);
 }
+
+// set targetTime on mount
+onMounted(() => {
+  updateTargetTime(targetTimeString.value);
+});
 </script>
 
 <style lang="scss">
