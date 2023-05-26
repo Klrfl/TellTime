@@ -73,7 +73,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-import DigitalWorldClock from "@/components/DigitalWorldClock.vue";
+import DigitalWorldClock from "@/components/clock/DigitalWorldClock.vue";
 
 let root = document.querySelector(":root");
 const date0 = new Date().setHours(0, 0, 0, 0);
