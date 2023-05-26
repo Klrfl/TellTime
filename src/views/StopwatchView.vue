@@ -8,10 +8,9 @@
         @pauseWatch="pauseWatch"
         @startWatch="startWatch"
         @resetWatch="resetWatch"
-        @lap="lap(delta)" />
+        @lap="lap" />
     </template>
 
-    <!-- <ul class="list-container laptimes-container"> -->
     <ul class="list-container laptimes-container">
       <li class="no-laptime" key="no-laps" v-show="laps.length == 0">
         No laps yet
@@ -20,7 +19,6 @@
         <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
       </TransitionGroup>
     </ul>
-    <!-- </ul> -->
   </MainLayout>
 </template>
 
@@ -31,49 +29,52 @@ import LapTime from "@/components/LapTime.vue";
 
 import { ref } from "vue";
 
+import { DateTime } from "luxon";
+
 const root = document.querySelector(":root");
 
 let startTime = ref(0);
-let currentTime = ref(0);
 let stopTime = ref(0);
 let delta = ref(0);
 let interval = null;
 
-function getCurrentTime() {
-  return new Date().getTime();
-}
-
+const isStopped = ref(null);
 const seconds = ref(0);
 const miliSeconds = ref(0);
 const minutes = ref(0);
 
-function startWatch(isStopped) {
-  // if timer was started after it stopped
-  if (isStopped == true) {
-    // bump up start time
-    startTime.value += getCurrentTime() - stopTime.value;
+function startWatch() {
+  if (isStopped.value == true) {
+    const delta = DateTime.utc().diff(stopTime.value).toObject().milliseconds;
+    startTime.value = startTime.value.plus(delta);
   }
 
-  if (startTime.value === 0) startTime.value = getCurrentTime();
+  if (startTime.value === 0) startTime.value = DateTime.utc();
 
   interval = setInterval(() => {
-    currentTime.value = getCurrentTime();
-    delta.value = new Date(currentTime.value - startTime.value);
+    delta.value = DateTime.utc().diff(startTime.value, [
+      "hours",
+      "minutes",
+      "seconds",
+      "milliseconds",
+    ]);
 
-    minutes.value = delta.value.getMinutes();
-    seconds.value = delta.value.getSeconds();
-    miliSeconds.value = delta.value.getMilliseconds();
+    minutes.value = delta.value.minutes;
+    seconds.value = delta.value.seconds;
+    miliSeconds.value = delta.value.milliseconds;
 
+    // rotate dot
     root.style.setProperty(
       "--stopwatch-dot",
-      `${(delta.value.getTime() / 60000) * 360}deg`
+      `${(delta.value.toMillis() / 60000) * 360}deg`
     );
   });
 }
 
 function pauseWatch() {
   clearInterval(interval);
-  stopTime.value = getCurrentTime();
+  stopTime.value = DateTime.utc();
+  isStopped.value = true;
 }
 
 function resetWatch() {
@@ -85,25 +86,37 @@ function resetWatch() {
   seconds.value = 0;
   miliSeconds.value = 0;
 
+  isStopped.value = null;
+
   root.style.removeProperty("--stopwatch-dot");
 
   laps.value = [];
-  currentLap.value = 1;
+  lapNo.value = 1;
 }
 
 const laps = ref([]);
-const currentLap = ref(1);
+const lapNo = ref(1);
 
-function lap(delta) {
+const previousLap = ref(new Date(0));
+
+function lap() {
+  const deltaBetweenLaps = DateTime.fromMillis(delta.value - previousLap.value)
+  .toFormat("hh:mm:ss.SSS");
+
+  // object for display in LapTime
   laps.value.push({
-    no: currentLap.value++,
+    no: lapNo.value++,
+
     time: {
-      minute: delta.getMinutes(),
-      second: delta.getSeconds(),
-      milliSecond: delta.getMilliseconds(),
+      minute: delta.value.minutes,
+      second: delta.value.seconds,
+      milliSecond: delta.value.milliseconds,
     },
-    // delta,
+
+    delta: deltaBetweenLaps,
   });
+
+  previousLap.value = delta.value; // change previousLap
 }
 </script>
 
