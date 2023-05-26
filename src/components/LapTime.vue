@@ -6,7 +6,7 @@
       <span class="lap__time--second">{{ lap.time.second }}</span>
       <span class="lap__time--milliSecond">{{ lap.time.milliSecond }}</span>
     </div>
-    <div class="lap--delta">-9304903294</div>
+    <div class="lap--delta">{{ lap.delta }}</div>
   </li>
 </template>
 
