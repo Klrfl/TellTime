@@ -112,7 +112,7 @@ function lap() {
   .stopwatch-display::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 17.7vmin;
+    transform-origin: 50% 135px;
   }
 }
 </style>
