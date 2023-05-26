@@ -21,8 +21,8 @@
 import { ref } from "vue";
 
 import MainLayout from "@/layouts/MainLayout.vue";
-import Timer from "@/components/Timer.vue";
-import TargetTime from "@/components/TargetTime.vue";
+import Timer from "@/components/timer/Timer.vue";
+import TargetTime from "@/components/timer/TargetTime.vue";
 
 const displayInput = ref(true);
 

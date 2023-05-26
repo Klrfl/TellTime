@@ -24,8 +24,8 @@
 
 <script setup>
 import MainLayout from "@/layouts/MainLayout.vue";
-import TheStopwatch from "@/components/TheStopwatch.vue";
-import LapTime from "@/components/LapTime.vue";
+import TheStopwatch from "@/components/stopwatch/TheStopwatch.vue";
+import LapTime from "@/components/stopwatch/LapTime.vue";
 
 import { ref } from "vue";
 

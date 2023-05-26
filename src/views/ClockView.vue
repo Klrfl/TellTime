@@ -9,5 +9,5 @@
 
 <script setup>
 import MainLayout from "@/layouts/MainLayout.vue";
-import WorldClock from "@/components/WorldClock.vue";
+import WorldClock from "@/components/clock/WorldClock.vue";
 </script>
