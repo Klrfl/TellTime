@@ -142,10 +142,11 @@ $clock-hand-width: 0.2rem;
 
 .clock {
   background: var(--clock-bg);
-  width: 22rem;
+  max-width: 24rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   position: relative;
+  flex-basis: 22rem;
 
   & > * {
     position: absolute;
