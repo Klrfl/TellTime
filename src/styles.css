@@ -27,10 +27,12 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  --shadow: 5px 5px 15px;
 }
 
 /* semantic color variables for this project */
-:root {
+[data-theme="light"] {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
@@ -41,44 +43,55 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  /* components */
+  /* navbar */
   --navlink-active: var(--accent);
-  --navlink-hover: transparent;
 
+  /* clock */
   --clock-bg: var(--color-background-soft);
   --clock-hand-color: #474747;
   --indicator-color-small: #b5b5b5;
   --indicator-color-big: #282828;
 
+  /* timer */
   --target-time-background: var(--darker-white);
+
+  /* stopwatch */
+  --laptime-background: var(--color-background-mute);
 }
 
+[data-theme="dark"] {
+  --color-background: var(--vt-c-black);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--vt-c-black-mute);
+
+  --color-border: var(--vt-c-divider-dark-2);
+  --color-border-hover: var(--vt-c-divider-dark-1);
+
+  --color-heading: var(--vt-c-text-dark-1);
+  --color-text: var(--vt-c-text-dark-2);
+
+  /* clock */
+  --clock-hand-color: #ddd;
+  --indicator-color-small: #5b5b5b;
+  --indicator-color-big: #828282;
+
+  /* timer */
+  --target-time-background: var(--lighter-black);
+
+  /* stopwatch */
+  --laptime-background: #232323;
+}
+
+/* hover styles */
 @media (hover: hover) {
-  :root {
+  [data-theme="light"] {
+    --navlink-hover: var(--color-background-mute);
+    --target-time-background-hover: #bdbdbd;
+  }
+
+  [data-theme="dark"] {
     --navlink-hover: var(--color-background-mute);
     --target-time-background-hover: var(--lighter-black);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
-
-  :root {
-    --clock-hand-color: #ddd;
-    --indicator-color-small: #5b5b5b;
-    --indicator-color-big: #828282;
-
-    --target-time-background: var(--lighter-black);
   }
 }
 
@@ -86,6 +99,18 @@
   user-select: none;
   outline: 2px solid var(--accent);
   transition: background-color 200ms ease, transform 200ms ease;
+  font-size: 1.2rem;
+  width: 3.5rem;
+  aspect-ratio: 1 / 1;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent);
+}
+
+.btn--circular {
+  border-radius: 50%;
 }
 
 .btn:hover {
@@ -106,9 +131,10 @@
 }
 
 .btn-container {
-  background: var(--color-background);
+  backdrop-filter: blur(0.5rem);
   border-radius: 0.5rem;
   padding: 1rem;
+  box-shadow: var(--shadow) rgba(60, 60, 60, 0.22);
 
   display: flex;
   gap: 1rem;
@@ -119,21 +145,6 @@
   bottom: -100%;
   transform: translateX(-50%);
   z-index: 2;
-}
-
-.btn {
-  font-size: 1.2rem;
-  width: 3.5rem;
-  aspect-ratio: 1 / 1;
-  text-align: center;
-}
-
-.btn-primary {
-  background: var(--accent);
-}
-
-.btn--circular {
-  border-radius: 50%;
 }
 
 .list-container {
