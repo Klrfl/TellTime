@@ -18,8 +18,7 @@ const props = defineProps({
 
 <style lang="scss">
 .lap {
-  // border-bottom: 2px solid #aaa;
-  background: #232323;
+  background: var(--laptime-background);
   padding: 1rem 0.5rem;
 
   display: flex;
