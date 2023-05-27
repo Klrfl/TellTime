@@ -160,10 +160,6 @@ function lap() {
   font-size: 1.2rem;
 }
 
-.lap:nth-child(2) {
-  margin-block-end: 10rem;
-}
-
 @media screen and (min-width: 50em) {
   .stopwatch {
     position: relative;

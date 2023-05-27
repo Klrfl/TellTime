@@ -136,6 +136,10 @@
   border-radius: 50%;
 }
 
+.list-container {
+  padding-block-end: 10rem;
+}
+
 @media screen and (min-width: 50em) {
   .btn-container {
     background: transparent;
