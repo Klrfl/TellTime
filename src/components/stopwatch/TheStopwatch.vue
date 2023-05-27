@@ -101,18 +101,4 @@ function lap() {
   place-items: center;
   position: relative;
 }
-
-@media screen and (min-width: 50em) {
-  .btn-container {
-    background: transparent;
-    position: relative;
-    bottom: unset;
-  }
-
-  .stopwatch-display::after {
-    top: 0.5rem;
-    transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 135px;
-  }
-}
 </style>
