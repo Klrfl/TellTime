@@ -181,7 +181,7 @@ $clock-hand-width: 0.2rem;
 
   &__dot,
   &__hand {
-    box-shadow: 5px 5px 15px #323232;
+    box-shadow: var(--shadow) rgba(60, 60, 60, 0.22);
   }
 
   &__dot {
