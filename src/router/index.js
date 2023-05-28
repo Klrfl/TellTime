@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import ClockView from "@/views/ClockView.vue";
-import StopwatchView from "@/views/StopwatchView.vue";
-import TimerView from "@/views/TimerView.vue";
 import NotFound from "@/views/NotFound.vue";
 
 const routes = [
@@ -14,12 +12,12 @@ const routes = [
   {
     path: "/stopwatch",
     name: "Stopwatch",
-    component: StopwatchView,
+    component: () => import("@/views/StopwatchView.vue"),
   },
   {
     path: "/timer",
     name: "Timer",
-    component: TimerView,
+    component: () => import("@/views/StopwatchView.vue"),
   },
   {
     path: "/about-us",
