@@ -16,6 +16,7 @@ import {
   faPlay,
   faRotateLeft,
   faPause,
+  faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -24,7 +25,8 @@ library.add(
   faHourglassStart,
   faPlay,
   faRotateLeft,
-  faPause
+  faPause,
+  faEllipsisVertical
 );
 
 import "ant-design-vue/dist/antd.css";
