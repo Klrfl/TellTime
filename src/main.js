@@ -19,6 +19,7 @@ import {
   faEllipsisVertical,
   faSun,
   faMoon,
+  faSquareXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -30,7 +31,8 @@ library.add(
   faPause,
   faEllipsisVertical,
   faSun,
-  faMoon
+  faMoon,
+  faSquareXmark
 );
 
 import "ant-design-vue/dist/antd.css";
