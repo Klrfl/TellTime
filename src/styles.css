@@ -29,6 +29,7 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
   --shadow: 5px 5px 15px;
+  --navlink-active: var(--accent);
 }
 
 /* semantic color variables for this project */
@@ -42,9 +43,6 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
-
-  /* navbar */
-  --navlink-active: var(--accent);
 
   /* clock */
   --clock-bg: var(--color-background-soft);
@@ -154,6 +152,7 @@
 @media screen and (min-width: 50em) {
   .btn-container {
     background: transparent;
+    width: auto;
     position: relative;
     bottom: unset;
   }
