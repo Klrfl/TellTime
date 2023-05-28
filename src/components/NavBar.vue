@@ -1,21 +1,3 @@
-<script setup>
-import { inject, ref } from "vue";
-
-let theme = inject("theme");
-
-function setTheme() {
-  if (theme === "dark") {
-    theme = "light";
-    localStorage.setItem("theme-preference", "light");
-  } else {
-    theme = "dark";
-    localStorage.setItem("theme-preference", "dark");
-  }
-
-  document.body.setAttribute("data-theme", theme);
-}
-</script>
-
 <template>
   <nav>
     <RouterLink class="nav-link" :to="{ name: 'Clock' }">
@@ -31,9 +13,13 @@ function setTheme() {
       Stopwatch
     </RouterLink>
 
-    <button class="dark-mode-toggle" @click="setTheme">dark mode</button>
+    <KebabMenu />
   </nav>
 </template>
+
+<script setup>
+import KebabMenu from "@/components/KebabMenu.vue";
+</script>
 
 <style lang="scss">
 nav {
@@ -74,16 +60,6 @@ nav {
   font-size: 1.1rem;
 }
 
-.dark-mode-toggle {
-  margin-top: auto;
-  padding: 2rem;
-  user-select: none;
-
-  position: absolute;
-  top: -100%;
-  right: 0;
-}
-
 @media screen and (min-width: 50em) {
   nav {
     flex-direction: column;
@@ -92,12 +68,6 @@ nav {
   .nav-link {
     flex-grow: 0;
     padding: 1rem;
-  }
-
-  .dark-mode-toggle {
-    position: relative;
-    top: unset;
-    padding: 2rem 0;
   }
 }
 </style>
