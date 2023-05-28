@@ -2,15 +2,15 @@
   <nav>
     <RouterLink class="nav-link" :to="{ name: 'Clock' }">
       <font-awesome-icon :icon="['fas', 'clock']" />
-      Clock
+      <span>Clock</span>
     </RouterLink>
     <RouterLink class="nav-link" :to="{ name: 'Timer' }">
       <font-awesome-icon :icon="['fas', 'hourglass-start']" />
-      Timer
+      <span>Timer</span>
     </RouterLink>
     <RouterLink class="nav-link" :to="{ name: 'Stopwatch' }">
       <font-awesome-icon :icon="['fas', 'stopwatch']" />
-      Stopwatch
+      <span>Stopwatch</span>
     </RouterLink>
 
     <KebabMenu />
@@ -25,14 +25,11 @@ import KebabMenu from "@/components/KebabMenu.vue";
 nav {
   background: var(--color-background);
   outline: 1px solid var(--color-border);
-  font-size: 12px;
+  font-size: 0.8rem;
   text-align: center;
+  z-index: 10;
 
   display: flex;
-
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
 }
 
 .nav-link {
