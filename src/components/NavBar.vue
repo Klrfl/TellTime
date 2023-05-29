@@ -37,6 +37,7 @@ nav {
   color: var(--color-text);
   flex: 1 1 0;
   cursor: pointer;
+  user-select: none;
 
   display: flex;
   flex-direction: column;
