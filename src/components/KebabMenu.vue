@@ -1,17 +1,27 @@
 <template>
-  <button class="nav-link kebab-toggle">
+  <button class="nav-link kebab-toggle" @click="toggleOverlay">
     <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
     <span>more</span>
-
-    <div class="overlay">
-      <button class="dark-mode-toggle" @click="setTheme">dark mode</button>
-      <RouterLink :to="{ name: 'About' }">About</RouterLink>
-    </div>
   </button>
+
+  <div class="overlay" ref="overlay">
+    <button class="close-overlay" @click="toggleOverlay('remove')">
+      <font-awesome-icon :icon="['fas', 'square-xmark']" />
+    </button>
+
+    <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
+      <font-awesome-icon :icon="['fas', 'sun']" />
+      <font-awesome-icon :icon="['fas', 'moon']" />
+    </button>
+    <RouterLink class="to-about" :to="{ name: 'About' }">About</RouterLink>
+  </div>
 </template>
 
 <script setup>
-import { inject } from "vue";
+import { inject, ref } from "vue";
+
+const overlay = ref(null);
+const darkModeToggle = ref(null);
 
 let theme = inject("theme");
 
@@ -25,70 +35,101 @@ function setTheme() {
   }
 
   document.body.setAttribute("data-theme", theme);
+
+  darkModeToggle.value.classList.toggle("dark");
+}
+
+function toggleOverlay(opt = null) {
+  if (opt === "remove") {
+    overlay.value.classList.remove("active");
+  } else {
+    overlay.value.classList.add("active");
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
 .kebab-toggle {
   margin-top: auto;
-  position: relative;
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
 }
 
 .overlay {
+  text-align: center;
+  outline: 2px solid var(--color-border);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  width: max-content;
+  opacity: 0;
+
   position: absolute;
-  bottom: 0;
+  inset: 1rem 1rem auto auto;
+
+  &.active {
+    opacity: 1;
+  }
 }
 
-.dark-mode-toggle {
-  padding: 2rem;
-  user-select: none;
-
+.close-overlay {
+  font-size: 1.5rem;
   position: absolute;
-  top: -100%;
+  top: 0;
   right: 0;
 }
 
-.toggle {
-  background: #bdbdbd;
+.dark-mode-toggle {
+  background: transparent;
+  outline: 2px solid;
+  margin: 0 auto;
   border-radius: 20rem;
   aspect-ratio: 2 / 1;
-  position: relative;
 
   display: flex;
   justify-content: center;
 
+  position: relative;
   cursor: pointer;
+
+  & > * {
+    user-select: none;
+    text-align: center;
+    padding: 0.5rem;
+    aspect-ratio: 1/ 1;
+  }
+
+  &::before {
+    content: "";
+    background: var(--accent);
+    border-radius: 20rem;
+    height: 100%;
+    transform: scale(1.2);
+    position: absolute;
+    inset: 0;
+
+    transition: transform 200ms ease;
+    aspect-ratio: 1/1;
+  }
+
+  &.dark::before {
+    transform: scale(1.2) translateX(100%);
+  }
 }
 
-.toggle > * {
-  user-select: none;
-  text-align: center;
-  padding: 1.5rem;
-  aspect-ratio: 1/ 1;
-}
-
-.toggle::before {
-  content: "";
-  background: blue;
-  position: absolute;
-  inset: 0;
-  border-radius: 20rem;
-  transform: scale(1.2);
-  height: 100%;
-
-  transition: transform 200ms ease;
-  aspect-ratio: 1/1;
-}
-
-.toggle.dark::before {
-  transform: scale(1.2) translateX(100%);
+.to-about {
+  display: block;
+  padding: 1rem;
 }
 
 @media screen and (min-width: 50em) {
-  .dark-mode-toggle {
+  .kebab-toggle {
     position: relative;
-    top: unset;
-    padding: 2rem 0;
+    inset: unset;
+  }
+
+  .overlay {
+    inset: auto 0 1rem 1rem;
   }
 }
 </style>
