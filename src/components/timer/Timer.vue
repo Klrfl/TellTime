@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { onMounted, watch, ref } from "vue";
+import { watch, ref } from "vue";
 
 import { TimePicker } from "ant-design-vue";
 
@@ -54,6 +54,9 @@ const targetTimeString = ref(`00:00:10`);
 function updateTargetTime(target) {
   targetTime.value = DateTime.fromISO(`1970-01-01T${target}`, { zone: "utc" });
 }
+
+// set targetTime on mount
+updateTargetTime(targetTimeString.value);
 
 watch(
   () => props.targetTime,
@@ -133,11 +136,6 @@ function resetTimer() {
 
   updateTargetTime(props.targetTime);
 }
-
-// set targetTime on mount
-onMounted(() => {
-  updateTargetTime(targetTimeString.value);
-});
 </script>
 
 <style lang="scss">
