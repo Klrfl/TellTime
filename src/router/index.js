@@ -17,7 +17,7 @@ const routes = [
   {
     path: "/timer",
     name: "Timer",
-    component: () => import("@/views/StopwatchView.vue"),
+    component: () => import("@/views/TimerView.vue"),
   },
   {
     path: "/about-us",
