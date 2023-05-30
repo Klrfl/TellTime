@@ -45,19 +45,18 @@ const minutes = ref(0);
 
 function startWatch() {
   if (isStopped.value == true) {
-    const delta = DateTime.utc().diff(stopTime.value);
-    startTime.value = startTime.value.plus(delta.values);
+    const stopAndNowDelta = DateTime.utc().diff(stopTime.value);
+    startTime.value = startTime.value.plus(stopAndNowDelta.values);
   }
 
   if (startTime.value === 0) startTime.value = DateTime.utc();
 
   interval = setInterval(() => {
-    delta.value = DateTime.now().diff(startTime.value, [
-      "hours",
-      "minutes",
-      "seconds",
-      "milliseconds",
-    ]);
+    delta.value = DateTime.now().diff(
+      startTime.value,
+      ["hours", "minutes", "seconds", "milliseconds"],
+      { zone: "utc" }
+    );
 
     minutes.value = delta.value.minutes;
     seconds.value = delta.value.seconds;
@@ -102,7 +101,7 @@ const previousLap = ref(0);
 function lap() {
   const deltaBetweenLaps = DateTime.fromMillis(
     delta.value - previousLap.value
-  ).toFormat("hh:mm:ss.SSS");
+  ).toFormat("mm:ss.SSS");
 
   // object for display in LapTime
   laps.value.push({
