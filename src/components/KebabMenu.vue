@@ -65,7 +65,7 @@ function toggleOverlay(opt = null) {
 
   position: absolute;
   inset: 1rem 1rem auto auto;
-  transform: translateX(150%);
+  transform: translateY(-100%);
   opacity: 0%;
   transition: transform 200ms ease, opacity 200ms ease;
 
