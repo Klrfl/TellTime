@@ -155,7 +155,17 @@ function resetTimer() {
 }
 
 .ant-picker {
-  background: transparent;
+  color: unset;
+  background: var(--picker-background);
+  border: 1px solid var(--vt-c-divider-light-1);
+
+  &-clear {
+    background: var(--picker-background);
+
+    &:hover {
+      color: unset;
+    }
+  }
 }
 
 .ant-picker-panel-container {
