@@ -1,7 +1,7 @@
 <template>
   <div class="timer">
-    <section class="timer-display" v-show="displayTimer">
-      {{ hours }} : {{ minutes }} : {{ seconds }} : {{ milliseconds }}
+    <section class="time-display" v-show="displayTimer">
+      {{ hours }}:{{ minutes }}:{{ seconds }}.{{ milliseconds }}
     </section>
 
     <TimePicker
@@ -149,7 +149,7 @@ function resetTimer() {
   flex-direction: column;
 }
 
-.timer-display {
+.time-display {
   text-align: center;
   font-size: 2rem;
 }

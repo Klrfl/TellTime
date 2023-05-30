@@ -1,8 +1,8 @@
 <template>
   <div class="stopwatch">
-    <section class="stopwatch-display-container">
-      <span class="stopwatch-display">
-        {{ minutes }}:{{ seconds }}:{{ miliSeconds }}
+    <section class="stopwatch-display-frame">
+      <span class="time-display">
+        {{ minutes }}:{{ seconds }}.{{ miliSeconds }}
       </span>
     </section>
 
@@ -65,12 +65,12 @@ function lap() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 :root {
   --stopwatch-dot: 0deg;
 }
 
-.stopwatch-display {
+.time-display {
   text-align: center;
   font-size: 2rem;
 
@@ -89,7 +89,7 @@ function lap() {
   }
 }
 
-.stopwatch-display-container {
+.stopwatch-display-frame {
   outline: 2px solid #333;
   border-radius: 50%;
   max-width: 37ch;
@@ -109,7 +109,7 @@ function lap() {
     bottom: unset;
   }
 
-  .stopwatch-display::after {
+  .time-display::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
     transform-origin: 50% 135px;
