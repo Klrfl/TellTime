@@ -1,13 +1,17 @@
 <template>
-  <div class="not-found">
+  <ContentOnly>
     <h1>Where am I?</h1>
     <p>We could'nt find what you're looking for. Sorry.</p>
     <p>
       Go back to
-      <router-link to="/">home</router-link>
+      <RouterLink :to="{ name: 'Home' }">home</RouterLink>
     </p>
-  </div>
+  </ContentOnly>
 </template>
+
+<script setup>
+import ContentOnly from "@/layouts/ContentOnly.vue";
+</script>
 
 <style>
 .not-found {
