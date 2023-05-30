@@ -51,6 +51,7 @@
   --indicator-color-big: #282828;
 
   /* timer */
+  --picker-background: var(--vt-c-white-mute);
   --target-time-background: var(--darker-white);
 
   /* stopwatch */
@@ -74,6 +75,7 @@
   --indicator-color-big: #828282;
 
   /* timer */
+  --picker-background: var(--vt-c-black-mute);
   --target-time-background: var(--lighter-black);
 
   /* stopwatch */
@@ -120,7 +122,8 @@
 }
 
 .btn:focus-visible {
-  outline: 2px solid dodgerblue;
+  outline: 4px solid dodgerblue;
+  transform: scale(1.1);
 }
 
 .btn:disabled {
