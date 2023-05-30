@@ -107,6 +107,7 @@
 
 .btn-primary {
   background: var(--accent);
+  color: var(--vt-c-white-soft);
 }
 
 .btn--circular {
@@ -143,7 +144,7 @@
 
   position: absolute;
   left: 50%;
-  bottom: -100%;
+  bottom: -130%;
   transform: translateX(-50%);
   z-index: 2;
 }
