@@ -135,6 +135,7 @@
 .btn-container {
   backdrop-filter: blur(0.5rem);
   border-radius: 0.5rem;
+  margin-block-start: 0.5rem;
   padding: 1rem;
   box-shadow: var(--shadow) rgba(60, 60, 60, 0.22);
 
@@ -147,6 +148,11 @@
   bottom: -130%;
   transform: translateX(-50%);
   z-index: 2;
+}
+
+.time-display {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 2rem;
 }
 
 .list-container {
