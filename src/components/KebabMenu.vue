@@ -10,8 +10,8 @@
     </button>
 
     <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
-      <font-awesome-icon :icon="['fas', 'sun']" />
       <font-awesome-icon :icon="['fas', 'moon']" />
+      <font-awesome-icon :icon="['fas', 'sun']" />
     </button>
     <RouterLink class="to-about" :to="{ name: 'About' }">About</RouterLink>
   </div>
