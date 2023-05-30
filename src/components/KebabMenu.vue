@@ -65,11 +65,13 @@ function toggleOverlay(opt = null) {
 
   position: absolute;
   inset: 1rem 1rem auto auto;
-  transform: translateX(-150%);
-  transition: transform 200ms ease;
+  transform: translateX(150%);
+  opacity: 0%;
+  transition: transform 200ms ease, opacity 200ms ease;
 
   &.active {
     transform: none;
+    opacity: 100%;
   }
 }
 
@@ -130,6 +132,7 @@ function toggleOverlay(opt = null) {
   }
 
   .overlay {
+    transform: translateX(-150%);
     inset: auto 0 1rem 1rem;
   }
 }
