@@ -62,21 +62,22 @@ function toggleOverlay(opt = null) {
   backdrop-filter: blur(10px);
   padding: 1rem;
   width: max-content;
-  opacity: 0;
 
   position: absolute;
   inset: 1rem 1rem auto auto;
+  transform: translateX(-150%);
+  transition: transform 200ms ease;
 
   &.active {
-    opacity: 1;
+    transform: none;
   }
 }
 
 .close-overlay {
   font-size: 1.5rem;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -20px;
+  right: -10px;
 }
 
 .dark-mode-toggle {
