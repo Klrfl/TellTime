@@ -44,6 +44,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  --btn-container-shadow: var(--shadow) rgba(95, 95, 95, 0.22);
+
   /* clock */
   --clock-bg: var(--color-background-soft);
   --clock-hand-color: #474747;
@@ -137,7 +139,7 @@
   border-radius: 0.5rem;
   margin-block-start: 0.5rem;
   padding: 1rem;
-  box-shadow: var(--shadow) rgba(60, 60, 60, 0.22);
+  box-shadow: var(--btn-container-shadow);
 
   display: flex;
   gap: 1rem;
