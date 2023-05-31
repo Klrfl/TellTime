@@ -64,7 +64,7 @@ function toggleOverlay(opt = null) {
   width: max-content;
 
   position: absolute;
-  inset: 1rem 1rem auto auto;
+  inset: 2rem 1.5rem auto auto;
   transform: translateY(-100%);
   opacity: 0%;
   transition: transform 200ms ease, opacity 200ms ease;
@@ -80,6 +80,7 @@ function toggleOverlay(opt = null) {
   position: absolute;
   top: -20px;
   right: -10px;
+  transform: scale(1.2);
 }
 
 .dark-mode-toggle {
