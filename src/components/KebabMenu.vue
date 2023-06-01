@@ -10,8 +10,8 @@
     </button>
 
     <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
-      <font-awesome-icon :icon="['fas', 'moon']" />
       <font-awesome-icon :icon="['fas', 'sun']" />
+      <font-awesome-icon :icon="['fas', 'moon']" />
     </button>
     <RouterLink class="to-about" :to="{ name: 'About' }">About</RouterLink>
   </div>
@@ -20,24 +20,20 @@
 <script setup>
 import { inject, ref } from "vue";
 
-const overlay = ref(null);
+const theme = inject("theme");
 const darkModeToggle = ref(null);
 
-let theme = inject("theme");
-
 function setTheme() {
-  if (theme === "dark") {
-    theme = "light";
-    localStorage.setItem("theme-preference", "light");
-  } else {
-    theme = "dark";
-    localStorage.setItem("theme-preference", "dark");
-  }
+  if (theme.value === "dark") theme.value = "light";
+  else theme.value = "dark";
 
-  document.body.setAttribute("data-theme", theme);
+  localStorage.setItem("theme-preference", theme.value);
+  document.body.setAttribute("data-theme", theme.value);
 
   darkModeToggle.value.classList.toggle("dark");
 }
+
+const overlay = ref(null);
 
 function toggleOverlay(opt = null) {
   if (opt === "remove") {
@@ -60,6 +56,7 @@ function toggleOverlay(opt = null) {
   text-align: center;
   outline: 2px solid var(--color-border);
   backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
   padding: 1rem;
   width: max-content;
 
