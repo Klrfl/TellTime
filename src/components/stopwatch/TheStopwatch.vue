@@ -85,15 +85,14 @@ function lap() {
     top: 0.5rem;
     left: calc(50% - 0.25rem);
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 5rem;
+    transform-origin: 50% 105px;
   }
 }
 
 .stopwatch-display-frame {
   outline: 2px solid #333;
   border-radius: 50%;
-  max-width: 37ch;
-  max-height: 100%;
+  width: 29ch;
   margin: 0 auto;
   aspect-ratio: 1 / 1;
 
@@ -112,7 +111,6 @@ function lap() {
   .time-display::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 110px;
   }
 }
 </style>
