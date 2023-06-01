@@ -136,6 +136,7 @@
 
 .btn-container {
   backdrop-filter: blur(0.5rem);
+  outline: 2px solid var(--color-border);
   border-radius: 0.5rem;
   margin-block-start: 0.5rem;
   padding: 1rem;
@@ -147,7 +148,7 @@
 
   position: absolute;
   left: 50%;
-  bottom: -130%;
+  bottom: -150%;
   transform: translateX(-50%);
   z-index: 2;
 }
