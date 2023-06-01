@@ -6,7 +6,7 @@
 
 <style>
 main {
-  padding: 1.5rem;
+  padding: 2rem;
   flex-grow: 1;
 }
 
