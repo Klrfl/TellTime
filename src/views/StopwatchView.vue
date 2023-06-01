@@ -35,37 +35,31 @@ const root = document.querySelector(":root");
 
 let startTime = ref(0);
 let stopTime = ref(0);
-let delta = ref(0);
+let elapsedTime = ref(0);
 let interval = null;
 
-const isStopped = ref(null);
 const seconds = ref(0);
 const miliSeconds = ref(0);
 const minutes = ref(0);
 
 function startWatch() {
-  if (isStopped.value == true) {
-    const stopAndNowDelta = DateTime.utc().diff(stopTime.value);
-    startTime.value = startTime.value.plus(stopAndNowDelta.values);
-  }
-
-  if (startTime.value === 0) startTime.value = DateTime.utc();
+  startTime.value = DateTime.utc().minus(elapsedTime.value);
 
   interval = setInterval(() => {
-    delta.value = DateTime.now().diff(
+    elapsedTime.value = DateTime.now().diff(
       startTime.value,
       ["hours", "minutes", "seconds", "milliseconds"],
       { zone: "utc" }
     );
 
-    minutes.value = delta.value.minutes;
-    seconds.value = delta.value.seconds;
-    miliSeconds.value = delta.value.milliseconds;
+    minutes.value = elapsedTime.value.minutes;
+    seconds.value = elapsedTime.value.seconds;
+    miliSeconds.value = elapsedTime.value.milliseconds;
 
     // rotate dot
     root.style.setProperty(
       "--stopwatch-dot",
-      `${(delta.value.toMillis() / 60000) * 360}deg`
+      `${(elapsedTime.value.toMillis() / 60000) * 360}deg`
     );
   });
 }
@@ -73,7 +67,6 @@ function startWatch() {
 function pauseWatch() {
   clearInterval(interval);
   stopTime.value = DateTime.utc();
-  isStopped.value = true;
 }
 
 function resetWatch() {
@@ -100,7 +93,7 @@ const previousLap = ref(0);
 
 function lap() {
   const deltaBetweenLaps = DateTime.fromMillis(
-    delta.value - previousLap.value
+    elapsedTime.value - previousLap.value
   ).toFormat("mm:ss.SSS");
 
   // object for display in LapTime
@@ -108,15 +101,15 @@ function lap() {
     no: lapNo.value++,
 
     time: {
-      minute: delta.value.minutes,
-      second: delta.value.seconds,
-      milliSecond: delta.value.milliseconds,
+      minute: elapsedTime.value.minutes,
+      second: elapsedTime.value.seconds,
+      milliSecond: elapsedTime.value.milliseconds,
     },
 
     delta: deltaBetweenLaps,
   });
 
-  previousLap.value = delta.value; // change previousLap
+  previousLap.value = elapsedTime.value; // change previousLap
 }
 </script>
 
