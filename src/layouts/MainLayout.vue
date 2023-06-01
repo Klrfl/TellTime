@@ -13,6 +13,8 @@
 <style>
 .wrapper {
   flex-grow: 1;
+  max-height: 100vh;
+
   display: flex;
   flex-direction: column;
 }
