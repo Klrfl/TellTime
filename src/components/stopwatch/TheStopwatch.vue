@@ -77,15 +77,15 @@ function lap() {
   &::after {
     content: "";
     background: var(--accent);
-    height: 1rem;
+    height: 0.5rem;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
 
     position: absolute;
     top: 0.5rem;
-    left: calc(50% - 0.5rem);
+    left: calc(50% - 0.25rem);
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 6rem;
+    transform-origin: 50% 5rem;
   }
 }
 
@@ -112,7 +112,7 @@ function lap() {
   .time-display::after {
     top: 0.5rem;
     transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 135px;
+    transform-origin: 50% 110px;
   }
 }
 </style>
