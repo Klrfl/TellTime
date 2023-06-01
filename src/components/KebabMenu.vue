@@ -82,7 +82,7 @@ function toggleOverlay(opt = null) {
 
 .dark-mode-toggle {
   background: transparent;
-  outline: 2px solid;
+  outline: 2px solid var(--color-border);
   margin: 0 auto;
   border-radius: 20rem;
   aspect-ratio: 2 / 1;
