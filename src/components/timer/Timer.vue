@@ -86,6 +86,11 @@ const isPaused = ref(true);
 const displayTimer = ref(false);
 
 function startTimer() {
+  if (targetTime.value.c == null) {
+    alert("Please select target time before starting the timer.");
+    return;
+  }
+
   startTime.value = DateTime.utc();
 
   displayTimer.value = true;
