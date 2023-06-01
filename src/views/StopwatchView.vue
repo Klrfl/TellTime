@@ -34,9 +34,8 @@ import { DateTime } from "luxon";
 const root = document.querySelector(":root");
 
 let startTime = ref(0);
-let stopTime = ref(0);
 let elapsedTime = ref(0);
-let interval = null;
+let interval;
 
 const seconds = ref(0);
 const miliSeconds = ref(0);
@@ -66,19 +65,16 @@ function startWatch() {
 
 function pauseWatch() {
   clearInterval(interval);
-  stopTime.value = DateTime.utc();
 }
 
 function resetWatch() {
   clearInterval(interval);
 
   startTime.value = 0;
-  stopTime.value = 0;
+  elapsedTime.value = 0;
   minutes.value = 0;
   seconds.value = 0;
   miliSeconds.value = 0;
-
-  isStopped.value = null;
 
   root.style.removeProperty("--stopwatch-dot");
 
@@ -134,7 +130,6 @@ function lap() {
 .stopwatch {
   position: absolute;
   inset: 0;
-  padding: 2rem; /* bc we used absolute, the padding on .container doesn't affect .stopwatch*/
   text-align: center;
 }
 
