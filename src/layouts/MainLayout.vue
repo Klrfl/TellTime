@@ -49,18 +49,11 @@
     flex-direction: row;
   }
 
-  .container > * {
-    flex: 1 1 0;
-  }
-
   .container--side-content {
     order: -1;
     max-height: 100vh;
     flex: 1 1 0;
-  }
-
-  ul.list-container {
-    margin: auto 0;
+    align-items: center;
   }
 }
 </style>
