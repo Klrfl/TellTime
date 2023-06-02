@@ -127,12 +127,6 @@ function lap() {
   width: 100%;
 }
 
-.stopwatch {
-  position: absolute;
-  inset: 0;
-  text-align: center;
-}
-
 .laptimes-container {
   width: 100%;
 
@@ -143,16 +137,10 @@ function lap() {
 
 .no-laptime {
   text-align: center;
-  width: 100%;
   font-size: 1.2rem;
 }
 
 @media screen and (min-width: 50em) {
-  .stopwatch {
-    position: relative;
-    padding: 0;
-  }
-
   .laptimes {
     margin: auto 0;
   }

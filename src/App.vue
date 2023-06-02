@@ -40,10 +40,6 @@ nav {
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
-}
-
-.slide-enter-from,
-.slide-leave-to {
   transform: translateY(-80%);
 }
 
