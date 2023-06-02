@@ -63,8 +63,8 @@ function selectTargetTime(targetTime) {
 <style>
 .target-time-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 0.5rem;
 }
 </style>

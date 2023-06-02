@@ -20,7 +20,7 @@ function select() {
 .target-time {
   background: var(--target-time-background);
   border-radius: 0.5rem;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
 
   &:hover {
     background: var(--target-time-background-hover);

@@ -157,6 +157,7 @@
 }
 
 .list-container {
+  width: 100%;
   padding-block-end: 10rem;
 }
 

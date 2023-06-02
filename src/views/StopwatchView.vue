@@ -128,8 +128,6 @@ function lap() {
 }
 
 .laptimes-container {
-  width: 100%;
-
   display: flex;
   flex-direction: column-reverse;
   gap: 0.5rem;

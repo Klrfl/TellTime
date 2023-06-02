@@ -19,7 +19,7 @@ const props = defineProps({
 <style lang="scss">
 .lap {
   background: var(--laptime-background);
-  padding: 1rem 0.5rem;
+  padding: 1.5rem 1rem;
 
   display: flex;
   align-items: center;
