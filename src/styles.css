@@ -148,7 +148,7 @@
 
   position: absolute;
   left: 50%;
-  bottom: -150%;
+  bottom: 5rem;
   transform: translateX(-50%);
   z-index: 2;
 }
@@ -168,11 +168,5 @@
     width: auto;
     position: relative;
     bottom: unset;
-  }
-
-  .stopwatch-display::after {
-    top: 0.5rem;
-    transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 135px;
   }
 }
