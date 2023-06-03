@@ -9,6 +9,10 @@
     </template>
 
     <ul class="list-container target-time-container" v-show="displayInput">
+      <li class="empty-list-message" v-show="targetTimes.length === 0">
+        No target time... yet
+      </li>
+
       <TargetTime
         v-for="targetTime in targetTimes"
         :key="targetTime.id"

@@ -175,6 +175,11 @@
   margin-block-end: 10rem;
 }
 
+.empty-list-message {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 @media screen and (min-width: 50em) {
   .btn-container {
     background: transparent;

@@ -12,9 +12,10 @@
     </template>
 
     <ul class="list-container laptimes-container">
-      <li class="no-laptime" key="no-laps" v-show="laps.length == 0">
-        No laps yet
+      <li class="empty-list-message" key="no-laps" v-show="laps.length === 0">
+        No laps... yet
       </li>
+
       <TransitionGroup name="list">
         <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
       </TransitionGroup>
@@ -129,11 +130,6 @@ function lap() {
 
 .laptimes-container {
   flex-direction: column-reverse;
-}
-
-.no-laptime {
-  text-align: center;
-  font-size: 1.2rem;
 }
 
 @media screen and (min-width: 50em) {
