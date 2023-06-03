@@ -12,14 +12,6 @@
       value-format="HH:mm:ss"
       v-show="displayTimer === false" />
 
-    <button
-      class="btn btn--circular"
-      title="add new shortcut"
-      @click="addNewTargetTime"
-      v-show="displayTimer === false">
-      <font-awesome-icon :icon="['fas', 'plus']" />
-    </button>
-
     <section class="btn-container">
       <button
         class="btn btn-primary btn--circular"
@@ -40,6 +32,14 @@
         @click="resetTimer"
         :disabled="isPaused === false">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
+      </button>
+
+      <button
+        class="btn btn--circular"
+        title="add new shortcut"
+        @click="addNewTargetTime"
+        v-show="displayTimer === false">
+        <font-awesome-icon :icon="['fas', 'plus']" />
       </button>
     </section>
   </div>
