@@ -1,7 +1,9 @@
 <template>
   <div class="timer">
     <section class="time-display" v-show="displayTimer">
-      {{ hours }}:{{ minutes }}:{{ seconds }}.{{ milliseconds }}
+      {{ hours }}:{{ minutes }}:{{ seconds }}.<span class="time-display__ms">
+        {{ milliseconds }}
+      </span>
     </section>
 
     <TimePicker
@@ -98,8 +100,9 @@ const isPaused = ref(true);
 const displayTimer = ref(false);
 
 function addNewTargetTime() {
-  emit("addNewTargetTime", targetTime.value);
+  emit("addNewTargetTime", targetTimeString.value);
 }
+
 function startTimer() {
   if (targetTime.value.c == null) {
     alert("Please select target time before starting the timer.");
@@ -168,11 +171,7 @@ function resetTimer() {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.time-display {
-  text-align: center;
-  font-size: 2rem;
+  gap: 1rem;
 }
 
 .ant-picker {

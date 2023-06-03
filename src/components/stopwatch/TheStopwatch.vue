@@ -2,7 +2,9 @@
   <div class="stopwatch">
     <section class="stopwatch-display-frame">
       <span class="time-display">
-        {{ minutes }}:{{ seconds }}.{{ miliSeconds }}
+        {{ minutes }}:{{ seconds }}.<span class="time-display__ms">{{
+          miliSeconds
+        }}</span>
       </span>
     </section>
 
