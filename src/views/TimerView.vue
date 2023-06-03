@@ -64,12 +64,12 @@ function selectTargetTime(targetTime) {
 }
 
 function addNewTargetTime(targetTime) {
-  const newTargetTime = targetTime.toFormat("hh:mm:ss");
-
-  targetTimes.value.push({
+  const newTargetTime = {
     id: (currentId.value += 1),
-    time: `${newTargetTime}`,
-  });
+    time: `${targetTime}`,
+  };
+
+  targetTimes.value.push(newTargetTime);
 }
 
 function deleteTargetTime(targetTimeId) {
