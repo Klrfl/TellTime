@@ -1,5 +1,5 @@
 <template>
-  <li class="lap">
+  <li class="lap" title="double click/tap to delete">
     <div class="lap__number">{{ lap.no }}</div>
     <div class="lap__time">
       <span class="lap__time--minute">{{ lap.time.minute }}</span>
