@@ -4,15 +4,17 @@
       <Timer
         :targetTime="selectedTargetTime"
         @timerNotDisplayed="handleDisplayInput(true)"
-        @timerDisplayed="handleDisplayInput(false)"></Timer>
+        @timerDisplayed="handleDisplayInput(false)"
+        @addNewTargetTime="addNewTargetTime" />
     </template>
 
     <ul class="list-container target-time-container" v-show="displayInput">
       <TargetTime
         v-for="targetTime in targetTimes"
         :key="targetTime.id"
-        :targetTime="targetTime.time"
-        @select="selectTargetTime(targetTime.time)" />
+        :targetTime="targetTime"
+        @select="selectTargetTime(targetTime.time)"
+        @delete="deleteTargetTime" />
     </ul>
   </MainLayout>
 </template>
@@ -29,6 +31,8 @@ const displayInput = ref(true);
 function handleDisplayInput(state) {
   displayInput.value = state;
 }
+
+const currentId = ref(5);
 
 const targetTimes = ref([
   {
@@ -57,6 +61,23 @@ const selectedTargetTime = ref(targetTimes.value[0].time);
 
 function selectTargetTime(targetTime) {
   selectedTargetTime.value = targetTime;
+}
+
+function addNewTargetTime(targetTime) {
+  const newTargetTime = targetTime.toFormat("hh:mm:ss");
+
+  targetTimes.value.push({
+    id: (currentId.value += 1),
+    time: `${newTargetTime}`,
+  });
+}
+
+function deleteTargetTime(targetTimeId) {
+  const found = targetTimes.value.find(
+    (targetTime) => targetTime.id === targetTimeId
+  );
+
+  targetTimes.value.splice(targetTimes.value.indexOf(found), 1);
 }
 </script>
 

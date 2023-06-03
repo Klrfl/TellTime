@@ -10,6 +10,14 @@
       value-format="HH:mm:ss"
       v-show="displayTimer === false" />
 
+    <button
+      class="btn btn--circular"
+      title="add new shortcut"
+      @click="addNewTargetTime"
+      v-show="displayTimer === false">
+      <font-awesome-icon :icon="['fas', 'plus']" />
+    </button>
+
     <section class="btn-container">
       <button
         class="btn btn-primary btn--circular"
@@ -46,7 +54,11 @@ const props = defineProps({
   targetTime: String,
 });
 
-const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
+const emit = defineEmits([
+  "timerDisplayed",
+  "timerNotDisplayed",
+  "addNewTargetTime",
+]);
 
 const targetTime = ref(null);
 const targetTimeString = ref(`00:00:10`);
@@ -85,6 +97,9 @@ const finalDelta = ref(0);
 const isPaused = ref(true);
 const displayTimer = ref(false);
 
+function addNewTargetTime() {
+  emit("addNewTargetTime", targetTime.value);
+}
 function startTimer() {
   if (targetTime.value.c == null) {
     alert("Please select target time before starting the timer.");
@@ -152,6 +167,7 @@ function resetTimer() {
 .timer {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .time-display {

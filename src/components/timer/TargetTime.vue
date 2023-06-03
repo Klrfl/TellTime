@@ -1,18 +1,25 @@
 <template>
-  <li class="target-time" @click="select">
-    <span>{{ targetTime }}</span>
+  <li
+    class="target-time"
+    @click="selectTargetTime"
+    @dblclick="deleteTargetTime">
+    <span>{{ targetTime.time }}</span>
   </li>
 </template>
 
 <script setup>
 const props = defineProps({
-  targetTime: String,
+  targetTime: Object,
 });
 
-const emit = defineEmits(["select"]);
+const emit = defineEmits(["select", "delete"]);
 
-function select() {
+function selectTargetTime() {
   emit("select");
+}
+
+function deleteTargetTime() {
+  emit("delete", props.targetTime.id);
 }
 </script>
 
@@ -21,6 +28,7 @@ function select() {
   background: var(--target-time-background);
   border-radius: 0.5rem;
   padding: 1.5rem 1rem;
+  user-select: none;
 
   &:hover {
     background: var(--target-time-background-hover);
