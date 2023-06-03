@@ -1,10 +1,14 @@
 export function getTheme() {
-  const prefersDark = window.matchMedia("(prefers-color-scheme:dark)");
+  const theme = localStorage.getItem("theme-preference");
 
-  if (prefersDark) {
-    localStorage.setItem("theme-preference", "dark");
-  } else {
-    localStorage.setItem("theme-preference", "light");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  if (theme !== "dark" && theme !== "light") {
+    if (prefersDark.matches) {
+      localStorage.setItem("theme-preference", "dark");
+    } else {
+      localStorage.setItem("theme-preference", "light");
+    }
   }
 
   return localStorage.getItem("theme-preference");
