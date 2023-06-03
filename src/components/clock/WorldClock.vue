@@ -68,12 +68,16 @@
     <div class="clock__hand clock__hand--minutes"></div>
     <div class="clock__hand clock__hand--seconds"></div>
   </div>
+
+  <!-- <p class="time-zone">{{ timeZone }}</p> -->
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 
 import DigitalWorldClock from "@/components/clock/DigitalWorldClock.vue";
+
+import { DateTime } from "luxon";
 
 let root = document.querySelector(":root");
 const date0 = new Date().setHours(0, 0, 0, 0);
@@ -82,12 +86,14 @@ const hours = ref(0);
 const minutes = ref(0);
 const seconds = ref(0);
 
-function getCurrentTime() {
-  const now = new Date();
+// const timeZone = ref("");
 
-  hours.value = now.getHours();
-  minutes.value = now.getMinutes();
-  seconds.value = now.getSeconds();
+function getCurrentTime() {
+  const now = ref(DateTime.now());
+
+  hours.value = now.value.c.hour;
+  minutes.value = now.value.c.minute;
+  seconds.value = now.value.c.second;
 }
 
 function setMinuteSecondHands() {
