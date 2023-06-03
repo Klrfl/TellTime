@@ -39,12 +39,6 @@
   flex: 2 1 0;
 }
 
-.list-container {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 @media screen and (min-width: 50em) {
   .wrapper {
     flex-direction: row;
@@ -52,9 +46,8 @@
 
   .container--side-content {
     order: -1;
-    max-height: 100vh;
+    max-height: unset;
     flex: 1 1 0;
-    align-items: center;
   }
 }
 </style>

@@ -128,9 +128,7 @@ function lap() {
 }
 
 .laptimes-container {
-  display: flex;
   flex-direction: column-reverse;
-  gap: 0.5rem;
 }
 
 .no-laptime {

@@ -80,12 +80,3 @@ function deleteTargetTime(targetTimeId) {
   targetTimes.value.splice(targetTimes.value.indexOf(found), 1);
 }
 </script>
-
-<style>
-.target-time-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-}
-</style>
