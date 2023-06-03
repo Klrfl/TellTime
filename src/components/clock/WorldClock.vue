@@ -96,11 +96,9 @@ function setMinuteSecondHands() {
 }
 
 function setHourHand() {
-  const newDate = new Date();
-
   root.style.setProperty(
     "--hours",
-    `${((newDate - date0) / 86400000) * 720}deg`
+    `${((new Date() - date0) / 86_400_000) * 720}deg`
   );
 }
 
@@ -120,13 +118,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-:root {
-  // for rotating the hands
-  --hours: 60;
-  --minutes: 60;
-  --seconds: 60;
-}
-
 $clock-hand-width: 0.2rem;
 
 /* origin formula: 0 calc(width * (height - (height * 25%))) */
@@ -202,18 +193,18 @@ $clock-hand-width: 0.2rem;
 
     &--hours {
       transform: translate(-50%, 25%) rotate(var(--hours));
-      @include center-clock-hands($clock-hand-width, 32);
+      @include center-clock-hands($clock-hand-width, 30);
     }
 
     &--minutes {
       transform: translate(-50%, 25%) rotate(var(--minutes));
-      @include center-clock-hands($clock-hand-width, 48);
+      @include center-clock-hands($clock-hand-width, 42);
     }
 
     &--seconds {
       background: var(--accent);
       transform: translate(-50%, 25%) rotate(var(--seconds));
-      @include center-clock-hands($clock-hand-width, 48);
+      @include center-clock-hands($clock-hand-width, 42);
     }
   }
 }
