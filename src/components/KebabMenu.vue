@@ -10,27 +10,30 @@
     </button>
 
     <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
-      <font-awesome-icon :icon="['fas', 'sun']" />
       <font-awesome-icon :icon="['fas', 'moon']" />
+      <font-awesome-icon :icon="['fas', 'sun']" />
     </button>
     <RouterLink class="to-about" :to="{ name: 'About' }">About</RouterLink>
   </div>
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
+import { inject, ref, onMounted } from "vue";
 
 const theme = inject("theme");
 const darkModeToggle = ref(null);
 
 function setTheme() {
-  if (theme.value === "dark") theme.value = "light";
-  else theme.value = "dark";
+  if (theme.value === "dark") {
+    theme.value = "light";
+  } else {
+    theme.value = "dark";
+  }
+
+  darkModeToggle.value.classList.toggle("dark");
 
   localStorage.setItem("theme-preference", theme.value);
   document.body.setAttribute("data-theme", theme.value);
-
-  darkModeToggle.value.classList.toggle("dark");
 }
 
 const overlay = ref(null);
@@ -42,6 +45,11 @@ function toggleOverlay(opt = null) {
     overlay.value.classList.add("active");
   }
 }
+
+onMounted(() => {
+  if (theme.value === "dark") darkModeToggle.value.classList.add("dark");
+  else darkModeToggle.value.classList.remove("dark");
+});
 </script>
 
 <style lang="scss">
