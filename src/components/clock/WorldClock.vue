@@ -1,17 +1,16 @@
 <template>
   <li class="world-clock">
     <span>New York</span>
-    <div class="time">
-      <span class="hour">{{ now.c.hour }}</span
-      >: <span class="minute">{{ now.c.minute }}</span
-      >:
+    <div class="world-clock__time">
+      <span class="hour">{{ now.c.hour }}</span>
+      <span class="minute">{{ now.c.minute }}</span>
       <span class="second">{{ now.c.second }}</span>
     </div>
   </li>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 
 import { DateTime } from "luxon";
 
@@ -26,12 +25,23 @@ function getTimeOfZone(zone) {
 setInterval(() => {
   getTimeOfZone("America/New_York");
 }, 1000);
+
+onBeforeMount(() => {
+  getTimeOfZone("America/New_York");
+});
 </script>
 
-<style>
+<style lang="scss">
 .world-clock {
   padding: 2rem;
+  border-radius: 0.5rem;
+  outline: 2px solid var(--color-border);
+
   display: flex;
   justify-content: space-between;
+
+  &__time > *:not(:last-child)::after {
+    content: ":";
+  }
 }
 </style>
