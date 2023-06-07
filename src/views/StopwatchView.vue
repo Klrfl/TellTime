@@ -76,6 +76,7 @@ function resetWatch() {
   minutes.value = 0;
   seconds.value = 0;
   miliSeconds.value = 0;
+  previousLap.value = 0;
 
   root.style.removeProperty("--stopwatch-dot");
 
