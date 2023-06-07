@@ -68,8 +68,6 @@
     <div class="clock__hand clock__hand--minutes"></div>
     <div class="clock__hand clock__hand--seconds"></div>
   </div>
-
-  <!-- <p class="time-zone">{{ timeZone }}</p> -->
 </template>
 
 <script setup>
@@ -85,8 +83,6 @@ const date0 = new Date().setHours(0, 0, 0, 0);
 const hours = ref(0);
 const minutes = ref(0);
 const seconds = ref(0);
-
-// const timeZone = ref("");
 
 function getCurrentTime() {
   const now = ref(DateTime.now());
