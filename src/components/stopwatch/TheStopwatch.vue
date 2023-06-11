@@ -6,6 +6,7 @@
           miliSeconds
         }}</span>
       </span>
+      <span class="laptime-display" v-show="isLapping"> 0:0:00 </span>
     </section>
 
     <section class="btn-container">
@@ -41,8 +42,8 @@ const props = defineProps({
   miliSeconds: Number,
 });
 
-let isGoing = ref(false);
-let isStopped = ref(true);
+const isGoing = ref(false);
+const isStopped = ref(true);
 
 function startWatch() {
   emit("startWatch", isStopped.value);
@@ -64,8 +65,11 @@ function resetWatch() {
   isStopped.value = true;
 }
 
+const isLapping = ref(false);
+
 function lap() {
   emit("lap");
+  isLapping.value = true;
 }
 </script>
 
@@ -74,23 +78,22 @@ function lap() {
   --stopwatch-dot: 0deg;
 }
 
-.time-display {
-  text-align: center;
-  font-size: 2rem;
+.time-display::after {
+  content: "";
+  background: var(--accent);
+  height: 0.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
 
-  &::after {
-    content: "";
-    background: var(--accent);
-    height: 0.5rem;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
+  position: absolute;
+  top: 0.5rem;
+  left: calc(50% - 0.25rem);
+  transform: rotate(var(--stopwatch-dot));
+  transform-origin: 50% 105px;
+}
 
-    position: absolute;
-    top: 0.5rem;
-    left: calc(50% - 0.25rem);
-    transform: rotate(var(--stopwatch-dot));
-    transform-origin: 50% 105px;
-  }
+.laptime-display {
+  font-family: "Ubuntu Mono", monospace;
 }
 
 .stopwatch-display-frame {
@@ -100,8 +103,10 @@ function lap() {
   margin: 0 auto;
   aspect-ratio: 1 / 1;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
