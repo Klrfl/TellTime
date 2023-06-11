@@ -10,7 +10,7 @@
 
     <section class="btn-container">
       <button class="btn btn--circular" @click="lap" :disabled="isStopped">
-        lap
+        <font-awesome-icon :icon="['fas', 'flag']" />
       </button>
 
       <button
@@ -19,9 +19,11 @@
         v-show="isStopped">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
+
       <button class="btn btn--circular" @click="pauseWatch" v-show="isGoing">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
+
       <button class="btn btn--circular" @click="resetWatch" :disabled="isGoing">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
