@@ -2,9 +2,7 @@
   <MainLayout>
     <template #main-content>
       <TheStopwatch
-        :minutes="minutes"
-        :seconds="seconds"
-        :miliSeconds="miliSeconds"
+        :elapsedTime="elapsedTime"
         @pauseWatch="pauseWatch"
         @startWatch="startWatch"
         @resetWatch="resetWatch"
@@ -34,27 +32,20 @@ import { DateTime } from "luxon";
 
 const root = document.querySelector(":root");
 
-let startTime = ref(0);
-let elapsedTime = ref(0);
+const startTime = ref(0);
+const elapsedTime = ref(DateTime.utc().diff(DateTime.utc()));
 let interval;
-
-const seconds = ref(0);
-const miliSeconds = ref(0);
-const minutes = ref(0);
 
 function startWatch() {
   startTime.value = DateTime.utc().minus(elapsedTime.value);
 
   interval = setInterval(() => {
-    elapsedTime.value = DateTime.now().diff(
-      startTime.value,
-      ["hours", "minutes", "seconds", "milliseconds"],
-      { zone: "utc" }
-    );
-
-    minutes.value = elapsedTime.value.minutes;
-    seconds.value = elapsedTime.value.seconds;
-    miliSeconds.value = elapsedTime.value.milliseconds;
+    elapsedTime.value = DateTime.utc().diff(startTime.value, [
+      "hours",
+      "minutes",
+      "seconds",
+      "milliseconds",
+    ]);
 
     // rotate dot
     root.style.setProperty(
@@ -72,10 +63,7 @@ function resetWatch() {
   clearInterval(interval);
 
   startTime.value = 0;
-  elapsedTime.value = 0;
-  minutes.value = 0;
-  seconds.value = 0;
-  miliSeconds.value = 0;
+  elapsedTime.value = DateTime.utc().diff(DateTime.utc());
   previousLap.value = 0;
 
   root.style.removeProperty("--stopwatch-dot");
@@ -86,7 +74,6 @@ function resetWatch() {
 
 const laps = ref([]);
 const lapNo = ref(1);
-
 const previousLap = ref(0);
 
 function lap() {

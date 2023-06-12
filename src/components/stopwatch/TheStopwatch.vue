@@ -2,9 +2,10 @@
   <div class="stopwatch">
     <section class="stopwatch-display-frame">
       <span class="time-display">
-        {{ minutes }}:{{ seconds }}.<span class="time-display__ms">{{
-          miliSeconds
-        }}</span>
+        {{ elapsedTime.minutes }}:{{ elapsedTime.seconds }}.<span
+          class="time-display__ms"
+          >{{ elapsedTime.milliseconds }}</span
+        >
       </span>
       <span class="laptime-display" v-show="isLapping"> 0:0:00 </span>
     </section>
@@ -37,9 +38,7 @@ import { ref } from "vue";
 
 const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
 const props = defineProps({
-  minutes: Number,
-  seconds: Number,
-  miliSeconds: Number,
+  elapsedTime: [Object, Number],
 });
 
 const isGoing = ref(false);
