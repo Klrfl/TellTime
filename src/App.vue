@@ -26,6 +26,7 @@ onMounted(() => {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 nav {
@@ -37,9 +38,12 @@ nav {
   transition: opacity 500ms, transform 500ms;
 }
 
-.slide-enter-from,
-.slide-leave-to {
+.slide-enter-from {
   opacity: 0;
+  transform: translateY(80%);
+}
+
+.slide-leave-to {
   transform: translateY(-80%);
 }
 
