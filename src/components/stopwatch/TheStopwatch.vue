@@ -13,14 +13,14 @@
     </section>
 
     <section class="btn-container">
-      <button class="btn btn--circular" @click="lap" :disabled="isStopped">
+      <button class="btn btn--circular" @click="lap" :disabled="!isGoing">
         <font-awesome-icon :icon="['fas', 'flag']" />
       </button>
 
       <button
         class="btn btn-primary btn--circular"
         @click="startWatch"
-        v-show="isStopped">
+        v-show="!isGoing">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
 const props = defineProps({
@@ -44,10 +44,12 @@ const props = defineProps({
 });
 
 const isGoing = ref(false);
-const isStopped = computed(() => !isGoing.value);
+
+const laptimeDisplay = ref("blom ada bentar ya");
+const isLapping = ref(false);
 
 function startWatch() {
-  emit("startWatch", isStopped.value);
+  emit("startWatch");
 
   isGoing.value = true;
 }
@@ -63,8 +65,6 @@ function resetWatch() {
   isGoing.value = false;
   isLapping.value = false;
 }
-
-const isLapping = ref(false);
 
 function lap() {
   emit("lap");

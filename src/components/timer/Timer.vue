@@ -1,8 +1,9 @@
 <template>
   <div class="timer">
     <section class="time-display" v-show="displayTimer">
-      {{ hours }}:{{ minutes }}:{{ seconds }}.<span class="time-display__ms">
-        {{ milliseconds }}
+      {{ time.hours }}:{{ time.minutes }}:{{ time.seconds }}.<span
+        class="time-display__ms">
+        {{ time.milliseconds }}
       </span>
     </section>
 
@@ -10,7 +11,7 @@
       size="large"
       v-model:value="targetTimeString"
       value-format="HH:mm:ss"
-      v-show="displayTimer === false" />
+      v-show="!displayTimer" />
 
     <section class="btn-container">
       <button
@@ -20,23 +21,20 @@
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
-      <button
-        class="btn btn--circular"
-        @click="pauseTimer"
-        v-show="isPaused === false">
+      <button class="btn btn--circular" @click="pauseTimer" v-show="!isPaused">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
 
       <button
         class="btn btn--circular"
         @click="resetTimer"
-        :disabled="isPaused === false">
+        :disabled="displayTimer && !isPaused">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
 
       <button
         class="btn btn--circular"
-        title="add new shortcut"
+        title="add new target time"
         @click="addNewTargetTime"
         :disabled="displayTimer">
         <font-awesome-icon :icon="['fas', 'plus']" />
@@ -80,10 +78,12 @@ watch(
   () => updateTargetTime(targetTimeString.value),
 );
 
-const hours = ref(0);
-const minutes = ref(0);
-const seconds = ref(0);
-const milliseconds = ref(0);
+const time = ref({
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+  milliseconds: 0,
+});
 
 const startTime = ref(0);
 let interval = null;
@@ -105,9 +105,9 @@ function startTimer() {
 
   startTime.value = DateTime.utc();
 
-  displayTimer.value = true;
-  isPaused.value = false;
   emit("timerDisplayed");
+  isPaused.value = false;
+  displayTimer.value = true;
 
   // calculate difference between startTime and now, every millisecond
   interval = setInterval(() => {
@@ -118,6 +118,7 @@ function startTimer() {
       "milliseconds",
     ]);
 
+    // calculate again to take pausing time into account
     finalDelta.value = targetTime.value.diff(initialDelta.value, [
       "hours",
       "minutes",
@@ -125,15 +126,17 @@ function startTimer() {
       "milliseconds",
     ]);
 
-    hours.value = finalDelta.value.hours;
-    minutes.value = finalDelta.value.minutes;
-    seconds.value = finalDelta.value.seconds;
-    milliseconds.value = finalDelta.value.milliseconds;
+    time.value = finalDelta.value;
 
     // stop timer when 0
     if (finalDelta.value.toMillis() <= 0) {
       clearInterval(interval);
-      milliseconds.value = 0;
+      time.value = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        milliseconds: 0,
+      };
       isPaused.value = true;
     }
   });

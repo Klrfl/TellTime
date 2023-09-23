@@ -22,13 +22,12 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { DateTime } from "luxon";
+
 import MainLayout from "@/layouts/MainLayout.vue";
 import TheStopwatch from "@/components/stopwatch/TheStopwatch.vue";
 import LapTime from "@/components/stopwatch/LapTime.vue";
-
-import { ref } from "vue";
-
-import { DateTime } from "luxon";
 
 const root = document.querySelector(":root");
 
@@ -120,11 +119,5 @@ function lap() {
 
 .list-container {
   flex-direction: column-reverse;
-}
-
-@media screen and (min-width: 50em) {
-  .laptimes {
-    margin: auto 0;
-  }
 }
 </style>
