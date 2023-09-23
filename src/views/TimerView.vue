@@ -8,17 +8,19 @@
         @addNewTargetTime="addNewTargetTime" />
     </template>
 
-    <ul class="list-container target-time-container" v-show="displayInput">
+    <ul class="list-container" v-show="displayInput">
       <li class="empty-list-message" v-show="targetTimes.length === 0">
         No target time... yet
       </li>
 
-      <TargetTime
-        v-for="targetTime in targetTimes"
-        :key="targetTime.id"
-        :targetTime="targetTime"
-        @select="selectTargetTime(targetTime.time)"
-        @delete="deleteTargetTime" />
+      <TransitionGroup name="list">
+        <TargetTime
+          v-for="targetTime in targetTimes"
+          :key="targetTime.id"
+          :targetTime="targetTime"
+          @select="selectTargetTime(targetTime.time)"
+          @delete="deleteTargetTime" />
+      </TransitionGroup>
     </ul>
   </MainLayout>
 </template>
@@ -78,9 +80,29 @@ function addNewTargetTime(targetTime) {
 
 function deleteTargetTime(targetTimeId) {
   const found = targetTimes.value.find(
-    (targetTime) => targetTime.id === targetTimeId
+    (targetTime) => targetTime.id === targetTimeId,
   );
 
   targetTimes.value.splice(targetTimes.value.indexOf(found), 1);
 }
 </script>
+
+<style>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.list-leave-active {
+  width: 100%;
+}
+</style>

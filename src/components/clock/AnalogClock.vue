@@ -72,12 +72,10 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-
 import DigitalWorldClock from "@/components/clock/DigitalWorldClock.vue";
-
 import { DateTime } from "luxon";
 
-let root = document.querySelector(":root");
+const root = document.querySelector(":root");
 const date0 = new Date().setHours(0, 0, 0, 0);
 
 const hours = ref(0);
@@ -93,14 +91,14 @@ function getCurrentTime() {
 }
 
 function setMinuteSecondHands() {
-  root.style.setProperty("--minutes", `${(minutes.value / 60) * 360}deg`);
-  root.style.setProperty("--seconds", `${(seconds.value / 60) * 360}deg`);
+  root.style.setProperty("--minutesDeg", `${(minutes.value / 60) * 360}deg`);
+  root.style.setProperty("--secondsDeg", `${(seconds.value / 60) * 360}deg`);
 }
 
 function setHourHand() {
   root.style.setProperty(
-    "--hours",
-    `${((new Date() - date0) / 86_400_000) * 720}deg`
+    "--hoursDeg",
+    `${((new Date() - date0) / 86_400_000) * 720}deg`,
   );
 }
 
@@ -134,12 +132,14 @@ $clock-hand-width: 0.2rem;
 }
 
 .clock {
-  background: var(--clock-bg);
+  outline: 2px solid var(--color-border);
+  background: var(--container-background);
+  box-shadow: var(--shadow--offset) var(--shadow-color);
   max-width: 24rem;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  position: relative;
   flex-basis: 22rem;
+  position: relative;
 
   & > * {
     position: absolute;
@@ -174,7 +174,7 @@ $clock-hand-width: 0.2rem;
 
   &__dot,
   &__hand {
-    box-shadow: var(--shadow) rgba(60, 60, 60, 0.22);
+    box-shadow: var(--shadow--offset) var(--shadow-color);
   }
 
   &__dot {
@@ -189,23 +189,22 @@ $clock-hand-width: 0.2rem;
   &__hand {
     background: var(--clock-hand-color);
     width: $clock-hand-width;
-    border-top-left-radius: 30%;
-    border-top-right-radius: 30%;
+    border-radius: 30% 30% 0 0;
     /* transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1); */
 
     &--hours {
-      transform: translate(-50%, 25%) rotate(var(--hours));
+      transform: translate(-50%, 25%) rotate(var(--hoursDeg));
       @include center-clock-hands($clock-hand-width, 30);
     }
 
     &--minutes {
-      transform: translate(-50%, 25%) rotate(var(--minutes));
+      transform: translate(-50%, 25%) rotate(var(--minutesDeg));
       @include center-clock-hands($clock-hand-width, 42);
     }
 
     &--seconds {
       background: var(--accent);
-      transform: translate(-50%, 25%) rotate(var(--seconds));
+      transform: translate(-50%, 25%) rotate(var(--secondsDeg));
       @include center-clock-hands($clock-hand-width, 42);
     }
   }

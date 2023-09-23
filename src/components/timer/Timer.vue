@@ -38,7 +38,7 @@
         class="btn btn--circular"
         title="add new shortcut"
         @click="addNewTargetTime"
-        v-show="displayTimer === false">
+        :disabled="displayTimer">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </button>
     </section>
@@ -47,9 +47,7 @@
 
 <script setup>
 import { watch, ref } from "vue";
-
 import { TimePicker } from "ant-design-vue";
-
 import { DateTime } from "luxon";
 
 const props = defineProps({
@@ -74,16 +72,12 @@ updateTargetTime(targetTimeString.value);
 
 watch(
   () => props.targetTime,
-  () => {
-    targetTimeString.value = props.targetTime;
-  }
+  () => (targetTimeString.value = props.targetTime),
 );
 
 watch(
   () => targetTimeString.value,
-  () => {
-    updateTargetTime(targetTimeString.value);
-  }
+  () => updateTargetTime(targetTimeString.value),
 );
 
 const hours = ref(0);
@@ -175,12 +169,16 @@ function resetTimer() {
 }
 
 .ant-picker {
+  background: var(--container-background);
+  border-radius: 0.5rem;
+  border: none;
+  outline: 2px solid var(--color-border);
+  box-shadow: var(--shadow--offset) var(--shadow-color);
   color: unset;
-  background: var(--picker-background);
-  border: 1px solid var(--vt-c-divider-light-1);
+  padding: 1rem 2rem;
 
   &-clear {
-    background: var(--picker-background);
+    background: var(--container-background);
 
     &:hover {
       color: unset;

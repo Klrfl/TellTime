@@ -5,21 +5,18 @@
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
-
-  --darker-white: #dfdfdf;
-
-  --accent: #2d6ccf;
-
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
   --vt-c-black-mute: #282828;
 
-  --lighter-black: #343434;
+  --darker-white: #dfdfdf;
+  --lighter-black: #292929;
+  --accent: #2d6ccf;
 
   --vt-c-indigo: #2c3e50;
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.15);
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
   --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
 
@@ -28,7 +25,8 @@
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
-  --shadow: 5px 5px 15px;
+  --shadow--offset: 5px 5px 4px;
+  --shadow-color: #0002;
   --navlink-active: var(--accent);
 }
 
@@ -44,16 +42,14 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --btn-container-shadow: var(--shadow) rgba(95, 95, 95, 0.22);
+  --container-background: var(--color-background-soft);
 
   /* clock */
-  --clock-bg: var(--color-background-soft);
   --clock-hand-color: #474747;
   --indicator-color-small: #b5b5b5;
   --indicator-color-big: #282828;
 
   /* timer */
-  --picker-background: var(--vt-c-white-mute);
   --target-time-background: var(--darker-white);
 
   /* stopwatch */
@@ -71,13 +67,14 @@
   --color-heading: var(--vt-c-text-dark-1);
   --color-text: var(--vt-c-text-dark-2);
 
+  --container-background: var(--color-background-soft);
+
   /* clock */
   --clock-hand-color: #ddd;
   --indicator-color-small: #5b5b5b;
   --indicator-color-big: #828282;
 
   /* timer */
-  --picker-background: var(--vt-c-black-mute);
   --target-time-background: var(--lighter-black);
 
   /* stopwatch */
@@ -97,10 +94,29 @@
   }
 }
 
+.btn-container {
+  backdrop-filter: blur(0.5rem);
+  outline: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  margin-block-start: 1rem;
+  padding: 1rem;
+  box-shadow: var(--shadow--offset) var(--shadow-color);
+
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  position: absolute;
+  bottom: 2rem;
+  z-index: 2;
+}
+
 .btn {
   user-select: none;
   outline: 2px solid var(--accent);
-  transition: background-color 200ms ease, transform 200ms ease;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
   font-size: 1.2rem;
   width: 3.5rem;
   aspect-ratio: 1 / 1;
@@ -134,28 +150,12 @@
   cursor: not-allowed;
 }
 
-.btn-container {
-  backdrop-filter: blur(0.5rem);
-  outline: 2px solid var(--color-border);
-  border-radius: 0.5rem;
-  margin-block-start: 0.5rem;
-  padding: 1rem;
-  box-shadow: var(--btn-container-shadow);
-
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-
-  position: absolute;
-  bottom: 2rem;
-  z-index: 2;
-}
-
 .time-display {
   font-family: "Ubuntu Mono", monospace;
   text-align: center;
   font-size: 2rem;
 }
+
 .time-display__ms {
   color: var(--accent);
 }
@@ -165,13 +165,13 @@
   padding: 0;
   list-style: none;
 
-  width: 100%;
+  flex-grow: 1;
   min-height: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-block-end: 10rem;
 }
 

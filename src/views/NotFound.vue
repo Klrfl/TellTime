@@ -12,13 +12,3 @@
 <script setup>
 import ContentOnly from "@/layouts/ContentOnly.vue";
 </script>
-
-<style>
-.not-found {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-</style>

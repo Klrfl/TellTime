@@ -25,9 +25,9 @@ function deleteTargetTime() {
 
 <style lang="scss">
 .target-time {
-  background: var(--target-time-background);
+  outline: 2px solid var(--color-border);
   border-radius: 0.5rem;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 2rem;
   user-select: none;
 
   display: flex;

@@ -9,13 +9,13 @@
         @lap="lap" />
     </template>
 
-    <ul class="list-container laptimes-container">
+    <ul class="list-container">
       <li class="empty-list-message" key="no-laps" v-show="laps.length === 0">
         No laps... yet
       </li>
 
       <TransitionGroup name="list">
-        <LapTime v-for="lap in laps" :key="lap.no" :lap="lap"></LapTime>
+        <LapTime v-for="lap in laps" :key="lap.no" :lap="lap" />
       </TransitionGroup>
     </ul>
   </MainLayout>
@@ -50,7 +50,7 @@ function startWatch() {
     // rotate dot
     root.style.setProperty(
       "--stopwatch-dot",
-      `${(elapsedTime.value.toMillis() / 60000) * 360}deg`
+      `${(elapsedTime.value.toMillis() / 60000) * 360}deg`,
     );
   });
 }
@@ -78,7 +78,7 @@ const previousLap = ref(0);
 
 function lap() {
   const deltaBetweenLaps = DateTime.fromMillis(
-    elapsedTime.value - previousLap.value
+    elapsedTime.value - previousLap.value,
   ).toFormat("mm:ss.SSS");
 
   // object for display in LapTime
@@ -98,12 +98,14 @@ function lap() {
 }
 </script>
 
-<style>
+<style scoped>
 /* transitions for laptimes*/
 .list-move,
 .list-enter-active,
 .list-leave-active {
-  transition: opacity 300ms ease, transform 300ms ease;
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 
 .list-enter-from,
@@ -116,7 +118,7 @@ function lap() {
   width: 100%;
 }
 
-.laptimes-container {
+.list-container {
   flex-direction: column-reverse;
 }
 

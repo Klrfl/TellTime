@@ -3,11 +3,13 @@
     <section class="stopwatch-display-frame">
       <span class="time-display">
         {{ elapsedTime.minutes }}:{{ elapsedTime.seconds }}.<span
-          class="time-display__ms"
-          >{{ elapsedTime.milliseconds }}</span
-        >
+          class="time-display__ms">
+          {{ elapsedTime.milliseconds }}
+        </span>
       </span>
-      <span class="laptime-display" v-show="isLapping"> 0:0:00 </span>
+      <span class="laptime-display" v-show="isLapping">
+        {{ laptimeDisplay }}
+      </span>
     </section>
 
     <section class="btn-container">
@@ -34,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
 const props = defineProps({
@@ -42,26 +44,24 @@ const props = defineProps({
 });
 
 const isGoing = ref(false);
-const isStopped = ref(true);
+const isStopped = computed(() => !isGoing.value);
 
 function startWatch() {
   emit("startWatch", isStopped.value);
 
   isGoing.value = true;
-  isStopped.value = false;
 }
 
 function pauseWatch() {
   emit("pauseWatch");
   isGoing.value = false;
-  isStopped.value = true;
 }
 
 function resetWatch() {
   emit("resetWatch");
 
   isGoing.value = false;
-  isStopped.value = true;
+  isLapping.value = false;
 }
 
 const isLapping = ref(false);
@@ -96,7 +96,9 @@ function lap() {
 }
 
 .stopwatch-display-frame {
-  outline: 2px solid #333;
+  outline: 2px solid var(--color-border);
+  background: var(--container-background);
+  box-shadow: var(--shadow--offset) var(--shadow-color);
   border-radius: 50%;
   width: 29ch;
   margin: 0 auto;

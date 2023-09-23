@@ -16,10 +16,12 @@ const props = defineProps({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .lap {
-  background: var(--laptime-background);
-  padding: 1.5rem 1rem;
+  background: var(--container-background);
+  outline: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1.5rem 2rem;
 
   display: flex;
   align-items: center;

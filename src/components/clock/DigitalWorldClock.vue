@@ -30,7 +30,7 @@ const props = defineProps({
   align-items: center;
   gap: 0.2rem;
 
-  box-shadow: var(--shadow) rgba(60, 60, 60, 0.22) inset;
+  box-shadow: var(--shadow--offset) var(--shadow-color) inset;
 
   // individual numbers in the clock
   & > *:not(:last-child)::after {

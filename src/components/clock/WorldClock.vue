@@ -33,9 +33,9 @@ onBeforeMount(() => {
 
 <style lang="scss">
 .world-clock {
-  padding: 2rem;
-  border-radius: 0.5rem;
   outline: 2px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 2rem;
 
   display: flex;
   justify-content: space-between;
