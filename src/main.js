@@ -36,11 +36,11 @@ library.add(
   faMoon,
   faSquareXmark,
   faPlus,
-  faFlag
+  faFlag,
 );
 
 import "ant-design-vue/dist/antd.css";
-import "./styles.css";
+import "./assets/styles.css";
 
 import { getTheme } from "@/utilities/getTheme.js";
 
