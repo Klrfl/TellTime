@@ -13,6 +13,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "ant-design-vue": "^3.2.20",
     "luxon": "^3.3.0",
+    "pinia": "^2.1.6",
     "vue": "^3.2.47",
     "vue-router": "^4.2.0"
   },

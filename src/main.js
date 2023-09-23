@@ -43,12 +43,15 @@ import "ant-design-vue/dist/antd.css";
 import "./assets/styles.css";
 
 import { getTheme } from "@/utilities/getTheme.js";
+import { createPinia } from "pinia";
 
 const scheme = ref(getTheme());
 const theme = reactive(scheme);
 
 const app = createApp(App);
-app.component("font-awesome-icon", FontAwesomeIcon);
-app.provide("theme", theme);
-app.use(router);
-app.mount("#app");
+app
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .provide("theme", theme)
+  .use(router)
+  .use(createPinia())
+  .mount("#app");
