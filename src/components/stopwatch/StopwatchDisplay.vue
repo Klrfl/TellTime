@@ -1,12 +1,17 @@
 <template>
   <div class="stopwatch">
     <section class="stopwatch-display-frame">
-      <span class="time-display">
-        {{ elapsedTime.minutes }}:{{ elapsedTime.seconds }}.<span
-          class="time-display__ms">
-          {{ elapsedTime.milliseconds }}
+      <div class="time-display">
+        <span class="time-display__minutes">
+          {{ stopwatchStore.elapsedTime.minutes }}:</span
+        >
+        <span class="time-display__seconds">
+          {{ stopwatchStore.elapsedTime.seconds }}.</span
+        >
+        <span class="time-display__milliseconds">
+          {{ stopwatchStore.elapsedTime.milliseconds }}
         </span>
-      </span>
+      </div>
       <span class="laptime-display" v-show="isLapping">
         {{ laptimeDisplay }}
       </span>
@@ -37,12 +42,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useStopwatchStore } from "@/stores/stopwatch";
+
+const stopwatchStore = useStopwatchStore();
 
 const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
-const props = defineProps({
-  elapsedTime: [Object, Number],
-});
-
 const isGoing = ref(false);
 
 const laptimeDisplay = ref("blom ada bentar ya");
