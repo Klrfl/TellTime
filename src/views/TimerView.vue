@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #main-content>
-      <Timer
+      <TimerDisplay
         @timerNotDisplayed="handleDisplayInput(true)"
         @timerDisplayed="handleDisplayInput(false)" />
     </template>
@@ -14,7 +14,7 @@
       </li>
 
       <TransitionGroup name="list">
-        <TargetTime
+        <TimerSelect
           v-for="targetTime in timerStore.targetTimes"
           :key="targetTime.id"
           :targetTime="targetTime"
@@ -29,8 +29,8 @@
 import { ref } from "vue";
 
 import MainLayout from "@/layouts/MainLayout.vue";
-import Timer from "@/components/timer/Timer.vue";
-import TargetTime from "@/components/timer/TargetTime.vue";
+import TimerDisplay from "@/components/timer/TimerDisplay.vue";
+import TimerSelect from "@/components/timer/TimerSelect.vue";
 import { useTimerStore } from "@/stores/timer";
 
 const timerStore = useTimerStore();

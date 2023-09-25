@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <template #main-content>
-      <TheStopwatch
+      <StopwatchDisplay
         :elapsedTime="elapsedTime"
         @pauseWatch="pauseWatch"
         @startWatch="startWatch"
@@ -15,7 +15,7 @@
       </li>
 
       <TransitionGroup name="list">
-        <LapTime v-for="lap in laps" :key="lap.no" :lap="lap" />
+        <StopwatchLapTime v-for="lap in laps" :key="lap.no" :lap="lap" />
       </TransitionGroup>
     </ul>
   </MainLayout>
@@ -26,8 +26,8 @@ import { ref } from "vue";
 import { DateTime } from "luxon";
 
 import MainLayout from "@/layouts/MainLayout.vue";
-import TheStopwatch from "@/components/stopwatch/TheStopwatch.vue";
-import LapTime from "@/components/stopwatch/LapTime.vue";
+import StopwatchDisplay from "../components/stopwatch/StopwatchDisplay.vue";
+import StopwatchLapTime from "@/components/stopwatch/StopwatchLapTime.vue";
 
 const root = document.querySelector(":root");
 
