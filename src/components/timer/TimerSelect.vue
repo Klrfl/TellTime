@@ -35,7 +35,7 @@ function deleteTargetTime() {
   align-items: center;
 
   &:hover {
-    background: var(--target-time-background-hover);
+    background: var(--container-background);
     cursor: pointer;
   }
 

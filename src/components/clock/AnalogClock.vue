@@ -128,7 +128,6 @@ $clock-hand-width: 0.2rem;
 
 @mixin display-indicator($thickness, $color) {
   border-left: $thickness solid $color;
-  border-right: $thickness solid $color;
 }
 
 .clock {
@@ -178,7 +177,7 @@ $clock-hand-width: 0.2rem;
   }
 
   &__dot {
-    background: #aaa;
+    background: var(--clock-dot-color);
     width: 1rem;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
@@ -190,22 +189,43 @@ $clock-hand-width: 0.2rem;
     background: var(--clock-hand-color);
     width: $clock-hand-width;
     border-radius: 30% 30% 0 0;
-    /* transition: transform 200ms cubic-bezier(0.1, 2.7, 0.58, 1); */
+    @include center-clock-hands($clock-hand-width, 42);
 
     &--hours {
-      transform: translate(-50%, 25%) rotate(var(--hoursDeg));
       @include center-clock-hands($clock-hand-width, 30);
-    }
-
-    &--minutes {
-      transform: translate(-50%, 25%) rotate(var(--minutesDeg));
-      @include center-clock-hands($clock-hand-width, 42);
     }
 
     &--seconds {
       background: var(--accent);
-      transform: translate(-50%, 25%) rotate(var(--secondsDeg));
-      @include center-clock-hands($clock-hand-width, 42);
+    }
+
+    @supports (translate: -50%) {
+      translate: -50% 25%;
+      // transition: rotate 200ms cubic-bezier(0.1, 2.7, 0.58, 1);
+
+      &--hours {
+        rotate: var(--hoursDeg);
+      }
+      &--minutes {
+        rotate: var(--minutesDeg);
+      }
+      &--seconds {
+        rotate: var(--secondsDeg);
+      }
+    }
+
+    @supports not (translate: -50%) {
+      &--hours {
+        transform: translate(-50%, 25%) rotate(var(--hoursDeg));
+      }
+
+      &--minutes {
+        transform: translate(-50%, 25%) rotate(var(--minutesDeg));
+      }
+
+      &--seconds {
+        transform: translate(-50%, 25%) rotate(var(--secondsDeg));
+      }
     }
   }
 }

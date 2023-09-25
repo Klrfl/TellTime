@@ -27,11 +27,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useTimerStore } from "@/stores/timer";
 
 import MainLayout from "@/layouts/MainLayout.vue";
 import TimerDisplay from "@/components/timer/TimerDisplay.vue";
 import TimerSelect from "@/components/timer/TimerSelect.vue";
-import { useTimerStore } from "@/stores/timer";
 
 const timerStore = useTimerStore();
 
