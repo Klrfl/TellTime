@@ -2,9 +2,9 @@
   <li class="lap" title="double click/tap to delete">
     <div class="lap__number">{{ lap.no }}</div>
     <div class="lap__time">
-      <span class="lap__time--minute">{{ lap.time.minute }}</span>
-      <span class="lap__time--second">{{ lap.time.second }}</span>
-      <span class="lap__time--milliSecond">{{ lap.time.milliSecond }}</span>
+      <span class="lap__time--minute">{{ lap.time.minutes }}</span>
+      <span class="lap__time--second">{{ lap.time.seconds }}</span>
+      <span class="lap__time--milliSecond">{{ lap.time.milliseconds }}</span>
     </div>
     <div class="lap--delta">{{ lap.delta }}</div>
   </li>

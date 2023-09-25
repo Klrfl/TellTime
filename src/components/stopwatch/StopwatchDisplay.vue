@@ -1,12 +1,17 @@
 <template>
   <div class="stopwatch">
     <section class="stopwatch-display-frame">
-      <span class="time-display">
-        {{ elapsedTime.minutes }}:{{ elapsedTime.seconds }}.<span
-          class="time-display__ms">
-          {{ elapsedTime.milliseconds }}
+      <div class="time-display">
+        <span class="time-display__minutes">
+          {{ stopwatchStore.elapsedTime.minutes }}:</span
+        >
+        <span class="time-display__seconds">
+          {{ stopwatchStore.elapsedTime.seconds }}.</span
+        >
+        <span class="time-display__milliseconds">
+          {{ stopwatchStore.elapsedTime.milliseconds }}
         </span>
-      </span>
+      </div>
       <span class="laptime-display" v-show="isLapping">
         {{ laptimeDisplay }}
       </span>
@@ -37,12 +42,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useStopwatchStore } from "@/stores/stopwatch";
+
+const stopwatchStore = useStopwatchStore();
 
 const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
-const props = defineProps({
-  elapsedTime: [Object, Number],
-});
-
 const isGoing = ref(false);
 
 const laptimeDisplay = ref("blom ada bentar ya");
@@ -77,7 +81,28 @@ function lap() {
   --stopwatch-dot: 0deg;
 }
 
-.time-display::after {
+.laptime-display {
+  font-family: "Ubuntu Mono", monospace;
+}
+
+.stopwatch-display-frame {
+  outline: 2px solid var(--color-border);
+  background: var(--container-background);
+  box-shadow: var(--shadow--offset) var(--shadow-color);
+  border-radius: 50%;
+  width: 30ch;
+  height: 30ch;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.stopwatch-display-frame::after {
   content: "";
   background: var(--accent);
   height: 0.5rem;
@@ -88,27 +113,7 @@ function lap() {
   top: 0.5rem;
   left: calc(50% - 0.25rem);
   transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% 105px;
-}
-
-.laptime-display {
-  font-family: "Ubuntu Mono", monospace;
-}
-
-.stopwatch-display-frame {
-  outline: 2px solid var(--color-border);
-  background: var(--container-background);
-  box-shadow: var(--shadow--offset) var(--shadow-color);
-  border-radius: 50%;
-  width: 29ch;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  transform-origin: 50% calc(15ch - 0.5rem);
 }
 
 @media screen and (min-width: 50em) {

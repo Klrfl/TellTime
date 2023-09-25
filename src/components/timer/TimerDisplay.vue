@@ -1,15 +1,17 @@
 <template>
   <div class="timer">
     <section class="time-display" v-show="displayTimer">
-      {{ time.hours }}:{{ time.minutes }}:{{ time.seconds }}.<span
-        class="time-display__ms">
-        {{ time.milliseconds }}
+      <span class="time-display__hours">{{ timerStore.time.hours }}:</span>
+      <span class="time-display__minutes">{{ timerStore.time.minutes }}:</span>
+      <span class="time-display__seconds">{{ timerStore.time.seconds }}:</span>
+      <span class="time-display__milliseconds">
+        {{ timerStore.time.milliseconds }}
       </span>
     </section>
 
     <TimePicker
       size="large"
-      v-model:value="targetTimeString"
+      v-model:value="timerStore.targetTimeString"
       value-format="HH:mm:ss"
       v-show="!displayTimer" />
 
@@ -44,117 +46,43 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
+import { ref } from "vue";
 import { TimePicker } from "ant-design-vue";
-import { DateTime } from "luxon";
+import { useTimerStore } from "@/stores/timer";
 
-const props = defineProps({
-  targetTime: String,
-});
+const timerStore = useTimerStore();
 
-const emit = defineEmits([
-  "timerDisplayed",
-  "timerNotDisplayed",
-  "addNewTargetTime",
-]);
-
-const targetTime = ref(null);
-const targetTimeString = ref(`00:00:10`);
-
-function updateTargetTime(target) {
-  targetTime.value = DateTime.fromISO(`1970-01-01T${target}`, { zone: "utc" });
-}
-
-// set targetTime on mount
-updateTargetTime(targetTimeString.value);
-
-watch(
-  () => props.targetTime,
-  () => (targetTimeString.value = props.targetTime),
-);
-
-watch(
-  () => targetTimeString.value,
-  () => updateTargetTime(targetTimeString.value),
-);
-
-const time = ref({
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0,
-});
-
-const startTime = ref(0);
-let interval = null;
-const initialDelta = ref(0);
-const finalDelta = ref(0);
+const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
 
 const isPaused = ref(true);
 const displayTimer = ref(false);
 
 function addNewTargetTime() {
-  emit("addNewTargetTime", targetTimeString.value);
+  timerStore.addTargetTime();
 }
 
 function startTimer() {
-  if (targetTime.value.c == null) {
+  if (timerStore.targetTime == null) {
     alert("Please select target time before starting the timer.");
     return;
   }
 
-  startTime.value = DateTime.utc();
-
   emit("timerDisplayed");
-  isPaused.value = false;
   displayTimer.value = true;
-
-  // calculate difference between startTime and now, every millisecond
-  interval = setInterval(() => {
-    initialDelta.value = DateTime.utc().diff(startTime.value, [
-      "hours",
-      "minutes",
-      "seconds",
-      "milliseconds",
-    ]);
-
-    // calculate again to take pausing time into account
-    finalDelta.value = targetTime.value.diff(initialDelta.value, [
-      "hours",
-      "minutes",
-      "seconds",
-      "milliseconds",
-    ]);
-
-    time.value = finalDelta.value;
-
-    // stop timer when 0
-    if (finalDelta.value.toMillis() <= 0) {
-      clearInterval(interval);
-      time.value = {
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0,
-      };
-      isPaused.value = true;
-    }
-  });
+  isPaused.value = false;
+  timerStore.startTimer();
 }
 
 function pauseTimer() {
   isPaused.value = true;
-  clearInterval(interval);
-
-  updateTargetTime(finalDelta.value.toFormat("hh:mm:ss.SSS"));
+  timerStore.pauseTimer();
 }
 
 function resetTimer() {
   emit("timerNotDisplayed");
   isPaused.value = true;
   displayTimer.value = false;
-
-  updateTargetTime(props.targetTime);
+  timerStore.resetTimer();
 }
 </script>
 

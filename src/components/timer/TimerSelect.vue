@@ -1,7 +1,7 @@
 <template>
-  <li class="target-time" @click="selectTargetTime">
+  <li class="target-time" @click.self="selectTargetTime">
     <span>{{ targetTime.time }}</span>
-    <button class="target-time__close" @click="deleteTargetTime">
+    <button class="target-time__close" @click.stop="deleteTargetTime">
       <font-awesome-icon :icon="['fas', 'square-xmark']"></font-awesome-icon>
     </button>
   </li>
@@ -19,7 +19,7 @@ function selectTargetTime() {
 }
 
 function deleteTargetTime() {
-  emit("delete", props.targetTime.id);
+  emit("delete");
 }
 </script>
 
@@ -35,12 +35,16 @@ function deleteTargetTime() {
   align-items: center;
 
   &:hover {
-    background: var(--target-time-background-hover);
+    background: var(--container-background);
     cursor: pointer;
   }
 
   &__close {
     font-size: 1.25rem;
+  }
+
+  &.active {
+    scale: 1.04 1.04;
   }
 }
 
