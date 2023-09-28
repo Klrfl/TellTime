@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { TimePicker } from "ant-design-vue";
 import { useTimerStore } from "@/stores/timer";
 
@@ -84,6 +84,10 @@ function resetTimer() {
   displayTimer.value = false;
   timerStore.resetTimer();
 }
+
+onMounted(() => {
+  timerStore.resetTimer();
+});
 </script>
 
 <style lang="scss">
