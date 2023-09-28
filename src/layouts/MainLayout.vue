@@ -33,6 +33,7 @@
 }
 
 .container--side-content {
+  box-shadow: 0 4px 4px 2px var(--shadow-color) inset;
   max-height: 50vh;
   overflow: auto;
   align-items: flex-start;

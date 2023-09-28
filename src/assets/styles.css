@@ -96,7 +96,7 @@
   justify-content: center;
 
   position: absolute;
-  bottom: 2rem;
+  inset: auto 2rem 2rem 2rem;
   z-index: 2;
 }
 
@@ -174,6 +174,6 @@
     background: transparent;
     width: auto;
     position: relative;
-    bottom: unset;
+    inset: unset;
   }
 }
