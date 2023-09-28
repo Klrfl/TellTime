@@ -58,6 +58,8 @@ export const useTimerStore = defineStore("timer", () => {
   }
 
   //main timer logic
+  const isPaused = ref(true);
+
   const targetTime = ref(
     DateTime.fromISO(`1970-01-01T${selectedTargetTime.time}`, {
       zone: "utc",
@@ -101,6 +103,7 @@ export const useTimerStore = defineStore("timer", () => {
   const finalDelta = ref(0);
 
   function startTimer() {
+    isPaused.value = false;
     startTime.value = DateTime.utc();
     // calculate difference between startTime and now, every millisecond
     interval = setInterval(() => {
@@ -123,7 +126,7 @@ export const useTimerStore = defineStore("timer", () => {
 
       // stop timer when 0
       if (finalDelta.value.toMillis() <= 0) {
-        clearInterval(interval);
+        pauseTimer();
         time.value = {
           hours: 0,
           minutes: 0,
@@ -135,11 +138,13 @@ export const useTimerStore = defineStore("timer", () => {
   }
 
   function pauseTimer() {
+    isPaused.value = true;
     clearInterval(interval);
     setTargetTime(finalDelta.value.toFormat("hh:mm:ss.SSS"));
   }
 
   function resetTimer() {
+    isPaused.value = true;
     clearInterval(interval);
     setTargetTime(targetTimeString.value);
   }
@@ -151,6 +156,7 @@ export const useTimerStore = defineStore("timer", () => {
     targetTime,
     targetTimeString,
     time,
+    isPaused,
     selectTargetTime,
     addTargetTime,
     deleteTargetTime,

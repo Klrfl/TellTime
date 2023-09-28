@@ -19,18 +19,22 @@
       <button
         class="btn btn-primary btn--circular"
         @click="startTimer"
-        v-show="isPaused">
+        v-show="timerStore.isPaused"
+        :disabled="displayTimer && timerStore.time.milliseconds === 0">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
-      <button class="btn btn--circular" @click="pauseTimer" v-show="!isPaused">
+      <button
+        class="btn btn--circular"
+        @click="pauseTimer"
+        v-show="!timerStore.isPaused">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
 
       <button
         class="btn btn--circular"
         @click="resetTimer"
-        :disabled="displayTimer && !isPaused">
+        :disabled="displayTimer && !timerStore.isPaused">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
 
@@ -54,7 +58,6 @@ const timerStore = useTimerStore();
 
 const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
 
-const isPaused = ref(true);
 const displayTimer = ref(false);
 
 function addNewTargetTime() {
@@ -69,18 +72,15 @@ function startTimer() {
 
   emit("timerDisplayed");
   displayTimer.value = true;
-  isPaused.value = false;
   timerStore.startTimer();
 }
 
 function pauseTimer() {
-  isPaused.value = true;
   timerStore.pauseTimer();
 }
 
 function resetTimer() {
   emit("timerNotDisplayed");
-  isPaused.value = true;
   displayTimer.value = false;
   timerStore.resetTimer();
 }
