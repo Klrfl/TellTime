@@ -1,6 +1,68 @@
 <template>
   <div class="stopwatch">
-    <section class="stopwatch-display-frame">
+    <section class="stopwatch-display">
+      <div class="stopwatch-display__indicator-container">
+        <span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span
+        ><span class="stopwatch-display__indicator"></span>
+      </div>
       <div class="time-display">
         <span class="time-display__minutes">
           {{ stopwatchStore.elapsedTime.minutes }}:</span
@@ -85,7 +147,7 @@ function lap() {
   font-family: "Ubuntu Mono", monospace;
 }
 
-.stopwatch-display-frame {
+.stopwatch-display {
   outline: 2px solid var(--color-border);
   background: var(--container-background);
   box-shadow: var(--shadow--offset) var(--shadow-color);
@@ -100,20 +162,40 @@ function lap() {
   justify-content: center;
   align-items: center;
   position: relative;
-}
 
-.stopwatch-display-frame::after {
-  content: "";
-  background: var(--accent);
-  height: 0.5rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  &__indicator-container {
+    position: absolute;
+    inset: 0;
+  }
 
-  position: absolute;
-  top: 0.5rem;
-  left: calc(50% - 0.25rem);
-  transform: rotate(var(--stopwatch-dot));
-  transform-origin: 50% calc(15ch - 0.5rem);
+  &__indicator {
+    position: absolute;
+    inset: auto 0 50% 0;
+    border-left: 1rem solid var(--color-border);
+    height: 0.2rem;
+    width: 100%;
+
+    translate: 0 50%;
+  }
+
+  @for $i from 1 through 60 {
+    &__indicator:nth-child(#{$i}) {
+      rotate: #{$i * 6}deg;
+    }
+  }
+
+  &::after {
+    content: "";
+    background: var(--accent);
+    height: 0.5rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+
+    position: absolute;
+    top: 1rem;
+    transform: rotate(var(--stopwatch-dot));
+    transform-origin: 50% calc(15ch - 1rem);
+  }
 }
 
 @media screen and (min-width: 50em) {
@@ -121,11 +203,6 @@ function lap() {
     background: transparent;
     position: relative;
     bottom: unset;
-  }
-
-  .time-display::after {
-    top: 0.5rem;
-    transform: rotate(var(--stopwatch-dot));
   }
 }
 </style>
