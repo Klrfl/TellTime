@@ -2,8 +2,8 @@
   <MainLayout>
     <template #main-content>
       <TimerDisplay
-        @timerNotDisplayed="handleDisplayInput(true)"
-        @timerDisplayed="handleDisplayInput(false)" />
+        @timerNotDisplayed="displayInput = true"
+        @timerDisplayed="displayInput = false" />
     </template>
 
     <ul class="list-container" v-show="displayInput">
@@ -19,7 +19,7 @@
           :key="targetTime.id"
           :targetTime="targetTime"
           @delete="timerStore.deleteTargetTime(targetTime.id)"
-          @click="selectTargetTime(targetTime.id)" />
+          @click="timerStore.selectTargetTime(targetTime.id)" />
       </TransitionGroup>
     </ul>
   </MainLayout>
@@ -36,14 +36,6 @@ import TimerSelect from "@/components/timer/TimerSelect.vue";
 const timerStore = useTimerStore();
 
 const displayInput = ref(true);
-
-function handleDisplayInput(state) {
-  displayInput.value = state;
-}
-
-function selectTargetTime(targetTimeID) {
-  timerStore.selectTargetTime(targetTimeID);
-}
 </script>
 
 <style>

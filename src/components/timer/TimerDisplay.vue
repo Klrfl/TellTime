@@ -20,7 +20,10 @@
         class="btn btn-primary btn--circular"
         @click="startTimer"
         v-show="timerStore.isPaused"
-        :disabled="displayTimer && timerStore.time.milliseconds === 0">
+        :disabled="
+          (displayTimer && timerStore.time.milliseconds === 0) ||
+          !timerStore.targetTimeString
+        ">
         <font-awesome-icon :icon="['fas', 'play']" />
       </button>
 
@@ -34,7 +37,9 @@
       <button
         class="btn btn--circular"
         @click="resetTimer"
-        :disabled="displayTimer && !timerStore.isPaused">
+        :disabled="
+          (displayTimer && !timerStore.isPaused) || !timerStore.targetTimeString
+        ">
         <font-awesome-icon :icon="['fas', 'rotate-left']" />
       </button>
 
@@ -42,7 +47,7 @@
         class="btn btn--circular"
         title="add new target time"
         @click="addNewTargetTime"
-        :disabled="displayTimer">
+        :disabled="displayTimer || !timerStore.targetTimeString">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </button>
     </section>
@@ -145,5 +150,10 @@ onMounted(() => {
     .ant-picker-time-panel-cell-inner {
     background: #aaa2;
   }
+}
+
+.ant-picker-suffix,
+.ant-picker-clear {
+  color: inherit;
 }
 </style>
