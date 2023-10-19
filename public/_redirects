@@ -1,0 +1,2 @@
+# redirect all pages that are requested directly to home
+/*    /     301
