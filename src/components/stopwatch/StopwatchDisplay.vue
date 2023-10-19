@@ -107,34 +107,46 @@ import { ref } from "vue";
 import { useStopwatchStore } from "@/stores/stopwatch";
 
 const stopwatchStore = useStopwatchStore();
+const root = document.querySelector(":root");
+let interval = null;
 
-const emit = defineEmits(["startWatch", "pauseWatch", "resetWatch", "lap"]);
 const isGoing = ref(false);
-
-const laptimeDisplay = ref("blom ada bentar ya");
 const isLapping = ref(false);
 
+const laptimeDisplay = ref("blom ada bentar ya");
+
 function startWatch() {
-  emit("startWatch");
+  // rotate dot
+  interval = setInterval(() => {
+    root.style.setProperty(
+      "--stopwatch-dot",
+      `${(stopwatchStore.elapsedTime.toMillis() / 60000) * 360}deg`,
+    );
+  });
 
   isGoing.value = true;
+
+  stopwatchStore.startWatch();
 }
 
 function pauseWatch() {
-  emit("pauseWatch");
+  clearInterval(interval);
   isGoing.value = false;
+
+  stopwatchStore.pauseWatch();
 }
 
 function resetWatch() {
-  emit("resetWatch");
-
-  isGoing.value = false;
+  pauseWatch();
+  root.style.removeProperty("--stopwatch-dot");
   isLapping.value = false;
+
+  stopwatchStore.resetWatch();
 }
 
 function lap() {
-  emit("lap");
   isLapping.value = true;
+  stopwatchStore.lap();
 }
 </script>
 

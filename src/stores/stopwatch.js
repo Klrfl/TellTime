@@ -61,7 +61,6 @@ export const useStopwatchStore = defineStore("stopwatch", () => {
   }
 
   return {
-    startTime,
     elapsedTime,
     laps,
     startWatch,
