@@ -1,16 +1,14 @@
 <template>
   <div class="digital-clock">
-    <span id="hours">{{ hours }}</span>
-    <span id="minutes">{{ minutes }}</span>
-    <span id="seconds">{{ seconds }}</span>
+    <span id="hours">{{ time.hour }}</span>
+    <span id="minutes">{{ time.minute }}</span>
+    <span id="seconds">{{ time.second }}</span>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  hours: Number,
-  minutes: Number,
-  seconds: Number,
+  time: Object,
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="clock">
-    <DigitalWorldClock :hours="hours" :minutes="minutes" :seconds="seconds" />
+    <DigitalWorldClock :time="now.c" />
     <div class="clock__indicator-container">
       <span class="clock__indicator"></span
       ><span class="clock__indicator"></span
@@ -71,30 +71,34 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import DigitalWorldClock from "@/components/clock/DigitalWorldClock.vue";
-import { DateTime } from "luxon";
+import { useClockStore } from "@/stores/clock";
+
+const clockStore = useClockStore();
+
+const now = ref(null);
+onBeforeMount(() => {
+  now.value = clockStore.currentTime;
+});
+
+setInterval(() => {
+  now.value = clockStore.currentTime;
+}, 200);
 
 const root = document.querySelector(":root");
-const date0 = new Date().setHours(0, 0, 0, 0);
-
-const hours = ref(0);
-const minutes = ref(0);
-const seconds = ref(0);
-
-function getCurrentTime() {
-  const now = ref(DateTime.now());
-
-  hours.value = now.value.c.hour;
-  minutes.value = now.value.c.minute;
-  seconds.value = now.value.c.second;
-}
-
 function setMinuteSecondHands() {
-  root.style.setProperty("--minutesDeg", `${(minutes.value / 60) * 360}deg`);
-  root.style.setProperty("--secondsDeg", `${(seconds.value / 60) * 360}deg`);
+  root.style.setProperty(
+    "--minutesDeg",
+    `${(now.value.c.minute / 60) * 360}deg`,
+  );
+  root.style.setProperty(
+    "--secondsDeg",
+    `${(now.value.c.second / 60) * 360}deg`,
+  );
 }
 
+const date0 = new Date().setHours(0, 0, 0, 0);
 function setHourHand() {
   root.style.setProperty(
     "--hoursDeg",
@@ -104,14 +108,11 @@ function setHourHand() {
 
 // set hours, minutes and seconds to rotate clock
 setInterval(() => {
-  getCurrentTime();
   setMinuteSecondHands();
-}, 1000);
+  setHourHand();
+}, 200);
 
-setInterval(setHourHand, 60000);
-
-onMounted(() => {
-  getCurrentTime();
+onBeforeMount(() => {
   setMinuteSecondHands();
   setHourHand();
 });
