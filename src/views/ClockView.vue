@@ -17,14 +17,36 @@
       </li>
     </ul>
 
-    <dialog ref="worldClockDialog" @close="closeDialog">
-      <form method="dialog">
-        <h2>Hello!</h2>
-        <p>I am going to make a list here but bear with me</p>
+    <dialog ref="worldClockDialog" @close="closeDialog" @click="closeDialog">
+      <header>
+        <h2>Choose a time zone to add</h2>
+        <p>
+          For the moment you can only search by country, I will add city name
+          later
+        </p>
 
-        <ul class="world-clock-list">
-          <li></li>
-        </ul>
+        <input
+          type="text"
+          name="zone-search"
+          id="zone-search"
+          v-model="searchTerm"
+          placeholder="look for a zone" />
+      </header>
+
+      <ul class="world-clock-list">
+        <li class="time-zone" v-for="timezone in filteredWorldClockList">
+          <div v-if="timezone.location">
+            <p class="time-zone__country">
+              {{ timezone.location.countryName }}
+            </p>
+            <span>
+              {{ timezone.currentOffset }} {{ timezone.location.comment }}
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <form method="dialog">
         <button class="btn btn--circular">close</button>
       </form>
     </dialog>
@@ -35,7 +57,8 @@
 import MainLayout from "@/layouts/MainLayout.vue";
 import AnalogClock from "@/components/clock/AnalogClock.vue";
 import WorldClock from "@/components/clock/WorldClock.vue";
-import { onMounted, ref } from "vue";
+import timezones from "../assets/timezones.json";
+import { computed, onMounted, ref } from "vue";
 
 // dialog
 const worldClockDialog = ref(null);
@@ -48,28 +71,64 @@ function closeDialog() {
   worldClockDialog.value.close();
 }
 
-// world clock list
-// const worldClockListKey = "telltime-world-clock-list";
-// const worldClockList = ref(localStorage.getItem(worldClockListKey)) || ref([]);
+const searchTerm = ref("");
+
 const worldClockList = ref([]);
-
-async function getWorldClockList() {
-  try {
-    const data = await fetch(
-      "https://nodatime.org/timezones?version=2023c&format=json",
-    );
-    const response = await data.json();
-    console.log(data);
-    return response;
-  } catch (err) {
-    console.error(err.message);
-  }
-
-  // JSON.stringify(localStorage.setItem(worldClockListKey, worldClockList));
-}
+const filteredWorldClockList = computed(() => {
+  return worldClockList.value.filter((zone) => {
+    if (zone.location) {
+      return zone.location.countryName.toLowerCase().includes(searchTerm.value);
+    }
+  });
+});
 
 onMounted(async () => {
-  worldClockList.value = await getWorldClockList();
+  worldClockList.value = timezones.zones;
   console.log(worldClockList.value);
 });
 </script>
+
+<style scoped>
+dialog {
+  border: 2px solid var(--color-border);
+  background: inherit;
+  color: inherit;
+  backdrop-filter: blur(1rem);
+  width: min(70ch, 100%);
+  height: 50%;
+  margin-inline: auto;
+  padding: 0;
+}
+
+dialog header {
+  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  background: var(--color-background);
+}
+
+#zone-search {
+  background: var(--color-background-soft);
+  padding: 1rem;
+  width: 100%;
+}
+
+.world-clock-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.time-zone {
+  padding: 1rem;
+}
+
+.time-zone__country {
+  margin: 0;
+  line-height: 1.2;
+}
+</style>
