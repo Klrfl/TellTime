@@ -5,7 +5,7 @@
     </template>
 
     <ul class="list-container">
-      <WorldClock />
+      <WorldClock v-for="zone in displayedTimeZones" :zone="zone" />
 
       <li>
         <button
@@ -34,7 +34,10 @@
       </header>
 
       <ul class="world-clock-list">
-        <li class="time-zone" v-for="timezone in filteredWorldClockList">
+        <li
+          class="time-zone"
+          v-for="timezone in filteredWorldClockList"
+          @click="addDisplayedTimeZones(timezone.id)">
           <div v-if="timezone.location">
             <p class="time-zone__country">
               {{ timezone.location.countryName }}
@@ -84,8 +87,13 @@ const filteredWorldClockList = computed(() => {
 
 onMounted(async () => {
   worldClockList.value = timezones.zones;
-  console.log(worldClockList.value);
 });
+
+const displayedTimeZones = ref(["America/New_York"]);
+
+function addDisplayedTimeZones(zone) {
+  displayedTimeZones.value.push(zone);
+}
 </script>
 
 <style scoped>

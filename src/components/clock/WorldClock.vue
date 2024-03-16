@@ -1,6 +1,7 @@
 <template>
   <li class="world-clock">
-    <span>New York</span>
+    <span>{{ cityName }}</span>
+
     <div class="world-clock__time">
       <span class="hour">{{ now.c.hour }}</span>
       <span class="minute">{{ now.c.minute }}</span>
@@ -10,12 +11,20 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 
 import { DateTime } from "luxon";
 
+const props = defineProps({
+  zone: String,
+});
+
 const now = ref("Anjing");
 const timeZone = ref("");
+
+const cityName = computed(() => {
+  return props.zone.split("/")[1].replace("_", " ");
+});
 
 function getTimeOfZone(zone) {
   now.value = DateTime.now().setZone(zone);
@@ -23,11 +32,11 @@ function getTimeOfZone(zone) {
 }
 
 setInterval(() => {
-  getTimeOfZone("America/New_York");
+  getTimeOfZone(props.zone);
 }, 1000);
 
 onBeforeMount(() => {
-  getTimeOfZone("America/New_York");
+  getTimeOfZone(props.zone);
 });
 </script>
 
