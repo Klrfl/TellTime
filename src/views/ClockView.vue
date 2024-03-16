@@ -5,7 +5,7 @@
     </template>
 
     <ul class="list-container">
-      <WorldClock v-for="zone in displayedTimeZones" :zone="zone" />
+      <WorldClock v-for="zoneCode in timeZoneCodes" :zoneCode="zoneCode" />
 
       <li>
         <button
@@ -36,7 +36,7 @@
       <ul class="world-clock-list">
         <li
           class="time-zone"
-          v-for="timezone in filteredWorldClockList"
+          v-for="timezone in filteredTimeZones"
           @click="addDisplayedTimeZones(timezone.id)">
           <div v-if="timezone.location">
             <p class="time-zone__country">
@@ -76,9 +76,9 @@ function closeDialog() {
 
 const searchTerm = ref("");
 
-const worldClockList = ref([]);
-const filteredWorldClockList = computed(() => {
-  return worldClockList.value.filter((zone) => {
+const timeZones = ref([]);
+const filteredTimeZones = computed(() => {
+  return timeZones.value.filter((zone) => {
     if (zone.location) {
       return zone.location.countryName.toLowerCase().includes(searchTerm.value);
     }
@@ -86,13 +86,13 @@ const filteredWorldClockList = computed(() => {
 });
 
 onMounted(async () => {
-  worldClockList.value = timezones.zones;
+  timeZones.value = timezones.zones;
 });
 
-const displayedTimeZones = ref(["America/New_York"]);
+const timeZoneCodes = ref(["America/New_York"]);
 
 function addDisplayedTimeZones(zone) {
-  displayedTimeZones.value.push(zone);
+  timeZoneCodes.value.push(zone);
 }
 </script>
 

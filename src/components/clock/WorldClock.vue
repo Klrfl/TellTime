@@ -16,14 +16,17 @@ import { computed, onBeforeMount, ref } from "vue";
 import { DateTime } from "luxon";
 
 const props = defineProps({
-  zone: String,
+  zoneCode: {
+    type: String,
+    required: true,
+  },
 });
 
 const now = ref("Anjing");
 const timeZone = ref("");
 
 const cityName = computed(() => {
-  return props.zone.split("/")[1].replace("_", " ");
+  return props.zoneCode.split("/")[1].replace("_", " ");
 });
 
 function getTimeOfZone(zone) {
@@ -32,11 +35,11 @@ function getTimeOfZone(zone) {
 }
 
 setInterval(() => {
-  getTimeOfZone(props.zone);
+  getTimeOfZone(props.zoneCode);
 }, 1000);
 
 onBeforeMount(() => {
-  getTimeOfZone(props.zone);
+  getTimeOfZone(props.zoneCode);
 });
 </script>
 
