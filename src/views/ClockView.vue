@@ -17,8 +17,9 @@
       </li>
     </ul>
 
-    <dialog ref="worldClockDialog" @close="closeDialog" @click="closeDialog">
+    <dialog ref="worldClockDialog" @click="closeDialog">
       <header>
+        <button class="btn btn--primary" @click="closeDialog">close</button>
         <h2>Choose a time zone to add</h2>
         <p>
           For the moment you can only search by country, I will add city name
@@ -48,10 +49,6 @@
           </div>
         </li>
       </ul>
-
-      <form method="dialog">
-        <button class="btn btn--circular">close</button>
-      </form>
     </dialog>
   </MainLayout>
 </template>
