@@ -4,7 +4,6 @@ import { ref } from "vue";
 
 export const useClockStore = defineStore("clock", () => {
   const currentTime = ref(DateTime.now());
-  const randomValue = ref("anjing");
 
   setInterval(() => {
     currentTime.value = DateTime.now();
@@ -14,5 +13,5 @@ export const useClockStore = defineStore("clock", () => {
     return currentTime.value.setZone(zone);
   }
 
-  return { currentTime, getLocalCurrentTime, randomValue };
+  return { currentTime, getLocalCurrentTime };
 });
