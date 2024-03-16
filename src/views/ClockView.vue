@@ -139,10 +139,17 @@ dialog header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1rem;
 }
 
 .time-zone {
   padding: 1rem;
+  background: var(--color-background);
+}
+
+.time-zone:hover {
+  background: var(--color-background-soft);
+  cursor: pointer;
 }
 
 .time-zone__country {
