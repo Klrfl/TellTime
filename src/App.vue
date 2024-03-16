@@ -35,7 +35,9 @@ nav {
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: opacity 500ms, transform 500ms;
+  transition:
+    opacity 500ms,
+    transform 500ms;
 }
 
 .slide-enter-from {
