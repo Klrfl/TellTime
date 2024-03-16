@@ -1,6 +1,6 @@
 <template>
   <div class="clock">
-    <DigitalWorldClock :time="now.c" />
+    <DigitalClock :time="now.c" />
     <div class="clock__indicator-container">
       <span class="clock__indicator"></span
       ><span class="clock__indicator"></span
@@ -72,7 +72,7 @@
 
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import DigitalWorldClock from "@/components/clock/DigitalWorldClock.vue";
+import DigitalClock from "@/components/clock/DigitalClock.vue";
 import { useClockStore } from "@/stores/clock";
 
 const clockStore = useClockStore();
