@@ -89,11 +89,21 @@ onMounted(async () => {
   timeZones.value = timezones.zones;
 });
 
-const timeZoneCodes = ref(["America/New_York"]);
+// store selected time zones in localStorage
+const timeZoneStorageKey = "telltime-zones";
+const timeZoneCodes = ref([]);
 
 function addDisplayedTimeZones(zone) {
   timeZoneCodes.value.push(zone);
+  localStorage.setItem(timeZoneStorageKey, JSON.stringify(timeZoneCodes.value));
 }
+
+onMounted(() => {
+  timeZoneCodes.value = JSON.parse(localStorage.getItem(timeZoneStorageKey));
+  if (timeZoneCodes.value === null) {
+    timeZoneCodes.value = ["America/New_York"];
+  }
+});
 </script>
 
 <style scoped>
