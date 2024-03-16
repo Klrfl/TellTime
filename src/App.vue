@@ -15,7 +15,7 @@ onMounted(() => {
   <RouterView v-slot="{ Component }">
     <Transition name="slide" mode="out-in">
       <KeepAlive>
-        <component :is="Component"></component>
+        <component :is="Component" />
       </KeepAlive>
     </Transition>
   </RouterView>

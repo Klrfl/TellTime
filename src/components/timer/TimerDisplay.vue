@@ -29,7 +29,7 @@
 
       <button
         class="btn btn--circular"
-        @click="pauseTimer"
+        @click="timerStore.pauseTimer"
         v-show="!timerStore.isPaused">
         <font-awesome-icon :icon="['fas', 'pause']" />
       </button>
@@ -46,7 +46,7 @@
       <button
         class="btn btn--circular"
         title="add new target time"
-        @click="addNewTargetTime"
+        @click="timerStore.addTargetTime"
         :disabled="displayTimer || !timerStore.targetTimeString">
         <font-awesome-icon :icon="['fas', 'plus']" />
       </button>
@@ -65,10 +65,6 @@ const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
 
 const displayTimer = ref(false);
 
-function addNewTargetTime() {
-  timerStore.addTargetTime();
-}
-
 function startTimer() {
   if (timerStore.targetTime == null) {
     alert("Please select target time before starting the timer.");
@@ -78,10 +74,6 @@ function startTimer() {
   emit("timerDisplayed");
   displayTimer.value = true;
   timerStore.startTimer();
-}
-
-function pauseTimer() {
-  timerStore.pauseTimer();
 }
 
 function resetTimer() {

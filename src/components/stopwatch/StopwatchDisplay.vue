@@ -107,13 +107,14 @@ import { ref } from "vue";
 import { useStopwatchStore } from "@/stores/stopwatch";
 
 const stopwatchStore = useStopwatchStore();
+
+const laptimeDisplay = ref("blom ada bentar ya");
+
 const root = document.querySelector(":root");
 let interval = null;
 
 const isGoing = ref(false);
 const isLapping = ref(false);
-
-const laptimeDisplay = ref("blom ada bentar ya");
 
 function startWatch() {
   // rotate dot

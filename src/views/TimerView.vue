@@ -2,11 +2,11 @@
   <MainLayout>
     <template #main-content>
       <TimerDisplay
-        @timerNotDisplayed="displayInput = true"
-        @timerDisplayed="displayInput = false" />
+        @timerNotDisplayed="inputIsDisplayed = true"
+        @timerDisplayed="inputIsDisplayed = false" />
     </template>
 
-    <ul class="list-container" v-show="displayInput">
+    <ul class="list-container" v-show="inputIsDisplayed">
       <li
         class="empty-list-message"
         v-show="timerStore.targetTimes.length === 0">
@@ -35,7 +35,7 @@ import TimerSelect from "@/components/timer/TimerSelect.vue";
 
 const timerStore = useTimerStore();
 
-const displayInput = ref(true);
+const inputIsDisplayed = ref(true);
 </script>
 
 <style>
