@@ -11,9 +11,8 @@
 </template>
 
 <script setup>
-import { computed, onBeforeMount, ref } from "vue";
-
-import { DateTime } from "luxon";
+import { ref, onBeforeMount } from "vue";
+import { useClockStore } from "../../stores/clock";
 
 const props = defineProps({
   zoneCode: {
@@ -22,25 +21,18 @@ const props = defineProps({
   },
 });
 
-const now = ref("Anjing");
-const timeZone = ref("");
-
-const cityName = computed(() => {
-  return props.zoneCode.split("/")[1].replace("_", " ");
-});
-
-function getTimeOfZone(zone) {
-  now.value = DateTime.now().setZone(zone);
-  timeZone.value = now.value._zone;
-}
+const clockStore = useClockStore();
+const now = ref(null);
 
 setInterval(() => {
-  getTimeOfZone(props.zoneCode);
-}, 1000);
+  now.value = clockStore.getLocalCurrentTime(props.zoneCode);
+}, 200);
 
 onBeforeMount(() => {
-  getTimeOfZone(props.zoneCode);
+  now.value = clockStore.getLocalCurrentTime(props.zoneCode);
 });
+
+const cityName = props.zoneCode.split("/")[1].replace("_", " ");
 </script>
 
 <style lang="scss">
