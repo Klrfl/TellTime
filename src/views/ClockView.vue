@@ -35,18 +35,18 @@
       </header>
 
       <ul class="world-clock-list">
-        <li
-          class="time-zone"
-          v-for="timezone in filteredTimeZones"
-          @click="addDisplayedTimeZones(timezone.id)">
-          <div v-if="timezone.location">
+        <li v-for="timezone in filteredTimeZones">
+          <button
+            class="time-zone"
+            v-if="timezone.location"
+            @click="addDisplayedTimeZones(timezone.id)">
             <p class="time-zone__country">
               {{ timezone.location.countryName }}
             </p>
             <span>
               {{ timezone.currentOffset }} {{ timezone.location.comment }}
             </span>
-          </div>
+          </button>
         </li>
       </ul>
     </dialog>
@@ -140,13 +140,19 @@ dialog header {
 }
 
 .time-zone {
-  padding: 1rem;
   background: var(--color-background);
+  display: block;
+  width: 100%;
+  padding: 1rem;
 }
 
 .time-zone:hover {
   background: var(--color-background-soft);
   cursor: pointer;
+}
+.time-zone:focus-visible {
+  outline: 2px solid var(--accent);
+  background: var(--color-background-mute);
 }
 
 .time-zone__country {
