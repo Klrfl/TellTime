@@ -7,14 +7,16 @@
     <ul class="list-container">
       <WorldClock v-for="zoneCode in timeZoneCodes" :zoneCode="zoneCode" />
 
-      <li>
-        <button
-          class="btn btn-primary btn--circular"
-          title="add new timezone to display"
-          @click="openDialog">
-          <font-awesome-icon :icon="['fas', 'plus']" />
-        </button>
-      </li>
+      <div class="btn-container">
+        <li>
+          <button
+            class="btn btn-primary btn--circular"
+            title="add new timezone to display"
+            @click="openDialog">
+            <font-awesome-icon :icon="['fas', 'plus']" />
+          </button>
+        </li>
+      </div>
     </ul>
 
     <dialog ref="worldClockDialog">
