@@ -108,11 +108,14 @@ dialog {
   border: 2px solid var(--color-border);
   background: inherit;
   color: inherit;
-  backdrop-filter: blur(1rem);
   width: min(70ch, 100%);
-  height: 50%;
+  height: min(75vh, 100%);
   margin-inline: auto;
   padding: 0;
+}
+
+dialog::backdrop {
+  backdrop-filter: blur(1rem);
 }
 
 dialog header {
