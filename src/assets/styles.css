@@ -132,6 +132,7 @@
 .btn:focus-visible {
   outline: 4px solid dodgerblue;
   transform: scale(1.1);
+  background: var(--color-background-mute);
 }
 
 .btn:disabled {
