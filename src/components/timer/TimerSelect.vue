@@ -1,8 +1,16 @@
 <template>
-  <li class="target-time" @click.self="selectTargetTime">
-    <span>{{ targetTime.time }}</span>
-    <button class="target-time__close" @click.stop="deleteTargetTime">
-      <font-awesome-icon :icon="['fas', 'square-xmark']"></font-awesome-icon>
+  <li>
+    <button
+      class="target-time"
+      @click.self="selectTargetTime"
+      title="select this time">
+      <span>{{ targetTime.time }}</span>
+      <button
+        class="target-time__close"
+        @click.stop="deleteTargetTime"
+        title="delete this time">
+        <font-awesome-icon :icon="['fas', 'square-xmark']" />
+      </button>
     </button>
   </li>
 </template>
@@ -30,6 +38,7 @@ function deleteTargetTime() {
   padding: 1.5rem 2rem;
   user-select: none;
 
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,8 +48,12 @@ function deleteTargetTime() {
     cursor: pointer;
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+  }
+
   &__close {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   &.active {
@@ -55,6 +68,7 @@ function deleteTargetTime() {
 
     &:focus-visible {
       opacity: 1;
+      outline: 2px solid var(--accent);
     }
   }
 
