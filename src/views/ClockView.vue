@@ -17,7 +17,7 @@
       </li>
     </ul>
 
-    <dialog ref="worldClockDialog" @click="closeDialog">
+    <dialog ref="worldClockDialog">
       <header>
         <button class="btn btn--primary" @click="closeDialog">close</button>
         <h2>Choose a time zone to add</h2>
