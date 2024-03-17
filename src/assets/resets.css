@@ -53,6 +53,7 @@ select {
 
 button {
   all: unset;
+  box-sizing: inherit;
   cursor: pointer;
 }
 
