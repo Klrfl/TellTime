@@ -22,6 +22,7 @@ import {
   faSquareXmark,
   faPlus,
   faFlag,
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -37,6 +38,7 @@ library.add(
   faSquareXmark,
   faPlus,
   faFlag,
+  faQuestion,
 );
 
 import "ant-design-vue/dist/antd.css";

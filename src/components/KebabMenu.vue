@@ -13,7 +13,10 @@
       <font-awesome-icon :icon="['fas', 'moon']" />
       <font-awesome-icon :icon="['fas', 'sun']" />
     </button>
-    <RouterLink class="to-about" :to="{ name: 'About' }">About</RouterLink>
+    <RouterLink class="nav-link to-about" :to="{ name: 'About' }">
+      <font-awesome-icon :icon="['fas', 'question']" />
+      <span>About</span>
+    </RouterLink>
   </div>
 </template>
 
@@ -72,7 +75,9 @@ onMounted(() => {
   inset: 2rem 1.5rem auto auto;
   transform: translateY(-100%);
   opacity: 0%;
-  transition: transform 200ms ease, opacity 200ms ease;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
 
   &.active {
     transform: none;
