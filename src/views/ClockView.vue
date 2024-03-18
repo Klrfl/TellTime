@@ -34,6 +34,7 @@
           type="text"
           name="zone-search"
           id="zone-search"
+          ref="zoneSearch"
           v-model="searchTerm"
           placeholder="look for a zone" />
       </header>
@@ -66,25 +67,11 @@ import timezones from "@/assets/timezones.json";
 import { computed, onMounted, ref } from "vue";
 import { useClockStore } from "@/stores/clock";
 
-// dialog
-const worldClockDialog = ref(null);
-
-function openDialog() {
-  worldClockDialog.value.showModal();
-}
-
-function closeDialog() {
-  worldClockDialog.value.close();
-}
-
 const clockStore = useClockStore();
 
-const timeZones = ref([]);
+const timeZones = ref(timezones.zones);
 
-onMounted(async () => {
-  timeZones.value = timezones.zones;
-});
-
+const zoneSearch = ref(null);
 const searchTerm = ref("");
 
 const filteredTimeZones = computed(() => {
@@ -102,6 +89,18 @@ function zoneExists(targetZone) {
 onMounted(() => {
   clockStore.getTimeZoneCodes();
 });
+
+// dialog
+const worldClockDialog = ref(null);
+
+function openDialog() {
+  worldClockDialog.value.showModal();
+  zoneSearch.value.focus();
+}
+
+function closeDialog() {
+  worldClockDialog.value.close();
+}
 </script>
 
 <style scoped>
