@@ -5,7 +5,9 @@
     </template>
 
     <ul class="list-container">
-      <WorldClock v-for="zoneCode in timeZoneCodes" :zoneCode="zoneCode" />
+      <WorldClock
+        v-for="zoneCode in clockStore.timeZoneCodes"
+        :zoneCode="zoneCode" />
 
       <div class="btn-container">
         <li>
@@ -41,7 +43,7 @@
           <button
             class="time-zone"
             v-if="timezone.location"
-            @click="addDisplayedTimeZones(timezone.id)">
+            @click="clockStore.addTimeZoneCode(timezone.id)">
             <p class="time-zone__country">
               {{ timezone.location.countryName }}
             </p>
@@ -61,6 +63,7 @@ import AnalogClock from "@/components/clock/AnalogClock.vue";
 import WorldClock from "@/components/clock/WorldClock.vue";
 import timezones from "../assets/timezones.json";
 import { computed, onMounted, ref } from "vue";
+import { useClockStore } from "../stores/clock";
 
 // dialog
 const worldClockDialog = ref(null);
@@ -73,9 +76,16 @@ function closeDialog() {
   worldClockDialog.value.close();
 }
 
-const searchTerm = ref("");
+const clockStore = useClockStore();
 
 const timeZones = ref([]);
+
+onMounted(async () => {
+  timeZones.value = timezones.zones;
+});
+
+const searchTerm = ref("");
+
 const filteredTimeZones = computed(() => {
   return timeZones.value.filter((zone) => {
     if (zone.location) {
@@ -84,24 +94,8 @@ const filteredTimeZones = computed(() => {
   });
 });
 
-onMounted(async () => {
-  timeZones.value = timezones.zones;
-});
-
-// store selected time zones in localStorage
-const timeZoneStorageKey = "telltime-zones";
-const timeZoneCodes = ref([]);
-
-function addDisplayedTimeZones(zone) {
-  timeZoneCodes.value.push(zone);
-  localStorage.setItem(timeZoneStorageKey, JSON.stringify(timeZoneCodes.value));
-}
-
 onMounted(() => {
-  timeZoneCodes.value = JSON.parse(localStorage.getItem(timeZoneStorageKey));
-  if (timeZoneCodes.value === null) {
-    timeZoneCodes.value = ["America/New_York"];
-  }
+  clockStore.getTimeZoneCodes();
 });
 </script>
 

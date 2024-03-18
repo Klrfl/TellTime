@@ -13,5 +13,47 @@ export const useClockStore = defineStore("clock", () => {
     return currentTime.value.setZone(zone);
   }
 
-  return { currentTime, getLocalCurrentTime };
+  const timeZoneStorageKey = "telltime-zones";
+  const timeZoneCodes = ref(["America/New_York"]);
+
+  function getTimeZoneCodes() {
+    const fromLocalStorage = JSON.parse(
+      localStorage.getItem(timeZoneStorageKey),
+    );
+
+    if (fromLocalStorage !== null || Array.isArray(fromLocalStorage)) {
+      timeZoneCodes.value = fromLocalStorage;
+    }
+  }
+
+  /**
+   * add new time zone code.
+   * this function also automatically store codes in localStorage.
+   */
+  function addTimeZoneCode(code) {
+    timeZoneCodes.value.push(code);
+    storeTimeZoneCodes();
+  }
+
+  function storeTimeZoneCodes() {
+    localStorage.setItem(
+      timeZoneStorageKey,
+      JSON.stringify(timeZoneCodes.value),
+    );
+  }
+
+  function deleteTimeZoneCodes() {
+    console.info("not implemented yet");
+    storeTimeZoneCodes();
+  }
+
+  return {
+    timeZoneCodes,
+    currentTime,
+    getLocalCurrentTime,
+    getTimeZoneCodes,
+    storeTimeZoneCodes,
+    addTimeZoneCode,
+    deleteTimeZoneCodes,
+  };
 });
