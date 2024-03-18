@@ -1,12 +1,12 @@
 <template>
   <li class="world-clock">
-    <span>{{ cityName }}</span>
+    <p class="world-clock__city">{{ cityName }}</p>
 
-    <div class="world-clock__time">
+    <time class="world-clock__time">
       <span class="hour">{{ now.c.hour }}</span>
       <span class="minute">{{ now.c.minute }}</span>
       <span class="second">{{ now.c.second }}</span>
-    </div>
+    </time>
   </li>
 </template>
 
@@ -43,6 +43,14 @@ const cityName = props.zoneCode.split("/")[1].replace("_", " ");
 
   display: flex;
   justify-content: space-between;
+
+  &__city {
+    margin: 0;
+  }
+
+  &__time {
+    font-weight: bold;
+  }
 
   &__time > *:not(:last-child)::after {
     content: ":";
