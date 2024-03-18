@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import { useClockStore } from "../../stores/clock";
+import { useClockStore } from "@/stores/clock";
 
 const props = defineProps({
   zoneCode: {

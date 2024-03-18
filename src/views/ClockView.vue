@@ -62,9 +62,9 @@
 import MainLayout from "@/layouts/MainLayout.vue";
 import AnalogClock from "@/components/clock/AnalogClock.vue";
 import WorldClock from "@/components/clock/WorldClock.vue";
-import timezones from "../assets/timezones.json";
+import timezones from "@/assets/timezones.json";
 import { computed, onMounted, ref } from "vue";
-import { useClockStore } from "../stores/clock";
+import { useClockStore } from "@/stores/clock";
 
 // dialog
 const worldClockDialog = ref(null);
