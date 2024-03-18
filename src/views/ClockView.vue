@@ -42,6 +42,7 @@
         <li v-for="timezone in filteredTimeZones">
           <button
             class="time-zone"
+            :disabled="zoneExists(timezone.id)"
             v-if="timezone.location"
             @click="clockStore.addTimeZoneCode(timezone.id)">
             <p class="time-zone__country">
@@ -93,6 +94,10 @@ const filteredTimeZones = computed(() => {
     }
   });
 });
+
+function zoneExists(targetZone) {
+  return clockStore.timeZoneCodes.includes(targetZone);
+}
 
 onMounted(() => {
   clockStore.getTimeZoneCodes();
@@ -149,6 +154,13 @@ dialog header {
   background: var(--color-background-soft);
   cursor: pointer;
 }
+
+.time-zone:disabled {
+  cursor: not-allowed;
+  color: var(--color-text-dark);
+  background: var(--color-background);
+}
+
 .time-zone:focus-visible {
   outline: 2px solid var(--accent);
   background: var(--color-background-mute);

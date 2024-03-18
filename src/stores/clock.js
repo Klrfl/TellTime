@@ -31,6 +31,7 @@ export const useClockStore = defineStore("clock", () => {
    * this function also automatically store codes in localStorage.
    */
   function addTimeZoneCode(code) {
+    if (timeZoneCodes.value.includes(code)) return;
     timeZoneCodes.value.push(code);
     storeTimeZoneCodes();
   }
