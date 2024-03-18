@@ -1,12 +1,20 @@
 <template>
   <li class="world-clock">
-    <p class="world-clock__city">{{ cityName }}</p>
+    <section>
+      <p class="world-clock__city">{{ cityName }}</p>
 
-    <time class="world-clock__time">
-      <span class="hour">{{ now.c.hour }}</span>
-      <span class="minute">{{ now.c.minute }}</span>
-      <span class="second">{{ now.c.second }}</span>
-    </time>
+      <time class="world-clock__time">
+        <span class="hour">{{ now.c.hour }}</span>
+        <span class="minute">{{ now.c.minute }}</span>
+        <span class="second">{{ now.c.second }}</span>
+      </time>
+    </section>
+
+    <section>
+      <button class="world-clock__delete" @click="deleteZoneCode">
+        <font-awesome-icon :icon="['fas', 'square-xmark']" />
+      </button>
+    </section>
   </li>
 </template>
 
@@ -21,6 +29,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["deleteZone"]);
+
 const clockStore = useClockStore();
 const now = ref(null);
 
@@ -33,6 +43,10 @@ onBeforeMount(() => {
 });
 
 const cityName = props.zoneCode.split("/")[1].replace("_", " ");
+
+function deleteZoneCode() {
+  clockStore.deleteTimeZoneCode(props.zoneCode);
+}
 </script>
 
 <style lang="scss">
@@ -43,6 +57,7 @@ const cityName = props.zoneCode.split("/")[1].replace("_", " ");
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   &__city {
     margin: 0;
@@ -54,6 +69,10 @@ const cityName = props.zoneCode.split("/")[1].replace("_", " ");
 
   &__time > *:not(:last-child)::after {
     content: ":";
+  }
+
+  &__delete {
+    font-size: 1.5rem;
   }
 }
 </style>

@@ -42,8 +42,11 @@ export const useClockStore = defineStore("clock", () => {
     );
   }
 
-  function deleteTimeZoneCodes() {
-    console.info("not implemented yet");
+  function deleteTimeZoneCode(deletedZone) {
+    timeZoneCodes.value = timeZoneCodes.value.filter((zone) => {
+      return zone !== deletedZone;
+    });
+
     storeTimeZoneCodes();
   }
 
@@ -54,6 +57,6 @@ export const useClockStore = defineStore("clock", () => {
     getTimeZoneCodes,
     storeTimeZoneCodes,
     addTimeZoneCode,
-    deleteTimeZoneCodes,
+    deleteTimeZoneCode,
   };
 });
