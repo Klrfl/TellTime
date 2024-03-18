@@ -1,3 +1,16 @@
+<script setup>
+import { ref } from "vue";
+import { useTimerStore } from "@/stores/timer";
+
+import MainLayout from "@/layouts/MainLayout.vue";
+import TimerDisplay from "@/components/timer/TimerDisplay.vue";
+import TimerSelect from "@/components/timer/TimerSelect.vue";
+
+const timerStore = useTimerStore();
+
+const inputIsDisplayed = ref(true);
+</script>
+
 <template>
   <MainLayout>
     <template #main-content>
@@ -24,19 +37,6 @@
     </ul>
   </MainLayout>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { useTimerStore } from "@/stores/timer";
-
-import MainLayout from "@/layouts/MainLayout.vue";
-import TimerDisplay from "@/components/timer/TimerDisplay.vue";
-import TimerSelect from "@/components/timer/TimerSelect.vue";
-
-const timerStore = useTimerStore();
-
-const inputIsDisplayed = ref(true);
-</script>
 
 <style>
 .list-move,

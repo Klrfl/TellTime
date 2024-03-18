@@ -1,3 +1,9 @@
+<script setup>
+const props = defineProps({
+  lap: Object,
+});
+</script>
+
 <template>
   <li class="lap" title="double click/tap to delete">
     <div class="lap__number">{{ lap.no }}</div>
@@ -9,12 +15,6 @@
     <div class="lap--delta">{{ lap.delta }}</div>
   </li>
 </template>
-
-<script setup>
-const props = defineProps({
-  lap: Object,
-});
-</script>
 
 <style lang="scss" scoped>
 .lap {

@@ -1,3 +1,7 @@
+<script setup>
+import KebabMenu from "@/components/KebabMenu.vue";
+</script>
+
 <template>
   <nav>
     <RouterLink class="nav-link" :to="{ name: 'Clock' }">
@@ -16,10 +20,6 @@
     <KebabMenu />
   </nav>
 </template>
-
-<script setup>
-import KebabMenu from "@/components/KebabMenu.vue";
-</script>
 
 <style lang="scss">
 nav {
@@ -42,7 +42,9 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: color 200ms ease, background-color 200ms ease;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease;
 
   &:hover {
     background: var(--navlink-hover);

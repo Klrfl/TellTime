@@ -1,3 +1,36 @@
+<script setup>
+import { onMounted, ref } from "vue";
+import { TimePicker } from "ant-design-vue";
+import { useTimerStore } from "@/stores/timer";
+
+const timerStore = useTimerStore();
+
+const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
+
+const displayTimer = ref(false);
+
+function startTimer() {
+  if (timerStore.targetTime == null) {
+    alert("Please select target time before starting the timer.");
+    return;
+  }
+
+  emit("timerDisplayed");
+  displayTimer.value = true;
+  timerStore.startTimer();
+}
+
+function resetTimer() {
+  emit("timerNotDisplayed");
+  displayTimer.value = false;
+  timerStore.resetTimer();
+}
+
+onMounted(() => {
+  timerStore.resetTimer();
+});
+</script>
+
 <template>
   <div class="timer">
     <section class="time-display" v-show="displayTimer">
@@ -53,39 +86,6 @@
     </section>
   </div>
 </template>
-
-<script setup>
-import { onMounted, ref } from "vue";
-import { TimePicker } from "ant-design-vue";
-import { useTimerStore } from "@/stores/timer";
-
-const timerStore = useTimerStore();
-
-const emit = defineEmits(["timerDisplayed", "timerNotDisplayed"]);
-
-const displayTimer = ref(false);
-
-function startTimer() {
-  if (timerStore.targetTime == null) {
-    alert("Please select target time before starting the timer.");
-    return;
-  }
-
-  emit("timerDisplayed");
-  displayTimer.value = true;
-  timerStore.startTimer();
-}
-
-function resetTimer() {
-  emit("timerNotDisplayed");
-  displayTimer.value = false;
-  timerStore.resetTimer();
-}
-
-onMounted(() => {
-  timerStore.resetTimer();
-});
-</script>
 
 <style lang="scss">
 .timer-container {

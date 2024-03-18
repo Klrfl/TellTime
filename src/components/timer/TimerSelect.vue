@@ -1,3 +1,19 @@
+<script setup>
+const props = defineProps({
+  targetTime: Object,
+});
+
+const emit = defineEmits(["select", "delete"]);
+
+function selectTargetTime() {
+  emit("select");
+}
+
+function deleteTargetTime() {
+  emit("delete");
+}
+</script>
+
 <template>
   <li>
     <button
@@ -14,22 +30,6 @@
     </button>
   </li>
 </template>
-
-<script setup>
-const props = defineProps({
-  targetTime: Object,
-});
-
-const emit = defineEmits(["select", "delete"]);
-
-function selectTargetTime() {
-  emit("select");
-}
-
-function deleteTargetTime() {
-  emit("delete");
-}
-</script>
 
 <style lang="scss">
 .target-time {

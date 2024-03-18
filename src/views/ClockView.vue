@@ -1,3 +1,47 @@
+<script setup>
+import MainLayout from "@/layouts/MainLayout.vue";
+import AnalogClock from "@/components/clock/AnalogClock.vue";
+import WorldClock from "@/components/clock/WorldClock.vue";
+import timezones from "@/assets/timezones.json";
+import { computed, onMounted, ref } from "vue";
+import { useClockStore } from "@/stores/clock";
+
+const clockStore = useClockStore();
+
+const timeZones = ref(timezones.zones);
+
+const zoneSearch = ref(null);
+const searchTerm = ref("");
+
+const filteredTimeZones = computed(() => {
+  return timeZones.value.filter((zone) => {
+    if (zone.location) {
+      return zone.location.countryName.toLowerCase().includes(searchTerm.value);
+    }
+  });
+});
+
+function zoneExists(targetZone) {
+  return clockStore.timeZoneCodes.includes(targetZone);
+}
+
+onMounted(() => {
+  clockStore.getTimeZoneCodes();
+});
+
+// dialog
+const worldClockDialog = ref(null);
+
+function openDialog() {
+  worldClockDialog.value.showModal();
+  zoneSearch.value.focus();
+}
+
+function closeDialog() {
+  worldClockDialog.value.close();
+}
+</script>
+
 <template>
   <MainLayout>
     <template #main-content>
@@ -58,50 +102,6 @@
     </dialog>
   </MainLayout>
 </template>
-
-<script setup>
-import MainLayout from "@/layouts/MainLayout.vue";
-import AnalogClock from "@/components/clock/AnalogClock.vue";
-import WorldClock from "@/components/clock/WorldClock.vue";
-import timezones from "@/assets/timezones.json";
-import { computed, onMounted, ref } from "vue";
-import { useClockStore } from "@/stores/clock";
-
-const clockStore = useClockStore();
-
-const timeZones = ref(timezones.zones);
-
-const zoneSearch = ref(null);
-const searchTerm = ref("");
-
-const filteredTimeZones = computed(() => {
-  return timeZones.value.filter((zone) => {
-    if (zone.location) {
-      return zone.location.countryName.toLowerCase().includes(searchTerm.value);
-    }
-  });
-});
-
-function zoneExists(targetZone) {
-  return clockStore.timeZoneCodes.includes(targetZone);
-}
-
-onMounted(() => {
-  clockStore.getTimeZoneCodes();
-});
-
-// dialog
-const worldClockDialog = ref(null);
-
-function openDialog() {
-  worldClockDialog.value.showModal();
-  zoneSearch.value.focus();
-}
-
-function closeDialog() {
-  worldClockDialog.value.close();
-}
-</script>
 
 <style scoped>
 dialog {

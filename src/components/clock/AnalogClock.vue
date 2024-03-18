@@ -1,3 +1,51 @@
+<script setup>
+import { ref, onBeforeMount } from "vue";
+import DigitalClock from "@/components/clock/DigitalClock.vue";
+import { useClockStore } from "@/stores/clock";
+
+const clockStore = useClockStore();
+
+const now = ref(null);
+onBeforeMount(() => {
+  now.value = clockStore.currentTime;
+});
+
+setInterval(() => {
+  now.value = clockStore.currentTime;
+}, 200);
+
+const root = document.querySelector(":root");
+function setMinuteSecondHands() {
+  root.style.setProperty(
+    "--minutesDeg",
+    `${(now.value.c.minute / 60) * 360}deg`,
+  );
+  root.style.setProperty(
+    "--secondsDeg",
+    `${(now.value.c.second / 60) * 360}deg`,
+  );
+}
+
+const date0 = new Date().setHours(0, 0, 0, 0);
+function setHourHand() {
+  root.style.setProperty(
+    "--hoursDeg",
+    `${((new Date() - date0) / 86_400_000) * 720}deg`,
+  );
+}
+
+// set hours, minutes and seconds to rotate clock
+setInterval(() => {
+  setMinuteSecondHands();
+  setHourHand();
+}, 200);
+
+onBeforeMount(() => {
+  setMinuteSecondHands();
+  setHourHand();
+});
+</script>
+
 <template>
   <div class="clock">
     <DigitalClock :time="now.c" />
@@ -69,54 +117,6 @@
     <div class="clock__hand clock__hand--seconds"></div>
   </div>
 </template>
-
-<script setup>
-import { ref, onBeforeMount } from "vue";
-import DigitalClock from "@/components/clock/DigitalClock.vue";
-import { useClockStore } from "@/stores/clock";
-
-const clockStore = useClockStore();
-
-const now = ref(null);
-onBeforeMount(() => {
-  now.value = clockStore.currentTime;
-});
-
-setInterval(() => {
-  now.value = clockStore.currentTime;
-}, 200);
-
-const root = document.querySelector(":root");
-function setMinuteSecondHands() {
-  root.style.setProperty(
-    "--minutesDeg",
-    `${(now.value.c.minute / 60) * 360}deg`,
-  );
-  root.style.setProperty(
-    "--secondsDeg",
-    `${(now.value.c.second / 60) * 360}deg`,
-  );
-}
-
-const date0 = new Date().setHours(0, 0, 0, 0);
-function setHourHand() {
-  root.style.setProperty(
-    "--hoursDeg",
-    `${((new Date() - date0) / 86_400_000) * 720}deg`,
-  );
-}
-
-// set hours, minutes and seconds to rotate clock
-setInterval(() => {
-  setMinuteSecondHands();
-  setHourHand();
-}, 200);
-
-onBeforeMount(() => {
-  setMinuteSecondHands();
-  setHourHand();
-});
-</script>
 
 <style lang="scss">
 $clock-hand-width: 0.2rem;

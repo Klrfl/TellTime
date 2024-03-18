@@ -1,25 +1,3 @@
-<template>
-  <button class="nav-link kebab-toggle" @click="toggleOverlay">
-    <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
-    <span>more</span>
-  </button>
-
-  <div class="overlay" ref="overlay">
-    <button class="close-overlay" @click="toggleOverlay('remove')">
-      <font-awesome-icon :icon="['fas', 'square-xmark']" />
-    </button>
-
-    <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
-      <font-awesome-icon :icon="['fas', 'moon']" />
-      <font-awesome-icon :icon="['fas', 'sun']" />
-    </button>
-    <RouterLink class="nav-link to-about" :to="{ name: 'About' }">
-      <font-awesome-icon :icon="['fas', 'question']" />
-      <span>About</span>
-    </RouterLink>
-  </div>
-</template>
-
 <script setup>
 import { inject, ref, onMounted } from "vue";
 
@@ -54,6 +32,28 @@ onMounted(() => {
   else darkModeToggle.value.classList.remove("dark");
 });
 </script>
+
+<template>
+  <button class="nav-link kebab-toggle" @click="toggleOverlay">
+    <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
+    <span>more</span>
+  </button>
+
+  <div class="overlay" ref="overlay">
+    <button class="close-overlay" @click="toggleOverlay('remove')">
+      <font-awesome-icon :icon="['fas', 'square-xmark']" />
+    </button>
+
+    <button class="dark-mode-toggle" @click="setTheme" ref="darkModeToggle">
+      <font-awesome-icon :icon="['fas', 'moon']" />
+      <font-awesome-icon :icon="['fas', 'sun']" />
+    </button>
+    <RouterLink class="nav-link to-about" :to="{ name: 'About' }">
+      <font-awesome-icon :icon="['fas', 'question']" />
+      <span>About</span>
+    </RouterLink>
+  </div>
+</template>
 
 <style lang="scss">
 .kebab-toggle {

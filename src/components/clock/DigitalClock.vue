@@ -1,3 +1,9 @@
+<script setup>
+const props = defineProps({
+  time: Object,
+});
+</script>
+
 <template>
   <div class="digital-clock">
     <span id="hours">{{ time.hour }}</span>
@@ -5,12 +11,6 @@
     <span id="seconds">{{ time.second }}</span>
   </div>
 </template>
-
-<script setup>
-const props = defineProps({
-  time: Object,
-});
-</script>
 
 <style lang="scss" scoped>
 .digital-clock {

@@ -1,3 +1,7 @@
+<script setup>
+import ContentOnly from "@/layouts/ContentOnly.vue";
+</script>
+
 <template>
   <ContentOnly>
     <h1>Where am I?</h1>
@@ -8,7 +12,3 @@
     </p>
   </ContentOnly>
 </template>
-
-<script setup>
-import ContentOnly from "@/layouts/ContentOnly.vue";
-</script>

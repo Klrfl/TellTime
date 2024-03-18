@@ -1,3 +1,12 @@
+<script setup>
+import { useStopwatchStore } from "@/stores/stopwatch";
+import MainLayout from "@/layouts/MainLayout.vue";
+import StopwatchDisplay from "@/components/stopwatch/StopwatchDisplay.vue";
+import StopwatchLapTime from "@/components/stopwatch/StopwatchLapTime.vue";
+
+const stopwatchStore = useStopwatchStore();
+</script>
+
 <template>
   <MainLayout>
     <template #main-content>
@@ -18,15 +27,6 @@
     </ul>
   </MainLayout>
 </template>
-
-<script setup>
-import { useStopwatchStore } from "@/stores/stopwatch";
-import MainLayout from "@/layouts/MainLayout.vue";
-import StopwatchDisplay from "@/components/stopwatch/StopwatchDisplay.vue";
-import StopwatchLapTime from "@/components/stopwatch/StopwatchLapTime.vue";
-
-const stopwatchStore = useStopwatchStore();
-</script>
 
 <style scoped>
 /* transitions for laptimes*/

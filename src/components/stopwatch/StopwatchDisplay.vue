@@ -1,3 +1,52 @@
+<script setup>
+import { ref } from "vue";
+import { useStopwatchStore } from "@/stores/stopwatch";
+
+const stopwatchStore = useStopwatchStore();
+
+const laptimeDisplay = ref("blom ada bentar ya");
+
+const root = document.querySelector(":root");
+let interval = null;
+
+const isGoing = ref(false);
+const isLapping = ref(false);
+
+function startWatch() {
+  // rotate dot
+  interval = setInterval(() => {
+    root.style.setProperty(
+      "--stopwatch-dot",
+      `${(stopwatchStore.elapsedTime.toMillis() / 60000) * 360}deg`,
+    );
+  });
+
+  isGoing.value = true;
+
+  stopwatchStore.startWatch();
+}
+
+function pauseWatch() {
+  clearInterval(interval);
+  isGoing.value = false;
+
+  stopwatchStore.pauseWatch();
+}
+
+function resetWatch() {
+  pauseWatch();
+  root.style.removeProperty("--stopwatch-dot");
+  isLapping.value = false;
+
+  stopwatchStore.resetWatch();
+}
+
+function lap() {
+  isLapping.value = true;
+  stopwatchStore.lap();
+}
+</script>
+
 <template>
   <div class="stopwatch">
     <section class="stopwatch-display">
@@ -101,55 +150,6 @@
     </section>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { useStopwatchStore } from "@/stores/stopwatch";
-
-const stopwatchStore = useStopwatchStore();
-
-const laptimeDisplay = ref("blom ada bentar ya");
-
-const root = document.querySelector(":root");
-let interval = null;
-
-const isGoing = ref(false);
-const isLapping = ref(false);
-
-function startWatch() {
-  // rotate dot
-  interval = setInterval(() => {
-    root.style.setProperty(
-      "--stopwatch-dot",
-      `${(stopwatchStore.elapsedTime.toMillis() / 60000) * 360}deg`,
-    );
-  });
-
-  isGoing.value = true;
-
-  stopwatchStore.startWatch();
-}
-
-function pauseWatch() {
-  clearInterval(interval);
-  isGoing.value = false;
-
-  stopwatchStore.pauseWatch();
-}
-
-function resetWatch() {
-  pauseWatch();
-  root.style.removeProperty("--stopwatch-dot");
-  isLapping.value = false;
-
-  stopwatchStore.resetWatch();
-}
-
-function lap() {
-  isLapping.value = true;
-  stopwatchStore.lap();
-}
-</script>
 
 <style lang="scss" scoped>
 :root {
