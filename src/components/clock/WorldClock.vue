@@ -71,6 +71,17 @@ function deleteZoneCode() {
     content: ":";
   }
 
+  @media (hover: hover) {
+    &__delete {
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+
+    &:hover &__delete {
+      opacity: 1;
+    }
+  }
+
   &__delete {
     font-size: 1.5rem;
   }
