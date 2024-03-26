@@ -4,7 +4,7 @@ import AnalogClock from "@/components/clock/AnalogClock.vue";
 import WorldClock from "@/components/clock/WorldClock.vue";
 import timezones from "@/assets/timezones.json";
 import { computed, onMounted, ref } from "vue";
-import { useClockStore } from "@/stores/clock";
+import { useClockStore } from "../stores/clock";
 
 const clockStore = useClockStore();
 
@@ -22,11 +22,11 @@ const filteredTimeZones = computed(() => {
 });
 
 function zoneExists(targetZone) {
-  return clockStore.timeZoneCodes.includes(targetZone);
+  return clockStore.displayedZones.includes(targetZone);
 }
 
 onMounted(() => {
-  clockStore.getTimeZoneCodes();
+  clockStore.getDisplayedZones();
 });
 
 // dialog
@@ -50,7 +50,7 @@ function closeDialog() {
 
     <ul class="list-container">
       <WorldClock
-        v-for="zoneCode in clockStore.timeZoneCodes"
+        v-for="zoneCode in clockStore.displayedZones"
         :zoneCode="zoneCode" />
 
       <div class="btn-container">
@@ -89,7 +89,7 @@ function closeDialog() {
             class="time-zone"
             :disabled="zoneExists(timezone.id)"
             v-if="timezone.location"
-            @click="clockStore.addTimeZoneCode(timezone.id)">
+            @click="clockStore.addDisplayedZone(timezone.id)">
             <p class="time-zone__country">
               {{ timezone.location.countryName }}
             </p>

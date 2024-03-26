@@ -13,16 +13,16 @@ export const useClockStore = defineStore("clock", () => {
     return currentTime.value.setZone(zone);
   }
 
-  const timeZoneStorageKey = "telltime-zones";
-  const timeZoneCodes = ref(["America/New_York"]);
+  const displayedZonesStorageKey = "telltime-zones";
+  const displayedZones = ref(["America/New_York"]);
 
-  function getTimeZoneCodes() {
+  function getDisplayedZones() {
     const fromLocalStorage = JSON.parse(
-      localStorage.getItem(timeZoneStorageKey),
+      localStorage.getItem(displayedZonesStorageKey),
     );
 
     if (fromLocalStorage !== null || Array.isArray(fromLocalStorage)) {
-      timeZoneCodes.value = fromLocalStorage;
+      displayedZones.value = fromLocalStorage;
     }
   }
 
@@ -30,34 +30,34 @@ export const useClockStore = defineStore("clock", () => {
    * add new time zone code.
    * this function also automatically store codes in localStorage.
    */
-  function addTimeZoneCode(code) {
-    if (timeZoneCodes.value.includes(code)) return;
-    timeZoneCodes.value.push(code);
-    storeTimeZoneCodes();
+  function addDisplayedZone(code) {
+    if (displayedZones.value.includes(code)) return;
+    displayedZones.value.push(code);
+    storeDisplayedZones();
   }
 
-  function storeTimeZoneCodes() {
+  function storeDisplayedZones() {
     localStorage.setItem(
-      timeZoneStorageKey,
-      JSON.stringify(timeZoneCodes.value),
+      displayedZonesStorageKey,
+      JSON.stringify(displayedZones.value),
     );
   }
 
-  function deleteTimeZoneCode(deletedZone) {
-    timeZoneCodes.value = timeZoneCodes.value.filter((zone) => {
+  function deleteDisplayedZone(deletedZone) {
+    displayedZones.value = displayedZones.value.filter((zone) => {
       return zone !== deletedZone;
     });
 
-    storeTimeZoneCodes();
+    storeDisplayedZones();
   }
 
   return {
-    timeZoneCodes,
+    displayedZones,
     currentTime,
     getLocalCurrentTime,
-    getTimeZoneCodes,
-    storeTimeZoneCodes,
-    addTimeZoneCode,
-    deleteTimeZoneCode,
+    getDisplayedZones,
+    storeDisplayedZones,
+    addDisplayedZone,
+    deleteDisplayedZone,
   };
 });

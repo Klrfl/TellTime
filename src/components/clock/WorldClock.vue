@@ -45,7 +45,7 @@ onBeforeMount(() => {
 const cityName = props.zoneCode.split("/")[1].replace("_", " ");
 
 function deleteZoneCode() {
-  clockStore.deleteTimeZoneCode(props.zoneCode);
+  clockStore.deleteDisplayedZone(props.zoneCode);
 }
 </script>
 
