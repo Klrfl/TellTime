@@ -49,9 +49,12 @@ function closeDialog() {
     </template>
 
     <ul class="list-container">
-      <WorldClock
-        v-for="zoneCode in clockStore.displayedZones"
-        :zoneCode="zoneCode" />
+      <TransitionGroup name="list">
+        <WorldClock
+          v-for="zoneCode in clockStore.displayedZones"
+          :zoneCode="zoneCode"
+          :key="zoneCode" />
+      </TransitionGroup>
 
       <div class="btn-container">
         <li>
@@ -168,5 +171,23 @@ dialog header {
 .time-zone__country {
   margin: 0;
   line-height: 1.2;
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.list-leave-active {
+  width: 100%;
 }
 </style>
