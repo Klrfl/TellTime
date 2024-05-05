@@ -210,12 +210,4 @@ function lap() {
     transform-origin: 50% calc(15ch - 1rem);
   }
 }
-
-@media screen and (min-width: 50em) {
-  .btn-container {
-    background: transparent;
-    position: relative;
-    bottom: unset;
-  }
-}
 </style>

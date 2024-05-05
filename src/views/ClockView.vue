@@ -63,7 +63,7 @@ function closeDialog() {
           :key="zoneCode" />
       </TransitionGroup>
 
-      <div class="btn-container btn-container--fixed">
+      <div class="btn-container">
         <button
           class="btn btn-primary btn--circular"
           title="add new timezone to display"
