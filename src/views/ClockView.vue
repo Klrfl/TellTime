@@ -48,23 +48,28 @@ function closeDialog() {
       <AnalogClock />
     </template>
 
-    <ul class="list-container">
+    <ul
+      :class="[
+        'list-container',
+        { 'list-container--empty': !clockStore.displayedZones.length },
+      ]">
       <TransitionGroup name="list">
+        <li v-if="!clockStore.displayedZones.length" class="empty-list-message">
+          Your selected time zones will show up here
+        </li>
         <WorldClock
           v-for="zoneCode in clockStore.displayedZones"
           :zoneCode="zoneCode"
           :key="zoneCode" />
       </TransitionGroup>
 
-      <div class="btn-container">
-        <li>
-          <button
-            class="btn btn-primary btn--circular"
-            title="add new timezone to display"
-            @click="openDialog">
-            <font-awesome-icon :icon="['fas', 'plus']" />
-          </button>
-        </li>
+      <div class="btn-container btn-container--fixed">
+        <button
+          class="btn btn-primary btn--circular"
+          title="add new timezone to display"
+          @click="openDialog">
+          <font-awesome-icon :icon="['fas', 'plus']" />
+        </button>
       </div>
     </ul>
 

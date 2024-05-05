@@ -19,7 +19,12 @@ const inputIsDisplayed = ref(true);
         @timerDisplayed="inputIsDisplayed = false" />
     </template>
 
-    <ul class="list-container" v-show="inputIsDisplayed">
+    <ul
+      :class="[
+        'list-container',
+        { 'list-container--empty': !timerStore.targetTimes.length },
+      ]"
+      v-show="inputIsDisplayed">
       <li
         class="empty-list-message"
         v-show="timerStore.targetTimes.length === 0">
