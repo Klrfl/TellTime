@@ -70,7 +70,10 @@ function closeDialog() {
 
     <dialog ref="worldClockDialog">
       <header>
-        <button class="btn btn--primary" @click="closeDialog">close</button>
+        <button class="btn btn--circular" @click="closeDialog">
+          <font-awesome-icon :icon="['fas', 'xmark']" />
+        </button>
+
         <h2>Choose a time zone to add</h2>
         <p>
           For the moment you can only search by country, I will add city name
@@ -123,9 +126,13 @@ dialog::backdrop {
 
 dialog header {
   padding: 1.5rem;
-  position: sticky;
-  top: 0;
   background: var(--color-background);
+}
+
+dialog .btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 #zone-search {
@@ -143,6 +150,8 @@ dialog header {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .time-zone {
